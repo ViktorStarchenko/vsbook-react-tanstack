@@ -1,0 +1,19 @@
+.taxonomyWrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 40px;
+}
+.taxonomyName {
+    min-width: 85px;
+    text-align: left;
+}
+.taxonomyItems {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 5px;
+}
+.taxonomyItems span:not(:last-child):after {
+    content: ',';
+}
