@@ -10,6 +10,7 @@ export default function NewBookPage() {
         <>
             <h1>NEW BOOK PAGE</h1>
             <BookForm />
+
         </>
     )
 

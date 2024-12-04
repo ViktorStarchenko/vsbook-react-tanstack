@@ -1,13 +1,33 @@
-import { Form, useActionData } from "react-router-dom";
-import {useEffect, useState,} from "react";
+import { Form, useActionData, useNavigation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 
 import { fetchGenre, fetchCountry, fetchLanguage, fetchRelease, fetchWrirer, fetchReadingStatus } from "../booksFunctions";
 import Select from "./elements/Select";
 import classes from './BookForm.module.css';
 import Input from "./elements/Input";
+import Modal from "./Modal";
+import ModalSuccess from "./ModalSuccess";
 
 export default function BookForm() {
     const data = useActionData();
+    const navigation = useNavigation();
+    const dialog = useRef();
+
+    const [requestStatus, setRequestStatus] = useState(false);
+    const [createdBook, setCreatedBook] = useState(null);
+
+    useEffect(() => {
+        if (data) {
+            if (data.post) {
+                setCreatedBook(data.post);
+            }
+            if (data.success) {
+                dialog.current.open();
+            }
+
+        }
+    }, [data]);
+
     const [genre, setGenre] = useState([]);
     const [country, setCountry] = useState([]);
     const [language, setLanguage] = useState([]);
@@ -99,9 +119,12 @@ export default function BookForm() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
-    // console.log(genre)
     return (
         <>
+            <Modal ref={dialog} title="Book was successfully created">
+                {createdBook && <ModalSuccess book={createdBook}/>}
+            </Modal>
+
            <Form method="POST">
                {data && data.errors &&
                <ul>

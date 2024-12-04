@@ -1,4 +1,8 @@
+import {redirect} from 'react-router-dom'
+
 import axios from "axios";
+import _WP from 'react-wp-api';
+
 
 export async function booksLoader({params}) {
     console.log(params)
@@ -87,11 +91,8 @@ export async function getBearerToken() {
 export async function postBook({request, params}) {
 
     let formData = await request.formData();
-
-    let image = Object.fromEntries(formData.entries());
-
-    console.log(image);
-
+    let file = formData.get("featured_image");
+    // console.log(file);
     // Создаем объект и вручную собираем `genre` как массив
     let data = {};
     formData.forEach((value, key) => {
@@ -110,9 +111,6 @@ export async function postBook({request, params}) {
 
     data.featured_media = 2817;
 
-    console.log(data);
-
-    return null
     // Преобразуем `data` в строку параметров URL
     let urlParams = new URLSearchParams();
 
@@ -136,13 +134,8 @@ export async function postBook({request, params}) {
 
     if (!token) {
         console.error("Token not available");
-        return null; // Если токен недоступен, возвращаем null
+        return null;
     }
-    // let title = 'MyTry5';
-    // let content = 'SOME NEW CONTENT';
-    // let status = 'publish';
-    //
-    // let urlParams = `title=${title}&content=${content}&status=${status}`;
 
     let config = {
         method: 'post',
@@ -156,11 +149,13 @@ export async function postBook({request, params}) {
 
     try {
         const response = await axios.request(config);
-        return response.data; // Возвращаем данные ответа
+        // return response.data; // Возвращаем данные ответа
+        return { success: true, post: response.data }; // Возвращаем данные об успехе
     } catch (error) {
         console.error("Error posting book:", error);
         return null; // В случае ошибки возвращаем null
     }
+
 }
 
 

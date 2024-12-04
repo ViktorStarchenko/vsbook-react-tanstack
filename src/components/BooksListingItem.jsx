@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 
 import classes from './BooksListing.module.css';
+import lupaImage from '../assets/images/free-icon-magnifier-tool-44514.png'
+import Modal from "./Modal";
+import ModalBookDetail from "./ModalBookDetail";
 
 export default function BooksListingItem({post}) {
 
@@ -11,6 +14,7 @@ export default function BooksListingItem({post}) {
     // console.log(post?._links['wp:attachment'][0]?.href)
 
     const [featuredImage, setFeaturedImage] = useState('');
+    const dialog = useRef();
 
     // const featuredImage =  post._links['wp:attachment'][0].href;
 
@@ -30,12 +34,25 @@ export default function BooksListingItem({post}) {
         getImage()
     }, [post])
 
-    // console.log(post.id)
+    function openModal() {
+        // dialog.current.showModal();
+        dialog.current.open();
+    }
 
     return (
-        <div className={classes.listingItem}>
-            {featuredImage && <img src={featuredImage} alt={post.title.rendered}/>}
-            <h2><Link to={`/books/${post.id}`} dangerouslySetInnerHTML={{ __html: post.title.rendered }}></Link></h2>
-        </div>
+        <>
+            <div className={classes.listingItem}>
+                {featuredImage && <img src={featuredImage} alt={post.title.rendered}/>}
+                {lupaImage && <span onClick={openModal} className={classes.showDetailsIcon}>
+                <img src={lupaImage} alt="showMore"/>
+            </span>}
+
+                <h2><Link to={`/books/${post.id}`} dangerouslySetInnerHTML={{ __html: post.title.rendered }}></Link></h2>
+            </div>
+            <Modal ref={dialog} title="">
+                <ModalBookDetail book={post}/>
+            </Modal>
+        </>
+
     )
 }
