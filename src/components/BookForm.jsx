@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import ModalSuccess from "./ModalSuccess";
 
 import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
+import Checkbox from "./elements/Checkbox";
 
 export default function BookForm() {
     const data = useActionData();
@@ -55,15 +56,8 @@ export default function BookForm() {
                    <div className={classes.formField}>
                        <textarea className={classes.formFieldInput} type="textarea" name="content" placeholder="Content"/>
                    </div>
-                   {genre && <div className="controlGenre">
-                       {genre.map((item) => (
-                           <label key={item.id} htmlFor="genre">
-                               <input type="checkbox" name="genre" value={item.id}/>
-                               {item.name}
-                           </label>
-                       ))}
-                   </div>}
 
+                   {genre && <Checkbox name="Genre" id="genre" object={genre}/>}
                    {country && <Select name="country" object={country}/>}
                    {language && <Select name="language" object={language}/>}
                    {release && <Select name="release" object={release}/>}
