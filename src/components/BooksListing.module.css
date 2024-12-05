@@ -7,10 +7,14 @@
 .listingItem {
     position: relative;
 }
-.listingItem img {
+.listingItemImg {
     width: 100%;
     height: 350px;
-    object-fit: cover;
+}
+.listingItem img {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
 }
 .showDetailsIcon {
     position: absolute;

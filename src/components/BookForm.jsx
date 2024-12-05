@@ -1,12 +1,13 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
-import { fetchGenre, fetchCountry, fetchLanguage, fetchRelease, fetchWrirer, fetchReadingStatus } from "../booksFunctions";
 import Select from "./elements/Select";
 import classes from './BookForm.module.css';
 import Input from "./elements/Input";
 import Modal from "./Modal";
 import ModalSuccess from "./ModalSuccess";
+
+import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
 
 export default function BookForm() {
     const data = useActionData();
@@ -28,93 +29,7 @@ export default function BookForm() {
         }
     }, [data]);
 
-    const [genre, setGenre] = useState([]);
-    const [country, setCountry] = useState([]);
-    const [language, setLanguage] = useState([]);
-    const [release, setRelease] = useState([]);
-    const [wrirer, setWrirer] = useState([]);
-    const [readingStatus, setReadingStatus] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-
-    useEffect(() => {
-        // Вызов функции для получения жанров при монтировании компонента
-        const loadGenre = async () => {
-            setLoading(true);
-            const data = await fetchGenre();
-            if (data) {
-                setGenre(data);
-            } else {
-                setError("Failed to load genres");
-            }
-            setLoading(false);
-        };
-
-        const loadCountry = async () => {
-            setLoading(true);
-            const data = await fetchCountry();
-            if (data) {
-                setCountry(data);
-            } else {
-                setError("Failed to load genres");
-            }
-            setLoading(false);
-        };
-
-        const loadLanguage = async () => {
-            setLoading(true);
-            const data = await fetchLanguage();
-            if (data) {
-                setLanguage(data);
-            } else {
-                setError("Failed to load genres");
-            }
-            setLoading(false);
-        };
-
-        const loadRelease = async () => {
-            setLoading(true);
-            const data = await fetchRelease();
-            if (data) {
-                setRelease(data);
-            } else {
-                setError("Failed to load genres");
-            }
-            setLoading(false);
-        };
-
-        const loadWrirer = async () => {
-            setLoading(true);
-            const data = await fetchWrirer();
-            if (data) {
-                setWrirer(data);
-            } else {
-                setError("Failed to load genres");
-            }
-            setLoading(false);
-        };
-
-        const loadReadingStatus = async () => {
-            setLoading(true);
-            const data = await fetchReadingStatus();
-            if (data) {
-                setReadingStatus(data);
-            } else {
-                setError("Failed to load genres");
-            }
-            setLoading(false);
-        };
-
-
-
-        loadGenre();
-        loadCountry();
-        loadLanguage();
-        loadRelease();
-        loadWrirer();
-        loadReadingStatus();
-    }, []);
+    const {genre, country, language, release, wrirer, readingStatus, loading, error} = useBooksTaxonomies();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;

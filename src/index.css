@@ -21,3 +21,6 @@ body {
     padding: 0 20px;
     margin: auto;
 }
+.imageContain {
+    object-fit: contain!important;
+}
