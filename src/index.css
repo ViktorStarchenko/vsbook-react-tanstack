@@ -157,4 +157,5 @@ body {
 .filtersTitle {
     width: 100%;
     text-align: left;
+    cursor: pointer;
 }
