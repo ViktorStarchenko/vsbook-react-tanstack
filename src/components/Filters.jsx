@@ -57,7 +57,7 @@ export default function useFilters() {
         if (filterReadingStatus.length) params.set('reading_status', filterReadingStatus.join(','));
         else params.delete('reading_status');
 
-        navigate(`${pathname}?${params.toString()}`);
+        navigate(`/books/page/1?${params.toString()}`);
     }, [
         filterGenres,
         filterCountries,
@@ -66,56 +66,56 @@ export default function useFilters() {
         filterWrirers,
         filterReadingStatus,
         navigate,
-        pathname,
-        search,
     ]);
 
     return (
         <>
-            <div>
-                {genre && <CheckboxFilter
-                    name="Genre"
-                    id="genre"
-                    object={genre}
-                    filterState={filterGenres}
-                    handleFilterChange={handleGenreChange}
-                />}
+            <div className="wrapper-1220">
+                <div className="filters">
+                    {genre && <CheckboxFilter
+                        name="Genre"
+                        id="genre"
+                        object={genre}
+                        filterState={filterGenres}
+                        handleFilterChange={handleGenreChange}
+                    />}
 
-                {country && <CheckboxFilter
-                    name="country"
-                    id="country"
-                    object={country}
-                    filterState={filterCountries}
-                    handleFilterChange={handleCountryChange}
-                />}
-                {language && <CheckboxFilter
-                    name="language"
-                    id="language"
-                    object={language}
-                    filterState={filterLanguages}
-                    handleFilterChange={handleLanguageChange}
-                />}
-                {release && <CheckboxFilter
-                    name="release"
-                    id="release"
-                    object={release}
-                    filterState={filterReleases}
-                    handleFilterChange={handleReleaseChange}
-                />}
-                {wrirer && <CheckboxFilter
-                    name="wrirer"
-                    id="wrirer"
-                    object={wrirer}
-                    filterState={filterWrirers}
-                    handleFilterChange={handleWrirerChange}
-                />}
-                {readingStatus && <CheckboxFilter
-                    name="reading_status"
-                    id="reading_status"
-                    object={readingStatus}
-                    filterState={filterReadingStatus}
-                    handleFilterChange={handleReadingStatusChange}
-                />}
+                    {country && <CheckboxFilter
+                        name="country"
+                        id="country"
+                        object={country}
+                        filterState={filterCountries}
+                        handleFilterChange={handleCountryChange}
+                    />}
+                    {language && <CheckboxFilter
+                        name="language"
+                        id="language"
+                        object={language}
+                        filterState={filterLanguages}
+                        handleFilterChange={handleLanguageChange}
+                    />}
+                    {release && <CheckboxFilter
+                        name="release"
+                        id="release"
+                        object={release}
+                        filterState={filterReleases}
+                        handleFilterChange={handleReleaseChange}
+                    />}
+                    {wrirer && <CheckboxFilter
+                        name="wrirer"
+                        id="wrirer"
+                        object={wrirer}
+                        filterState={filterWrirers}
+                        handleFilterChange={handleWrirerChange}
+                    />}
+                    {readingStatus && <CheckboxFilter
+                        name="reading_status"
+                        id="reading_status"
+                        object={readingStatus}
+                        filterState={filterReadingStatus}
+                        handleFilterChange={handleReadingStatusChange}
+                    />}
+                </div>
             </div>
         </>
     )

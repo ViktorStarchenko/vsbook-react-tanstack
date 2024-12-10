@@ -6,7 +6,7 @@ import classes from './BooksListing.module.css';
 export default function BooksListing({books}) {
     return (
         <>
-            <div className={classes.listingGrid}>
+            <div className={`wrapper-1220 ${classes.listingGrid}`}>
                 {books.map((book) => (
                     <BooksListingItem key={book.id} post={book}/>
                 ))}

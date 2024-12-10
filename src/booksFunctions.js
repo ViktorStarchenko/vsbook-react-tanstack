@@ -7,7 +7,7 @@ import _WP from 'react-wp-api';
 export async function booksLoader({params, request}) {
     // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');
     const url = new URL(request.url);
-    const page = params.page || 1; // Получаем номер страницы из параметров или используем 1 по умолчанию
+    let page = params.page || 1; // Get the page number from the parameters or use 1 by default
     const sort = url.searchParams.get("sort") || "desc";
 
     const genre = url.searchParams.get("genre");
@@ -24,15 +24,11 @@ export async function booksLoader({params, request}) {
     const wrirerParam = wrirer ? `&wrirer=${wrirer}` : '';
     const readingStatusParam = readingStatus ? `&reading_status=${readingStatus}` : '';
 
+
     const response = await fetch(`https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${page}&order=${sort}${genreParam}${countryParam}${languageParam}${releaseParam}${wrirerParam}${readingStatusParam}`);
 
 
     if (!response.ok) {
-        // return json(
-        //     {message: "could not fetch books"},
-        //     {status: 500}
-        // );
-
         throw new Response(
             "could not fetch books",
             {status: 500}

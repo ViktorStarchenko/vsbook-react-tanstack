@@ -24,3 +24,137 @@ body {
 .imageContain {
     object-fit: contain!important;
 }
+
+.btn {
+    height: 40px;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #000000;
+    outline: none;
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: all .2s;
+}
+.btn:focus {
+    outline: none;
+}
+.btn:hover,
+.btn.active {
+    background-color: #e1eeeb;
+    color: #000000;
+}
+
+.paginationWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.paginationLink {
+    height: 40px;
+    min-width: 40px;
+}
+.paginationLink.active {
+    background-color: #e1eeeb;
+    color: #000000;
+}
+
+/*Accordion*/
+/*basic*/
+.accordionBtn {
+    position: relative;
+}
+.accordionBtn:before {
+    /*transition-duration: 0.2s;*/
+}
+.accordionBtn:before {
+    content: '+';
+    right: 10px;
+    top: calc(50% - 12px);
+    /* width: 17px; */
+    /* height: 22px; */
+    position: absolute;
+    font-size: 20px;
+    line-height: 1;
+}
+.accordionBtn.active:before {
+    content: '—';
+    font-size: 17px;
+    /* top: 28px; */
+    top: calc(50% - 11px);
+}
+.accordionPanel {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    overflow: auto;
+}
+.accordionPanel.active {
+
+
+}
+
+/*Custom Checkbox*/
+.checkboxWrapper {
+    width: 100%;
+    padding: 9px;
+    position: relative;
+    background-color: #e1eeeb;
+    color: #000;
+}
+.checkboxBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.checkboxBody.accordionPanel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #e1eeeb;
+    color: #000;
+    padding: 0 8px;
+    z-index: 10;
+}
+.checkboxLabel {
+    padding: 5px 0;
+}
+.checkboxLabel:first-child {
+    padding-top: 10px;
+}
+
+/*sorting*/
+.sorting {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+}
+/*filters*/
+.filters {
+    padding: 40px 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-flow: dense;
+    gap: 1rem;
+}
+.filtersItem {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.filtersTitle {
+    width: 100%;
+    text-align: left;
+}
