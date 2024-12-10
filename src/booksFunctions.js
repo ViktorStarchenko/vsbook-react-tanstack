@@ -10,10 +10,21 @@ export async function booksLoader({params, request}) {
     const page = params.page || 1; // Получаем номер страницы из параметров или используем 1 по умолчанию
     const sort = url.searchParams.get("sort") || "desc";
 
-    const genre = url.searchParams.get("genre") || null;
-    const genreParam = genre ? `&${genre}` : '';
-    console.log(genreParam)
-    const response = await fetch(`https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${page}&order=${sort}${genreParam}`);
+    const genre = url.searchParams.get("genre");
+    const country = url.searchParams.get("country");
+    const language = url.searchParams.get("language");
+    const release = url.searchParams.get("release");
+    const wrirer = url.searchParams.get("wrirer");
+    const readingStatus = url.searchParams.get("reading_status");
+
+    const genreParam = genre ? `&genre=${genre}` : '';
+    const countryParam = country ? `&country=${country}` : '';
+    const languageParam = language ? `&language=${language}` : '';
+    const releaseParam = release ? `&release=${release}` : '';
+    const wrirerParam = wrirer ? `&wrirer=${wrirer}` : '';
+    const readingStatusParam = readingStatus ? `&reading_status=${readingStatus}` : '';
+
+    const response = await fetch(`https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${page}&order=${sort}${genreParam}${countryParam}${languageParam}${releaseParam}${wrirerParam}${readingStatusParam}`);
 
 
     if (!response.ok) {
