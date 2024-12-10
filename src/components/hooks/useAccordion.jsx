@@ -15,7 +15,8 @@ export function useAccordion() {
             panel.classList.remove("active");
             button.classList.remove("active");
         } else {
-            panel.style.maxHeight = `${panel.scrollHeight}px`;
+            // panel.style.maxHeight = `${panel.scrollHeight}px`;
+            panel.style.maxHeight = `250px`;
             panel.classList.add("active");
             button.classList.add("active");
         }

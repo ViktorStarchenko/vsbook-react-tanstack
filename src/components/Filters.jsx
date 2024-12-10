@@ -28,6 +28,15 @@ export default function useFilters() {
         });
     };
 
+    const handleResetAllFilters = () => {
+        setFilterGenres([]);
+        setFilterCountries([]);
+        setFilterLanguages([]);
+        setFilterReleases([]);
+        setFilterWrirers([]);
+        setFilterReadingStatus([]);
+    }
+
     const handleGenreChange = handleFilterChange(setFilterGenres);
     const handleCountryChange = handleFilterChange(setFilterCountries);
     const handleLanguageChange = handleFilterChange(setFilterLanguages);
@@ -115,6 +124,7 @@ export default function useFilters() {
                         filterState={filterReadingStatus}
                         handleFilterChange={handleReadingStatusChange}
                     />}
+                    <div className="btn" onClick={handleResetAllFilters}>Reset All Filters</div>
                 </div>
             </div>
         </>
