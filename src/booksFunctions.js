@@ -10,7 +10,10 @@ export async function booksLoader({params, request}) {
     const page = params.page || 1; // Получаем номер страницы из параметров или используем 1 по умолчанию
     const sort = url.searchParams.get("sort") || "desc";
 
-    const response = await fetch(`https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${page}&order=${sort}`);
+    const genre = url.searchParams.get("genre") || null;
+    const genreParam = genre ? `&${genre}` : '';
+    console.log(genreParam)
+    const response = await fetch(`https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${page}&order=${sort}${genreParam}`);
 
 
     if (!response.ok) {
