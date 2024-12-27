@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
 
 import classes from './BooksListing.module.css';
-import lupaImage from '../assets/images/free-icon-magnifier-tool-44514.png'
+import lupaImage from '../assets/images/noun-magnifying-glass-50744.svg'
 import logoImage from '../assets/images/logo-3.svg'
 import Modal from "./Modal";
 import ModalBookDetail from "./ModalBookDetail";
@@ -30,7 +30,7 @@ export default function BooksListingItem({post}) {
                 <img src={lupaImage} alt="showMore"/>
             </span>}
 
-                <h2><Link to={`/books/${post.id}`} dangerouslySetInnerHTML={{ __html: post.title.rendered }}></Link></h2>
+                <h2><Link className={classes.listingItemTitle} to={`/books/${post.id}`} dangerouslySetInnerHTML={{ __html: post.title.rendered }}></Link></h2>
             </div>
             <Modal ref={dialog} title="">
                 <ModalBookDetail book={post}/>
