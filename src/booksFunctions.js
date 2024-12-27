@@ -2,6 +2,7 @@ import {redirect} from 'react-router-dom'
 
 import axios from "axios";
 import _WP from 'react-wp-api';
+import {getAuthToken} from "./util/auth";
 
 
 export async function booksLoader({params, request}) {
@@ -143,7 +144,8 @@ export async function postBook({request, params}) {
 
     // return null
 
-    let token = await getBearerToken();
+    // let token = await getBearerToken();
+    let token = getAuthToken();
 
     if (!token) {
         console.error("Token not available");

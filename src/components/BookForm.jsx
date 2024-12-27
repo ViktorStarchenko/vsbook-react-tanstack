@@ -64,7 +64,7 @@ export default function BookForm() {
                    {wrirer && <Select name="wrirer" object={wrirer}/>}
                    {readingStatus && <Select name="reading_status" object={readingStatus}/>}
 
-                   <button>Submit</button>
+                   <button className="btn btnSubmit">Submit</button>
                </div>
 
            </Form>

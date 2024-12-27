@@ -8,12 +8,17 @@ import ErrorPage from "./pages/Error";
 
 import { booksLoader, bookDetailLoader, getBearerToken, postBook } from './booksFunctions';
 import NewBookPage from "./pages/NewBook";
+import Authentification, { action } from "./pages/Authentification";
+import { action as logoutAction } from "./pages/Logout"
+import {checkAuthLoader, tokenLoader} from "./util/auth";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <RootLayout />,
         errorElement: <ErrorPage />,
+        id: 'root',
+        loader: tokenLoader,
         children: [
             {
                 index: true,
@@ -38,7 +43,17 @@ const router = createBrowserRouter([
             {
                 path: 'new',
                 element: <NewBookPage />,
-                action: postBook
+                action: postBook,
+                loader: checkAuthLoader
+            },
+            {
+                path: '/auth',
+                element: <Authentification />,
+                action: action
+            },
+            {
+                path: '/logout',
+                action: logoutAction
             }
         ]
     },

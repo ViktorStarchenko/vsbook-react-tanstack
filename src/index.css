@@ -67,6 +67,34 @@ body {
     color: #000000;
 }
 
+/*Form*/
+.formInner {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.formField {
+    width: 100%;
+}
+.formFieldInput {
+    width: 100%;
+    height: 40px;
+}
+textarea {
+    min-height: 80px;
+}
+select {
+    min-width: 250px;
+    height: 40px;
+}
+.btnSubmit {
+    width: 100%;
+}
+
 /*Accordion*/
 /*basic*/
 .accordionBtn {
