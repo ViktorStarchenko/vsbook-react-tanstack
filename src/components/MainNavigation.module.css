@@ -5,15 +5,34 @@
     display: flex;
     justify-content: space-between;
 }
-
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.navMenu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.loginMenu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
 .list {
     display: flex;
     gap: 1rem;
+    list-style: none;
 }
+.list li {
 
+}
 .list a {
     text-decoration: none;
-    color: green;
+    color: #e1eeeb;
+    font-size: 18px;
+    font-weight: 800;
 }
 
 .list a:hover,

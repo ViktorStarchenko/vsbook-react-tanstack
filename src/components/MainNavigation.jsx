@@ -7,7 +7,7 @@ export default function MainNavigation() {
     console.log(token)
     return (
         <header className={classes.header}>
-            <nav>
+            <nav className={classes.nav}>
                 <ul className={classes.list}>
                     <li>
                         <NavLink
@@ -32,6 +32,8 @@ export default function MainNavigation() {
                             >Add New</NavLink>
                         </li>
                     )}
+                </ul>
+                <ul className={classes.list}>
                     {!token && (
                         <li>
                             <NavLink
@@ -47,7 +49,6 @@ export default function MainNavigation() {
                             </Form>
                         </li>
                     )}
-
                 </ul>
             </nav>
         </header>
