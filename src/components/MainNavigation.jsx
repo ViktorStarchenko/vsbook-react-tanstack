@@ -4,7 +4,7 @@ import classes from './MainNavigation.module.css'
 
 export default function MainNavigation() {
     const token = useRouteLoaderData('root');
-    console.log(token)
+    // console.log(token)
     return (
         <header className={classes.header}>
             <nav className={classes.nav}>

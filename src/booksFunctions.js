@@ -102,54 +102,95 @@ export async function getBearerToken() {
     }
 }
 
+export async function uploadMedia(file) {
+
+    let token = getAuthToken();
+    if (!token || !file) {
+        return null;
+    }
+
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://a.vsbookcollection.space/wp-json/wp/v2/media',
+        headers: {
+            'Content-Type': 'image/png',
+            'Authorization': `Bearer ${token}`,
+            'Content-Disposition': `attachment; filename="${file.name}"`,
+        },
+        data: file
+    };
+
+    try {
+        const response = await axios.request(config);
+        return response.data; // Returning success data
+    } catch (error) {
+        console.error("Error upload media:", error);
+        return null; // In case of error we return null
+    }
+
+}
+
 export async function postBook({request, params}) {
 
     let formData = await request.formData();
     let file = formData.get("featured_image");
-    // console.log(file);
-    // Создаем объект и вручную собираем `genre` как массив
+
+    // Create an object and manually collect `genre` as an array
     let data = {};
+    let errors = {};
     formData.forEach((value, key) => {
 
-        // Если ключ уже существует (например, `genre`), добавляем к массиву
+        // If the key already exists (e.g. `genre`), add it to the array
         if (data[key]) {
             if (Array.isArray(data[key])) {
-                data[key].push(value); // Добавляем к существующему массиву
+                data[key].push(value); // Append to existing array
             } else {
-                data[key] = [data[key], value]; // Преобразуем в массив
+                data[key] = [data[key], value]; // Convert to array
             }
         } else {
-            data[key] = value; // Добавляем первое значение
+            data[key] = value; // Add the first value
         }
     });
 
-    data.featured_media = 2817;
+    // Add featured media
+    let featuredMedia = undefined;
+    if (file.size > 0) {
+        featuredMedia = await uploadMedia(file);
+    }
+    if (!featuredMedia || !featuredMedia.id) {
+        errors.featured_media = "Failed to upload featured media.";
+    } else {
+        data.featured_media = featuredMedia.id;
+    }
 
-    // Преобразуем `data` в строку параметров URL
+    // Convert `data` to a URL parameter string
     let urlParams = new URLSearchParams();
 
-    // Добавляем данные в `URLSearchParams`, корректно обрабатывая массивы
+    // Adding data to `URLSearchParams`, correctly handling arrays
     for (const key in data) {
         if (Array.isArray(data[key])) {
-            // Для массивов (например, `genre`), объединяем значения через пробел
+            // For arrays (e.g. `genre`), concatenate values ​​separated by spaces
             urlParams.append(key, data[key].join(" "));
         } else {
-            // Для остальных параметров добавляем одно значение
+            // For the remaining parameters, add one value
             urlParams.append(key, data[key]);
         }
     }
 
-    console.log(data); // Теперь `genre` будет массивом всех выбранных значений
-    console.log(urlParams); // Теперь `genre` будет массивом всех выбранных значений
-
-    // return null
+    console.log(data); // Now `genre` will be an array of all selected values
+    console.log(urlParams); // Now `genre` will be an array of all selected values
 
     // let token = await getBearerToken();
     let token = getAuthToken();
 
     if (!token) {
-        console.error("Token not available");
-        return null;
+        errors.token = "Token not available.";
+    }
+
+    // If there are errors, we return them
+    if (Object.keys(errors).length > 0) {
+        return { success: false, errors };
     }
 
     let config = {
@@ -162,13 +203,17 @@ export async function postBook({request, params}) {
         }
     };
 
+    if (errorMessage) {
+        return {success: false, message: errorMessage};
+    }
+
     try {
         const response = await axios.request(config);
-        // return response.data; // Возвращаем данные ответа
-        return { success: true, post: response.data }; // Возвращаем данные об успехе
+        // return response.data; // Returning response date
+        return { success: true, post: response.data }; // Returning success data
     } catch (error) {
         console.error("Error posting book:", error);
-        return null; // В случае ошибки возвращаем null
+        return null; // In case of error we return null
     }
 
 }
@@ -177,10 +222,10 @@ export async function postBook({request, params}) {
 export async function fetchGenre() {
     try {
         const response = await axios.get('https://a.vsbookcollection.space/wp-json/wp/v2/genre?per_page=100');
-        return response.data; // Вернёт массив данных о жанрах
+        return response.data; // Returns an array of genre data
     } catch (error) {
         console.error("Error fetching genres:", error);
-        return null; // В случае ошибки возвращаем null
+        return null; // In case of error we return null
     }
 }
 

@@ -12,6 +12,7 @@ import Checkbox from "./elements/Checkbox";
 
 export default function BookForm() {
     const data = useActionData();
+    console.log(data);
     const navigation = useNavigation();
     const dialog = useRef();
 
@@ -41,13 +42,14 @@ export default function BookForm() {
                 {createdBook && <ModalSuccess book={createdBook}/>}
             </Modal>
 
-           <Form method="POST">
-               {data && data.errors &&
-               <ul>
-                   {Object.values(data.errors).map((err) => (
-                       <li key={err}>{err}</li>
-                   ))}
-               </ul>}
+           <Form method="POST" encType="multipart/form-data">
+               {data && data.errors && (
+                   <ul className={classes.errorList}>
+                       {Object.entries(data.errors).map(([key, error]) => (
+                           <li key={key}>{error}</li>
+                       ))}
+                   </ul>
+               )}
                <div className={classes.formInner}>
                    <Input name="title" type="text" placeholder="Post title"/>
                    <Input name="status" type="text" placeholder="Post status"/>
