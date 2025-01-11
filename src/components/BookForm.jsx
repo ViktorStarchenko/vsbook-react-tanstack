@@ -11,6 +11,7 @@ import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
 import Checkbox from "./elements/Checkbox";
 import CheckboxList from "./Checkbox/CheckboxList";
 import CustomCheckbox from "./Checkbox/CustomCheckbox";
+import Accordion from "./Accordion/Accordion";
 
 export default function BookForm() {
     const data = useActionData();
@@ -62,11 +63,20 @@ export default function BookForm() {
                        <textarea className={classes.formFieldInput} type="textarea" name="content" placeholder="Content"/>
                    </div>
 
-                   {genre && <CheckboxList id="genre-list">
-                       {genre.map(item => (
-                           <CustomCheckbox key={item.id} id={item.id} label={item.name} name="genre" value={item.id}/>
-                       ))}
-                   </CheckboxList>}
+                   {genre && <Accordion>
+                       <Accordion.Item id="accordion-genre">
+                           <Accordion.Title >Genre</Accordion.Title>
+                           <Accordion.Content>
+                               <CheckboxList id="genre-list">
+                                   {genre.map(item => (
+                                       <CustomCheckbox key={item.id} id={item.id} label={item.name} name="genre" value={item.id}/>
+                                   ))}
+                               </CheckboxList>
+                           </Accordion.Content>
+                       </Accordion.Item>
+
+                   </Accordion>}
+
 
                    {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
                    {country && <Select name="country" object={country}/>}

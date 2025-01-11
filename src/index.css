@@ -98,17 +98,38 @@ select {
 }
 
 /*Accordion Item*/
+.accordion-wrapper {
+    width: 100%;
+}
+.accordion-item {
+    width: 100%;
+}
 .accordion-item-title {
+    width: 100%;
+    text-align: left;
     cursor: pointer;
+    position: relative;
+}
+.accordion-item-title:before {
+    content: '+';
+    right: 10px;
+    top: calc(50% - 12px);
+    /* width: 17px; */
+    /* height: 22px; */
+    position: absolute;
+    font-size: 20px;
+    line-height: 1;
 }
 .accordion-item-content {
-    background: rebeccapurple;
+    width: 100%;
     height: auto;
     transition: all .5s;
     overflow: hidden;
 }
 .accordion-item-content.open {
     max-height: 1000px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .filters .accordion-item-content.open {
     max-height: 400px;
