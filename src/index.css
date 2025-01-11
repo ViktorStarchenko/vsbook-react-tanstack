@@ -8,6 +8,8 @@ body {
     background: radial-gradient(#186a5e, #053339);
     color: #e1eeeb;
     min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.2;
 }
 
 * {
