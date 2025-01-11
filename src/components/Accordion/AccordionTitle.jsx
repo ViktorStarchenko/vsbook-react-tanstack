@@ -1,7 +1,9 @@
 import { useAccordionItemContext } from "./AccordionItem";
+import {useAccordionContext} from "./Accordion";
 
-export default function ({children}) {
-    const {toggleOpenId, id} = useAccordionItemContext();
+export default function AccordionTitle({children}) {
+    const {toggleOpenId} = useAccordionContext();
+    const {id} = useAccordionItemContext();
 
     return (
         <>
