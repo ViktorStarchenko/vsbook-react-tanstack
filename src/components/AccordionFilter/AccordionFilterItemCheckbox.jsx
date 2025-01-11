@@ -8,7 +8,7 @@ export default function AccordionFilterItemCheckbox({object, filterState, handle
     console.log(isOpen)
     return (
         <>
-            <div className={`accordion-item-content ${isOpen ? 'open' : 'close'} checkboxBody`}>
+            <div className={`accordion-item-content ${isOpen ? 'open' : 'close'} checkboxBody accordionPanel`}>
                 {object?.length > 0 ? (
                     object.map((item) => (
                         <label className="checkboxLabel" key={item.id} htmlFor={`${id}-${item.id}`}>
