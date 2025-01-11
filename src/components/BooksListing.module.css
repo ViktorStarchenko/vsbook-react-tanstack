@@ -24,10 +24,46 @@
     height: 100%;
     object-fit: contain;
 }
+.listingItemContent {
+    width: 100%;
+    position: relative;
+}
 .listingItemTitle {
     color: #e1eeeb;
     text-decoration: none;
 }
+.listingItemDescription {
+    position: absolute;
+    width: 140%;
+    max-width: 350px;
+    bottom: 65px;
+    left: -20%;
+    background-color: #e1eeeb;
+    color: #000;
+    padding: 5px;
+    z-index: 10;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+}
+.listingItemDescriptionInner {
+    overflow: hidden;
+}
+.listingItemDescription:before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 15px 12.5px 0 12.5px;
+    border-color: #e1eeeb transparent transparent transparent;
+    transform: rotate(0deg);
+    display: block;
+    position: absolute;
+    bottom: -14px;
+    left: calc(50% - 15px)
+}
+
 .showDetailsIcon {
     position: absolute;
     height: 30px;
@@ -40,6 +76,16 @@
     width: auto;
     height: 100%;
     object-fit: contain;
+}
+
+.book-listing-description {
+
+}
+.show {
+    display: block;
+}
+.hide {
+    display: none;
 }
 
 @media (max-width: 767px) {
