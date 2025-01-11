@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
 import CheckboxFilter from "./elements/CheckboxFilter";
+import AccordionFilterItem from "./AccordionFilter/AccordionFilterItem";
 
 export default function useFilters() {
     const { page } = useParams();
@@ -79,6 +80,21 @@ export default function useFilters() {
 
     return (
         <>
+            {/*<div className="wrapper-1220">*/}
+            {/*    <div className="filters">*/}
+            {/*        <AccordionFilterItem*/}
+            {/*            id="genre"*/}
+            {/*        >*/}
+            {/*            <AccordionFilterItem.Title className="Title">Hello this is test filter</AccordionFilterItem.Title>*/}
+            {/*            <AccordionFilterItem.Checkbox*/}
+            {/*                object={genre}*/}
+            {/*                filterState={filterGenres}*/}
+            {/*                handleFilterChange={handleGenreChange}*/}
+            {/*            />*/}
+            {/*        </AccordionFilterItem>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+
             <div className="wrapper-1220">
                 <div className="filters">
                     {genre && <CheckboxFilter
