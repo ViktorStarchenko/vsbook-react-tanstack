@@ -80,67 +80,124 @@ export default function useFilters() {
 
     return (
         <>
-            {/*<div className="wrapper-1220">*/}
-            {/*    <div className="filters">*/}
-            {/*        <AccordionFilterItem*/}
-            {/*            id="genre"*/}
-            {/*        >*/}
-            {/*            <AccordionFilterItem.Title className="Title">Hello this is test filter</AccordionFilterItem.Title>*/}
-            {/*            <AccordionFilterItem.Checkbox*/}
-            {/*                object={genre}*/}
-            {/*                filterState={filterGenres}*/}
-            {/*                handleFilterChange={handleGenreChange}*/}
-            {/*            />*/}
-            {/*        </AccordionFilterItem>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            <div className="wrapper-1220">
+                <div className="filters">
+
+                    {genre && <AccordionFilterItem
+                        id="genre"
+                    >
+                        <AccordionFilterItem.Title className="Title">Genre</AccordionFilterItem.Title>
+                        <AccordionFilterItem.Checkbox
+                            object={genre}
+                            filterState={filterGenres}
+                            handleFilterChange={handleGenreChange}
+                        />
+                    </AccordionFilterItem>}
+
+                    {country && <AccordionFilterItem
+                        id="country"
+                    >
+                        <AccordionFilterItem.Title className="Title">Country</AccordionFilterItem.Title>
+                        <AccordionFilterItem.Checkbox
+                            object={country}
+                            filterState={filterCountries}
+                            handleFilterChange={handleCountryChange}
+                        />
+                    </AccordionFilterItem>}
+
+                    {language && <AccordionFilterItem
+                        id="language"
+                    >
+                        <AccordionFilterItem.Title className="Title">Language</AccordionFilterItem.Title>
+                        <AccordionFilterItem.Checkbox
+                            object={language}
+                            filterState={filterLanguages}
+                            handleFilterChange={handleLanguageChange}
+                        />
+                    </AccordionFilterItem>}
+
+                    {release && <AccordionFilterItem
+                        id="release"
+                    >
+                        <AccordionFilterItem.Title className="Title">Release Date</AccordionFilterItem.Title>
+                        <AccordionFilterItem.Checkbox
+                            object={release}
+                            filterState={filterReleases}
+                            handleFilterChange={handleReleaseChange}
+                        />
+                    </AccordionFilterItem>}
+
+                    {wrirer && <AccordionFilterItem
+                        id="wrirer"
+                    >
+                        <AccordionFilterItem.Title className="Title">Writer</AccordionFilterItem.Title>
+                        <AccordionFilterItem.Checkbox
+                            object={wrirer}
+                            filterState={filterWrirers}
+                            handleFilterChange={handleWrirerChange}
+                        />
+                    </AccordionFilterItem>}
+
+                    {readingStatus && <AccordionFilterItem
+                        id="reading_status"
+                    >
+                        <AccordionFilterItem.Title className="Title">Reading Status</AccordionFilterItem.Title>
+                        <AccordionFilterItem.Checkbox
+                            object={readingStatus}
+                            filterState={filterReadingStatus}
+                            handleFilterChange={handleReadingStatusChange}
+                        />
+                    </AccordionFilterItem>}
+
+                    <div className="btn" onClick={handleResetAllFilters}>Reset All Filters</div>
+                </div>
+            </div>
 
             <div className="wrapper-1220">
                 <div className="filters">
-                    {genre && <CheckboxFilter
-                        name="Genre"
-                        id="genre"
-                        object={genre}
-                        filterState={filterGenres}
-                        handleFilterChange={handleGenreChange}
-                    />}
-
-                    {country && <CheckboxFilter
-                        name="country"
-                        id="country"
-                        object={country}
-                        filterState={filterCountries}
-                        handleFilterChange={handleCountryChange}
-                    />}
-                    {language && <CheckboxFilter
-                        name="language"
-                        id="language"
-                        object={language}
-                        filterState={filterLanguages}
-                        handleFilterChange={handleLanguageChange}
-                    />}
-                    {release && <CheckboxFilter
-                        name="release"
-                        id="release"
-                        object={release}
-                        filterState={filterReleases}
-                        handleFilterChange={handleReleaseChange}
-                    />}
-                    {wrirer && <CheckboxFilter
-                        name="wrirer"
-                        id="wrirer"
-                        object={wrirer}
-                        filterState={filterWrirers}
-                        handleFilterChange={handleWrirerChange}
-                    />}
-                    {readingStatus && <CheckboxFilter
-                        name="reading_status"
-                        id="reading_status"
-                        object={readingStatus}
-                        filterState={filterReadingStatus}
-                        handleFilterChange={handleReadingStatusChange}
-                    />}
-                    <div className="btn" onClick={handleResetAllFilters}>Reset All Filters</div>
+                    {/*{genre && <CheckboxFilter*/}
+                    {/*    name="Genre"*/}
+                    {/*    id="genre"*/}
+                    {/*    object={genre}*/}
+                    {/*    filterState={filterGenres}*/}
+                    {/*    handleFilterChange={handleGenreChange}*/}
+                    {/*/>}*/}
+                    {/*{country && <CheckboxFilter*/}
+                    {/*    name="country"*/}
+                    {/*    id="country"*/}
+                    {/*    object={country}*/}
+                    {/*    filterState={filterCountries}*/}
+                    {/*    handleFilterChange={handleCountryChange}*/}
+                    {/*/>}*/}
+                    {/*{language && <CheckboxFilter*/}
+                    {/*    name="language"*/}
+                    {/*    id="language"*/}
+                    {/*    object={language}*/}
+                    {/*    filterState={filterLanguages}*/}
+                    {/*    handleFilterChange={handleLanguageChange}*/}
+                    {/*/>}*/}
+                    {/*{release && <CheckboxFilter*/}
+                    {/*    name="release"*/}
+                    {/*    id="release"*/}
+                    {/*    object={release}*/}
+                    {/*    filterState={filterReleases}*/}
+                    {/*    handleFilterChange={handleReleaseChange}*/}
+                    {/*/>}*/}
+                    {/*{wrirer && <CheckboxFilter*/}
+                    {/*    name="wrirer"*/}
+                    {/*    id="wrirer"*/}
+                    {/*    object={wrirer}*/}
+                    {/*    filterState={filterWrirers}*/}
+                    {/*    handleFilterChange={handleWrirerChange}*/}
+                    {/*/>}*/}
+                    {/*{readingStatus && <CheckboxFilter*/}
+                    {/*    name="reading_status"*/}
+                    {/*    id="reading_status"*/}
+                    {/*    object={readingStatus}*/}
+                    {/*    filterState={filterReadingStatus}*/}
+                    {/*    handleFilterChange={handleReadingStatusChange}*/}
+                    {/*/>}*/}
+                    {/*<div className="btn" onClick={handleResetAllFilters}>Reset All Filters</div>*/}
                 </div>
             </div>
         </>
