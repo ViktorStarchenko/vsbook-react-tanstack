@@ -28,7 +28,6 @@ export default function BooksListingItem({post}) {
         setShowDescription(value);
     }
 
-    console.log(showDescription)
     return (
         <>
             <div

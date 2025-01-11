@@ -7,6 +7,7 @@ import AccordionItem from "../components/Accordion/AccordionItem";
 import AccordionTitle from "../components/Accordion/AccordionTitle";
 import AccordionContent from "../components/Accordion/AccordionContent";
 import Accordion from "../components/Accordion/Accordion";
+import CustomCheckbox from "../components/elements/CustomCheckbox";
 
 export default function BooksPage() {
     const books = useLoaderData();
@@ -33,8 +34,11 @@ export default function BooksPage() {
     return (
         <>
             <h1>BOOKSPAGE</h1>
-            <Filters />
 
+            <Filters />
+            <div className="wrapper-1220">
+                <CustomCheckbox />
+            </div>
             <div className="wrapper-1220">
                 <h2>Accordion Text</h2>
                 <Accordion>

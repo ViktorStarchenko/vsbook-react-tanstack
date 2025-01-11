@@ -182,6 +182,36 @@ select {
     padding-top: 10px;
 }
 
+/*Custom Checkbox*/
+.custom-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.custom-checkbox {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #000;
+    background-color: #e1eeeb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+}
+.custom-checkbox-wrapper input {
+    display: none;
+}
+.custom-checkbox-icon {
+    transform: scale(0);
+    transition: all .2s;
+    font-size: 14px;
+}
+.custom-checkbox-icon.checked {
+    transform: scale(1);
+    color: #000;
+}
+
 /*sorting*/
 .sorting {
     display: flex;
