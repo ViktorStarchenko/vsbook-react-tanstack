@@ -110,8 +110,14 @@ select {
 .accordion-item-content.open {
     max-height: 1000px;
 }
+.filters .accordion-item-content.open {
+    max-height: 400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .accordion-item-content.close {
     max-height: 0;
+    padding: 0;
 }
 
 

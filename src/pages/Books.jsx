@@ -36,9 +36,7 @@ export default function BooksPage() {
             <h1>BOOKSPAGE</h1>
 
             <Filters />
-            <div className="wrapper-1220">
-                <CustomCheckbox />
-            </div>
+
             <div className="wrapper-1220">
                 <h2>Accordion Text</h2>
                 <Accordion>

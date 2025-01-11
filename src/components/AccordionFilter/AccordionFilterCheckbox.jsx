@@ -1,5 +1,6 @@
 import { useAccordionFilterItemContext } from './AccordionFilterItem';
 import { useAccordionFilterContext } from "./AccordionFilter";
+import CustomCheckbox from "../elements/CustomCheckbox";
 
 export default function AccordionFilterCheckbox({object, filterState, handleFilterChange}) {
     const {id} = useAccordionFilterItemContext();
@@ -12,17 +13,15 @@ export default function AccordionFilterCheckbox({object, filterState, handleFilt
             <div className={`accordion-item-content ${isOpen ? 'open' : 'close'} checkboxBody accordionPanel`}>
                 {object?.length > 0 ? (
                     object.map((item) => (
-                        <label className="checkboxLabel" key={item.id} htmlFor={`${id}-${item.id}`}>
-                            <input
-                                type="checkbox"
-                                id={`${id}-${item.id}`}
-                                name={id}
-                                value={item.id}
-                                checked={filterState.includes(item.id)}
-                                onChange={() => handleFilterChange(item.id)}
-                            />
-                            {item.name}
-                        </label>
+                        <CustomCheckbox
+                            key={item.id}
+                            id={`${id}-${item.id}`}
+                            name={id}
+                            value={item.id}
+                            checked={filterState.includes(item.id)}
+                            onChange={() => handleFilterChange(item.id)}
+                            label={item.name}
+                        />
                     ))
                 ) : (
                     <span>Loading...</span>
