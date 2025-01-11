@@ -1,7 +1,7 @@
 import CheckboxFilter from "../elements/CheckboxFilter";
 import {createContext, useContext, useState} from "react";
-import AccordionFilterItemTitle from "./AccordionFilterItemTitle";
-import AccordionFilterItemCheckbox from "./AccordionFilterItemCheckbox";
+import AccordionFilterTitle from "./AccordionFilterTitle";
+import AccordionFilterCheckbox from "./AccordionFilterCheckbox";
 
 const AccordionFilterItemContext = createContext();
 
@@ -16,18 +16,7 @@ export function useAccordionFilterItemContext() {
 }
 
 export default function AccordionFilterItem({id, children}) {
-    const [openItemId, setOpenItemId] = useState();
-
-    function toggleOpenId(id) {
-        console.log(openItemId)
-        setOpenItemId(preOpenId => preOpenId === id ? null : id);
-        console.log(openItemId)
-
-    }
-
     const contextValue = {
-        openItemId: openItemId,
-        toggleOpenId: toggleOpenId,
         id: id
     }
 
@@ -43,14 +32,3 @@ export default function AccordionFilterItem({id, children}) {
         </>
     )
 }
-
-// {genre && <CheckboxFilter
-//     name="Genre"
-//     id="genre"
-//     object={genre}
-//     filterState={filterGenres}
-//     handleFilterChange={handleGenreChange}
-// />}
-
-AccordionFilterItem.Title = AccordionFilterItemTitle
-AccordionFilterItem.Checkbox = AccordionFilterItemCheckbox

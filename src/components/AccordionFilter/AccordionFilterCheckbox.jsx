@@ -1,11 +1,12 @@
 import { useAccordionFilterItemContext } from './AccordionFilterItem';
+import { useAccordionFilterContext } from "./AccordionFilter";
 
-export default function AccordionFilterItemCheckbox({object, filterState, handleFilterChange}) {
-
-    const {openItemId, id} = useAccordionFilterItemContext();
+export default function AccordionFilterCheckbox({object, filterState, handleFilterChange}) {
+    const {id} = useAccordionFilterItemContext();
+    const {openItemId} = useAccordionFilterContext();
 
     const isOpen = openItemId === id;
-    console.log(isOpen)
+
     return (
         <>
             <div className={`accordion-item-content ${isOpen ? 'open' : 'close'} checkboxBody accordionPanel`}>

@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
 import CheckboxFilter from "./elements/CheckboxFilter";
 import AccordionFilterItem from "./AccordionFilter/AccordionFilterItem";
+import AccordionFilter from "./AccordionFilter/AccordionFilter";
 
 export default function useFilters() {
     const { page } = useParams();
@@ -81,24 +82,24 @@ export default function useFilters() {
     return (
         <>
             <div className="wrapper-1220">
-                <div className="filters">
+                <AccordionFilter className="filters">
 
-                    {genre && <AccordionFilterItem
+                    {genre && <AccordionFilter.Item
                         id="genre"
                     >
-                        <AccordionFilterItem.Title className="Title">Genre</AccordionFilterItem.Title>
-                        <AccordionFilterItem.Checkbox
+                        <AccordionFilter.Title className="Title">Genre</AccordionFilter.Title>
+                        <AccordionFilter.Checkbox
                             object={genre}
                             filterState={filterGenres}
                             handleFilterChange={handleGenreChange}
                         />
-                    </AccordionFilterItem>}
+                    </AccordionFilter.Item>}
 
                     {country && <AccordionFilterItem
                         id="country"
                     >
-                        <AccordionFilterItem.Title className="Title">Country</AccordionFilterItem.Title>
-                        <AccordionFilterItem.Checkbox
+                        <AccordionFilter.Title className="Title">Country</AccordionFilter.Title>
+                        <AccordionFilter.Checkbox
                             object={country}
                             filterState={filterCountries}
                             handleFilterChange={handleCountryChange}
@@ -108,8 +109,8 @@ export default function useFilters() {
                     {language && <AccordionFilterItem
                         id="language"
                     >
-                        <AccordionFilterItem.Title className="Title">Language</AccordionFilterItem.Title>
-                        <AccordionFilterItem.Checkbox
+                        <AccordionFilter.Title className="Title">Language</AccordionFilter.Title>
+                        <AccordionFilter.Checkbox
                             object={language}
                             filterState={filterLanguages}
                             handleFilterChange={handleLanguageChange}
@@ -119,8 +120,8 @@ export default function useFilters() {
                     {release && <AccordionFilterItem
                         id="release"
                     >
-                        <AccordionFilterItem.Title className="Title">Release Date</AccordionFilterItem.Title>
-                        <AccordionFilterItem.Checkbox
+                        <AccordionFilter.Title className="Title">Release Date</AccordionFilter.Title>
+                        <AccordionFilter.Checkbox
                             object={release}
                             filterState={filterReleases}
                             handleFilterChange={handleReleaseChange}
@@ -130,8 +131,8 @@ export default function useFilters() {
                     {wrirer && <AccordionFilterItem
                         id="wrirer"
                     >
-                        <AccordionFilterItem.Title className="Title">Writer</AccordionFilterItem.Title>
-                        <AccordionFilterItem.Checkbox
+                        <AccordionFilter.Title className="Title">Writer</AccordionFilter.Title>
+                        <AccordionFilter.Checkbox
                             object={wrirer}
                             filterState={filterWrirers}
                             handleFilterChange={handleWrirerChange}
@@ -141,8 +142,8 @@ export default function useFilters() {
                     {readingStatus && <AccordionFilterItem
                         id="reading_status"
                     >
-                        <AccordionFilterItem.Title className="Title">Reading Status</AccordionFilterItem.Title>
-                        <AccordionFilterItem.Checkbox
+                        <AccordionFilter.Title className="Title">Reading Status</AccordionFilter.Title>
+                        <AccordionFilter.Checkbox
                             object={readingStatus}
                             filterState={filterReadingStatus}
                             handleFilterChange={handleReadingStatusChange}
@@ -150,7 +151,7 @@ export default function useFilters() {
                     </AccordionFilterItem>}
 
                     <div className="btn" onClick={handleResetAllFilters}>Reset All Filters</div>
-                </div>
+                </AccordionFilter>
             </div>
 
             <div className="wrapper-1220">
