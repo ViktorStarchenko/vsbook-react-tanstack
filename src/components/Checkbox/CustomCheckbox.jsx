@@ -1,6 +1,6 @@
 import {useRef, useState} from "react";
 
-export default function CustomCheckbox({id, label, value, ...props}) {
+export default function CustomCheckbox({id, name, label, value, ...props}) {
     const [isChecked, setIsChecked] = useState()
 
     const checkbox = useRef()
@@ -15,7 +15,7 @@ export default function CustomCheckbox({id, label, value, ...props}) {
                 <div className="custom-checkbox">
                     <span className={`custom-checkbox-icon ${isChecked ? 'checked' : ''}`}>✔</span>
                 </div>
-                <input type="checkbox" id={id} name={id} value={value} ref={checkbox} onClick={handleChange} {...props}/>
+                <input type="checkbox" id={id} name={name} value={value} ref={checkbox} onClick={handleChange} {...props}/>
                 <label htmlFor={id}>{label}</label>
             </div>
         </>

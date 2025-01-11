@@ -7,7 +7,7 @@ import AccordionItem from "../components/Accordion/AccordionItem";
 import AccordionTitle from "../components/Accordion/AccordionTitle";
 import AccordionContent from "../components/Accordion/AccordionContent";
 import Accordion from "../components/Accordion/Accordion";
-import CustomCheckbox from "../components/elements/CustomCheckbox";
+import CustomCheckbox from "../components/Checkbox/CustomCheckbox";
 
 export default function BooksPage() {
     const books = useLoaderData();

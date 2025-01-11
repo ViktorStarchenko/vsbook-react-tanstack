@@ -1,6 +1,6 @@
 import { useAccordionFilterItemContext } from './AccordionFilterItem';
 import { useAccordionFilterContext } from "./AccordionFilter";
-import CustomCheckbox from "../elements/CustomCheckbox";
+import CustomCheckbox from "../Checkbox/CustomCheckbox";
 
 export default function AccordionFilterCheckbox({object, filterState, handleFilterChange}) {
     const {id} = useAccordionFilterItemContext();

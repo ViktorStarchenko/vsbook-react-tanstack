@@ -139,6 +139,7 @@ export async function postBook({request, params}) {
     // Create an object and manually collect `genre` as an array
     let data = {};
     let errors = {};
+    let errorMessage = null;
     formData.forEach((value, key) => {
 
         // If the key already exists (e.g. `genre`), add it to the array

@@ -9,10 +9,12 @@ import ModalSuccess from "./ModalSuccess";
 
 import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
 import Checkbox from "./elements/Checkbox";
+import CheckboxList from "./Checkbox/CheckboxList";
+import CustomCheckbox from "./Checkbox/CustomCheckbox";
 
 export default function BookForm() {
     const data = useActionData();
-    console.log(data);
+    console.log(data)
     const navigation = useNavigation();
     const dialog = useRef();
 
@@ -55,11 +57,18 @@ export default function BookForm() {
                    <Input name="status" type="text" placeholder="Post status"/>
                    <Input name="featured_image" type="file" placeholder="Image"/>
                    {/*<Input name="image" type="text" placeholder="Post image"/>*/}
+
                    <div className={classes.formField}>
                        <textarea className={classes.formFieldInput} type="textarea" name="content" placeholder="Content"/>
                    </div>
 
-                   {genre && <Checkbox name="Genre" id="genre" object={genre}/>}
+                   {genre && <CheckboxList id="genre-list">
+                       {genre.map(item => (
+                           <CustomCheckbox key={item.id} id={item.id} label={item.name} name="genre" value={item.id}/>
+                       ))}
+                   </CheckboxList>}
+
+                   {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
                    {country && <Select name="country" object={country}/>}
                    {language && <Select name="language" object={language}/>}
                    {release && <Select name="release" object={release}/>}
