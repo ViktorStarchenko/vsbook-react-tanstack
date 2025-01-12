@@ -8,7 +8,7 @@ export default function NewBookPage() {
 
     return (
         <>
-            <h1>NEW BOOK PAGE</h1>
+            <h1 className="h1">NEW BOOK PAGE</h1>
             <BookForm />
 
         </>

@@ -17,6 +17,11 @@ body {
     margin: 0;
     box-sizing: border-box;
 }
+
+.h1 {
+    margin-bottom: 25px;
+}
+
 .wrapper-1220 {
     width: 100%;
     max-width: 1220px;

@@ -1,7 +1,7 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
-import Select from "./elements/Select";
+import Select from "./Select/Select";
 import classes from './BookForm.module.css';
 import Input from "./elements/Input";
 import Modal from "./Modal";
@@ -81,11 +81,11 @@ export default function BookForm() {
 
 
                    {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
-                   {country && <Select name="country" object={country}/>}
-                   {language && <Select name="language" object={language}/>}
-                   {release && <Select name="release" object={release}/>}
-                   {wrirer && <Select name="wrirer" object={wrirer}/>}
-                   {readingStatus && <Select name="reading_status" object={readingStatus}/>}
+                   {country && <Select name="country" object={country} emptyValueName="Select book country"/>}
+                   {language && <Select name="language" object={language} emptyValueName="Select book language"/>}
+                   {release && <Select name="release" object={release} emptyValueName="Select book release year"/>}
+                   {wrirer && <Select name="wrirer" object={wrirer} emptyValueName="Select book writer"/>}
+                   {readingStatus && <Select name="reading_status" object={readingStatus} emptyValueName="Select book reading status"/>}
 
                    <button className="btn btnSubmit">Submit</button>
                </div>
