@@ -12,6 +12,7 @@ import Checkbox from "./elements/Checkbox";
 import CheckboxList from "./Checkbox/CheckboxList";
 import CustomCheckbox from "./Checkbox/CustomCheckbox";
 import Accordion from "./Accordion/Accordion";
+import ImagePicker from "./ImagePicker/ImagePicker";
 
 export default function BookForm() {
     const data = useActionData();
@@ -56,7 +57,8 @@ export default function BookForm() {
                <div className={classes.formInner}>
                    <Input name="title" type="text" placeholder="Post title"/>
                    <Input name="status" type="text" placeholder="Post status"/>
-                   <Input name="featured_image" type="file" placeholder="Image"/>
+                   {/*<Input name="featured_image" type="file" placeholder="Image"/>*/}
+                   <ImagePicker id="featured_image" name="featured_image" placeholder="Select book cover"/>
                    {/*<Input name="image" type="text" placeholder="Post image"/>*/}
 
                    <div className={classes.formField}>
@@ -65,7 +67,7 @@ export default function BookForm() {
 
                    {genre && <Accordion>
                        <Accordion.Item id="accordion-genre">
-                           <Accordion.Title >Genre</Accordion.Title>
+                           <Accordion.Title className="btn">Genre</Accordion.Title>
                            <Accordion.Content>
                                <CheckboxList id="genre-list">
                                    {genre.map(item => (

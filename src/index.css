@@ -125,6 +125,7 @@ select {
     height: auto;
     transition: all .5s;
     overflow: hidden;
+    text-align: left;
 }
 .accordion-item-content.open {
     max-height: 1000px;
@@ -238,6 +239,24 @@ select {
     transform: scale(1);
     color: #000;
 }
+
+/*ImagePicker*/
+.image-picker-custom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.image-picker-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background-color: rgba(0, 0, 0, 0.3);;
+}
+.image-picker-input {
+    display: none;
+}
+
 
 /*sorting*/
 .sorting {
