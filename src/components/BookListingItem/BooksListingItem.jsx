@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 import classes from '../BooksListing.module.css';
 import lupaImage from '../../assets/images/noun-magnifying-glass-50744.svg'
 import logoImage from '../../assets/images/logo-3.svg'
-import Modal from "../Modal";
-import ModalBookDetail from "../ModalBookDetail";
+import Modal from "../Modal/Modal";
+import ModalBookDetail from "../Modal/ModalBookDetail";
 import { usePostImage } from "../hooks/usePostImage";
 import BookListingItemImage from "./BookListingItemImage";
 import BooksListingItemTitle from "./BooksListingItemTitle";
@@ -40,8 +40,8 @@ export default function BooksListingItem({post}) {
                 </div>}
 
                 {lupaImage && <span onClick={openModal} className={classes.showDetailsIcon}>
-                <img src={lupaImage} alt="showMore"/>
-            </span>}
+                    <img src={lupaImage} alt="showMore"/>
+                </span>}
 
                 <div
                     className={classes.listingItemContent}

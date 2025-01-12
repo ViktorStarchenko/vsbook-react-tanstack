@@ -4,8 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import Select from "./Select/Select";
 import classes from './BookForm.module.css';
 import Input from "./elements/Input";
-import Modal from "./Modal";
-import ModalSuccess from "./ModalSuccess";
+import Modal from "./Modal/Modal";
+import ModalSuccess from "./Modal/ModalSuccess";
 
 import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
 import Checkbox from "./elements/Checkbox";

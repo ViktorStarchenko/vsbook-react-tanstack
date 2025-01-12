@@ -1,13 +1,21 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 
-import { usePostData } from "./hooks/usePostData";
+import { usePostData } from "../hooks/usePostData";
 import classes from './BookSingle.module.css';
-import Taxonomy from "./elements/Taxonomy";
+import Taxonomy from "../elements/Taxonomy";
+import BookSingleDelete from "./BookSingleDelete";
+import Modal from "../Modal/Modal";
 
 export default function BookSingle({post}) {
 
     const { featuredImage, genre, language, wrirer, release, country, readingStatus } = usePostData(post);
+
+    const deleteBookModalRef = useRef();
+
+    function openDeleteModal(){
+        deleteBookModalRef.current.open();
+    }
 
     return (
         <>
@@ -27,6 +35,15 @@ export default function BookSingle({post}) {
                 <div>
                     <div className={classes.bookSingleBody} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
                 </div>
+
+                <div className={classes['book-single-delete-wrapper']}>
+                    <div className="btn" onClick={openDeleteModal}>Delete Book</div>
+                </div>
+
+                <Modal ref={deleteBookModalRef} title="Are You sure you want to delete this book?">
+                    <BookSingleDelete />
+                </Modal>
+
             </div>
         </>
     )

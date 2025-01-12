@@ -1,4 +1,4 @@
-import classes from './BookSingle.module.css'
+import classes from '../BookSingle/BookSingle.module.css'
 
 export default function ModalBookDetail({book}) {
 
