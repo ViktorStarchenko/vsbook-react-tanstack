@@ -7,7 +7,7 @@ import lupaImage from '../../assets/images/noun-magnifying-glass-50744.svg'
 import logoImage from '../../assets/images/logo-3.svg'
 import Modal from "../Modal/Modal";
 import ModalBookDetail from "../Modal/ModalBookDetail";
-import { usePostImage } from "../hooks/usePostImage";
+import { usePostImage } from "../../hooks/usePostImage";
 import BookListingItemImage from "./BookListingItemImage";
 import BooksListingItemTitle from "./BooksListingItemTitle";
 import BooksListingItemDescription from "./BooksListingItemDescription";

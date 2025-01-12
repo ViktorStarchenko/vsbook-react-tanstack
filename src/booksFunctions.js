@@ -61,6 +61,31 @@ export async function bookDetailLoader({request, params}) {
     }
 }
 
+export async function deleteBookAction({params, request}) {
+
+    let id = params.bookId;
+    let token = getAuthToken();
+    let data = '';
+    let config = {
+        method: 'delete',
+        maxBodyLength: Infinity,
+        url: 'https://a.vsbookcollection.space/wp-json/wp/v2/book/' + id,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        data : data
+    };
+
+    try {
+        await axios.request(config);
+        return redirect('/books'); // Успешное удаление, редирект на список книг
+    } catch (error) {
+        console.error('Error deleting book:', error);
+        throw new Response('Failed to delete book', { status: error.response?.status || 500 });
+    }
+
+}
+
 // export function getBearerToken() {
 //
 //     let username = 'admin';

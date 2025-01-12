@@ -16,7 +16,6 @@ export default function BooksPage() {
     const navigate = useNavigate();
     const { search } = useLocation();
     const currentPage = parseInt(page, 10) || 1;
-    console.log(search)
     const [sortOrder, setSortOrder] = useState("desc");
 
     const handleFirstPage = () => navigate(`/books/page/1${search ? search : ""}`);

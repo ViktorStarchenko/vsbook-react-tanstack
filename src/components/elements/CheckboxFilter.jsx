@@ -1,4 +1,4 @@
-import { useAccordion } from "../hooks/useAccordion";
+import { useAccordion } from "../../hooks/useAccordion";
 
 export default function CheckboxFilter({ name, id, object, filterState, handleFilterChange }) {
     const { buttonRef, panelRef } = useAccordion();

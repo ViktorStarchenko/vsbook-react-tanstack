@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
+import { useBooksTaxonomies } from "../hooks/useBooksTaxonomies";
 import CheckboxFilter from "./elements/CheckboxFilter";
 import AccordionFilterItem from "./AccordionFilter/AccordionFilterItem";
 import AccordionFilter from "./AccordionFilter/AccordionFilter";

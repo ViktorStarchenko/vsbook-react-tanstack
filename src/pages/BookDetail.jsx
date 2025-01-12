@@ -1,9 +1,10 @@
-import { Link, useParams, useLoaderData } from 'react-router-dom';
+import { Link, useParams, useLoaderData, useRouteLoaderData } from 'react-router-dom';
 import BookSingle from "../components/BookSingle/BookSingle";
 
 export default function BookDetailPage() {
     const params = useParams();
-    const book = useLoaderData();
+    // const book = useLoaderData();
+    const book = useRouteLoaderData('book-detail');
 
     return (
         <>

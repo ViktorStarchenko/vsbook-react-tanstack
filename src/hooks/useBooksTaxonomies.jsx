@@ -6,7 +6,7 @@ import {
     fetchReadingStatus,
     fetchRelease,
     fetchWrirer,
-} from "../../booksFunctions";
+} from "../booksFunctions";
 
 export function useBooksTaxonomies() {
     const [data, setData] = useState({

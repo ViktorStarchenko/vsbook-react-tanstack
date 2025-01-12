@@ -7,7 +7,7 @@ import Input from "./elements/Input";
 import Modal from "./Modal/Modal";
 import ModalSuccess from "./Modal/ModalSuccess";
 
-import { useBooksTaxonomies } from "./hooks/useBooksTaxonomies";
+import { useBooksTaxonomies } from "../hooks/useBooksTaxonomies";
 import Checkbox from "./elements/Checkbox";
 import CheckboxList from "./Checkbox/CheckboxList";
 import CustomCheckbox from "./Checkbox/CustomCheckbox";

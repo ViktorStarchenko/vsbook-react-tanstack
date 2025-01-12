@@ -13,7 +13,7 @@ export function usePostData(post) {
     });
 
     useEffect(() => {
-        if (!post) return;
+        if (!post || !post.id) return;
 
         const fetchData = async () => {
             try {

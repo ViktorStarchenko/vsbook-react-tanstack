@@ -1,7 +1,6 @@
 import classes from '../BookSingle/BookSingle.module.css'
 
 export default function ModalBookDetail({book}) {
-
     return (
         <>
             <h2>Name: {book.title.rendered}</h2>
