@@ -28,12 +28,12 @@ const router = createBrowserRouter([
             {
                 path: 'books',
                 element: <BooksPage />,
-                loader: booksLoader
+                // loader: booksLoader
             },
             {
                 path: 'books/page/:page',
                 element: <BooksPage />,
-                loader: booksLoader
+                // loader: booksLoader
             },
             {
                 path: 'books/:bookId',

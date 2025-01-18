@@ -1,83 +1,81 @@
 import { Link, useLoaderData, useParams, useNavigate, useLocation } from "react-router-dom";
 import BooksListing from "../components/BooksListing";
-import { useState } from "react";
+import {useEffect, useRef, useState} from "react";
 
 import Filters from "../components/Filters";
-import AccordionItem from "../components/Accordion/AccordionItem";
-import AccordionTitle from "../components/Accordion/AccordionTitle";
-import AccordionContent from "../components/Accordion/AccordionContent";
-import Accordion from "../components/Accordion/Accordion";
-import CustomCheckbox from "../components/Checkbox/CustomCheckbox";
-import ImagePicker from "../components/ImagePicker/ImagePicker";
+
+import Test from "../components/Test";
+import {useQuery} from "@tanstack/react-query";
+import {fetchBooks} from "../util/http";
+import Sorting from "../components/Sorting/Sorting";
+import Pagination from "../components/Pagination/Pagination";
 
 export default function BooksPage() {
-    const books = useLoaderData();
-    const { page } = useParams();
+    // const books = useLoaderData();
+    // const { page } = useParams();
     const navigate = useNavigate();
     const { search } = useLocation();
-    const currentPage = parseInt(page, 10) || 1;
+
     const [sortOrder, setSortOrder] = useState("desc");
 
-    const handleFirstPage = () => navigate(`/books/page/1${search ? search : ""}`);
-    const handleNextPage = () => navigate(`/books/page/${currentPage + 1}${search ? search : ""}`);
-    const handlePrevPage = () => {
-        if (currentPage > 1) navigate(`/books/page/${currentPage - 1}${search ? search : ""}`);
-    };
+    const [page, setPage] = useState(1);
+    const currentPage = parseInt(page, 10) || 1;
 
-    const handleSortChange = (order) => {
-        setSortOrder(order);
-        const params = new URLSearchParams(search);
-        params.set("sort", order); // Update or add a sort parameter
-        navigate(`/books/page/${currentPage}?${params.toString()}`);
-    };
+    const {data, isPending, isError, error} = useQuery({
+        queryKey: ['books', {page: page, order: sortOrder}],
+        queryFn: (signal) => fetchBooks({signal, page, sortOrder})
+    })
+
+    // const handleFirstPage = () => navigate(`/books/page/1${search ? search : ""}`);
+    // const handleNextPage = () => navigate(`/books/page/${currentPage + 1}${search ? search : ""}`);
+    // const handlePrevPage = () => {
+    //     if (currentPage > 1) navigate(`/books/page/${currentPage - 1}${search ? search : ""}`);
+    // };
+
+
+
+    const handleSorting = (data) => {
+        setSortOrder(data);
+    }
+
+    const handlePager = (page) => {
+        setPage(page)
+    }
+
+    let content;
+
+    if (data && data.posts) {
+        content = <BooksListing books={data.posts} />
+    }
+
+    let pagination
+
+    if (data && data.totalPosts && data.totalPages) {
+        pagination = (
+            <Pagination page={currentPage} totalPages={data.totalPages} onPageChange={handlePager}/>
+        )
+    }
 
     return (
         <>
-            <h1>BOOKSPAGE</h1>
+
+            {isError && (
+                <h1>{error}</h1>
+            )}
+            {isPending & <h1>PENDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIING</h1>}
+            <h1>BOOKSPAGE BLABLABLA</h1>
 
             <Filters />
 
-            <div className="wrapper-1220">
-                <h2>Accordion Text</h2>
-                <Accordion>
-                    <Accordion.Item id="test">
-                        <Accordion.Title>Lorem ipsum dolor.</Accordion.Title>
-                        <Accordion.Content >
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab et in odit perferendis vel?</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab et in odit perferendis vel?</p>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                    <Accordion.Item id="test-2">
-                        <Accordion.Title>Lorem ipsum dolor. Lorem ipsum dolor.</Accordion.Title>
-                        <Accordion.Content >
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio et officiis saepe. Adipisci animi asperiores atque distinctio, dolorum neque.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis harum ipsam nobis praesentium quibusdam ratione saepe sunt vero? Ad aliquid aspernatur aut culpa cum delectus doloremque excepturi fugit illum incidunt laudantium magnam, odio, officia qui quidem repudiandae sapiente tempora ullam.</p>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                </Accordion>
-            </div>
+            {/*<Test />*/}
 
             <div className="wrapper-1220">
-                <div className="sorting">
-                    <button className={`btn ${sortOrder === "asc" && 'active'}` } onClick={() => handleSortChange("asc")} disabled={sortOrder === "asc"}>
-                        Sort by Oldest
-                    </button>
-                    <button className={`btn ${sortOrder === "desc" && 'active'}` } onClick={() => handleSortChange("desc")} disabled={sortOrder === "desc"}>
-                        Sort by Newest
-                    </button>
-                </div>
+                <Sorting sortOrder={sortOrder} onSorting={handleSorting}/>
             </div>
 
-            <BooksListing books={books} />
+            {content}
 
-            <div className="paginationWrapper">
-                {currentPage !== 1 && (<button className="btn paginationLink" onClick={handleFirstPage} disabled={currentPage === 1}>
-                    First
-                </button>)}
-                {currentPage > 1 && <button className="btn paginationLink" onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>}
-                <span className="btn paginationLink active">{currentPage}</span>
-                {books.length >= 10 && <button className="btn paginationLink" onClick={handleNextPage}>Next</button>}
-            </div>
+            {pagination}
         </>
 
     )

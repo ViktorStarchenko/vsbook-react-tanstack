@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { RouterProvider } from "react-router-dom";
 import axios from "axios";
 
+
 import router from './router.jsx'
+import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -13,13 +15,16 @@ function App() {
       })
   }
 
-  useEffect(() => {
-      fetchPosts();
-  }, []);
-
+  // useEffect(() => {
+  //     fetchPosts();
+  // }, []);
+    const queryClient = new QueryClient()
   return (
     <>
-        <RouterProvider router={router}/>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router}/>
+        </QueryClientProvider>
+        {/*<RouterProvider router={router}/>*/}
     </>
   )
 }
