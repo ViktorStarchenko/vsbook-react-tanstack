@@ -1,28 +1,49 @@
 import axios from "axios";
 
-export async function fetchBooks({signal, page, sortOrder}) {
-    console.log(signal)
+export async function fetchBooks({signal, page, sortOrder, filtersArray}) {
     console.log(page)
+    console.log(sortOrder)
+    console.log(filtersArray)
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
 
     let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${paramPage}&order=${sort}`;
 
+    // if (filtersArray) {
+    //     filtersArray.map(item => {
+    //         if (item) {
+    //             url += `&${item[0]}=${item[1]}`;
+    //         }
+    //     })
+    // }
+    if (filtersArray) {
+        url += filtersArray.reduce((acc, [key, value]) => {
+            if (key && value) {
+                return `${acc}&${key}=${value}`;
+            }
+            return acc;
+        }, "");
+    }
+
+    console.log(url)
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
         url: url,
+        // signal: signal
     };
 
     try {
         const response = await axios.request(config);
+        // console.log(response.data)
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {
         console.error("Error fetching books:", error);
         const errorMessage = new Error('An error occurred while fetching the events');
         error.message = "Error fetching books";
-        return errorMessage; // In case of error we return null
+        console.error("Error fetching books:", error);
+        throw new Error('An error occurred while fetching the books');
     }
 }
 

@@ -18,8 +18,9 @@ export default function AccordionFilterCheckbox({object, filterState, handleFilt
                             id={`${id}-${item.id}`}
                             name={id}
                             value={item.id}
-                            checked={filterState.includes(item.id)}
+                            checked={filterState.includes(item.id.toString())}
                             onChange={() => handleFilterChange(item.id)}
+                            defaultChecked={filterState.includes(item.id.toString())}
                             label={item.name}
                         />
                     ))

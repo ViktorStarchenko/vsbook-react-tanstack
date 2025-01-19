@@ -1,10 +1,9 @@
 import {useRef, useState} from "react";
 
-export default function CustomCheckbox({id, name, label, value, ...props}) {
-    const [isChecked, setIsChecked] = useState()
+export default function CustomCheckbox({id, name, label, value, defaultChecked , ...props}) {
+    const [isChecked, setIsChecked] = useState(defaultChecked || false)
 
     const checkbox = useRef()
-
     function handleChange(event) {
         setIsChecked(event.target.checked);
     }
