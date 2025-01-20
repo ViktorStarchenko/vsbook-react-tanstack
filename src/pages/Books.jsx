@@ -9,7 +9,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchPosts} from "../util/http";
 import Sorting from "../components/Sorting/Sorting";
 import Pagination from "../components/Pagination/Pagination";
-import {usePostTaxonomies} from "../hooks/usePostTaxonomies";
+import {useTaxonomies} from "../hooks/useTaxonomies";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function BooksPage() {

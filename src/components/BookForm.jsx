@@ -7,7 +7,7 @@ import Input from "./elements/Input";
 import Modal from "./Modal/Modal";
 import ModalSuccess from "./Modal/ModalSuccess";
 
-import { usePostTaxonomies } from "../hooks/usePostTaxonomies";
+import { useTaxonomies } from "../hooks/useTaxonomies";
 import Checkbox from "./elements/Checkbox";
 import CheckboxList from "./Checkbox/CheckboxList";
 import CustomCheckbox from "./Checkbox/CustomCheckbox";
@@ -35,7 +35,7 @@ export default function BookForm() {
         }
     }, [data]);
 
-    const {genre, country, language, release, wrirer, readingStatus, loading, error} = usePostTaxonomies();
+    const {genre, country, language, release, wrirer, readingStatus, loading, error} = useTaxonomies();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;

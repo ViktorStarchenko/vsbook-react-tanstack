@@ -9,8 +9,9 @@ import {
 } from "../booksFunctions";
 import {useQuery} from "@tanstack/react-query";
 import {fetchTaxonomy} from "../util/http";
+import LoadingIndicator from "../components/LoadingIndicator";
 
-export function usePostTaxonomies() {
+export function useTaxonomies() {
 
     const {data: dataGenre, isLoading: isLoadingGenre, isError: isErrorGenre, error: errorGenre} = useQuery({
         queryKey: ['taxonomy', {taxonomyName: 'genre'}],
@@ -36,6 +37,44 @@ export function usePostTaxonomies() {
         queryKey: ['taxonomy', {taxonomyName: 'reading_status'}],
         queryFn: () => fetchTaxonomy({taxonomyName: 'reading_status'})
     })
+
+    let data = {
+        'genre': '',
+        'country': '',
+        'language': '',
+        'release': '',
+        'wrirer': '',
+        'readingStatus': '',
+        'isLoading': false,
+        'isError': false,
+    };
+
+    if (dataGenre) {
+        data.genre = dataGenre
+    }
+    if (dataCountry) {
+        data.country = dataCountry
+    }
+    if (dataLanguage) {
+        data.language = dataLanguage
+    }
+    if (dataRelease) {
+        data.release = dataRelease
+    }
+    if (dataWrirer) {
+        data.wrirer = dataWrirer
+    }
+    if (dataReadingStatus) {
+        data.readingStatus = dataReadingStatus
+    }
+
+    if (isLoadingGenre || isLoadingCountry || isLoadingLanguage || isLoadingRelease || isLoadingWrirer || isLoadingReadingStatus) {
+        data.isLoading = true;
+    }
+
+    if (isErrorGenre || isErrorCountry || isErrorLanguage || isErrorRelease || isErrorWrirer || isErrorReadingStatus) {
+        data.isError = true;
+    }
 
     // const [data, setData] = useState({
     //     genre: null,
@@ -73,12 +112,5 @@ export function usePostTaxonomies() {
     //     loadData("readingStatus", fetchReadingStatus);
     // }, []);
 
-    return {
-        'genre': {data: dataGenre, isLoading: isLoadingGenre, isError: isErrorGenre, error: errorGenre},
-        'country': {data: dataCountry, isLoading: isLoadingCountry, isError: isErrorCountry, error: errorCountry},
-        'language': {data: dataLanguage, isLoading: isLoadingLanguage, isError: isErrorLanguage, error: errorLanguage},
-        'release': {data: dataRelease, isLoading: isLoadingRelease, isError: isErrorRelease, error: errorRelease},
-        'wrirer': {data: dataWrirer, isLoading: isLoadingWrirer, isError: isErrorWrirer, error: errorWrirer},
-        'readingStatus': {data: dataReadingStatus, isLoading: isLoadingReadingStatus, isError: isErrorReadingStatus, error: errorReadingStatus}
-    };
+    return data;
 }
