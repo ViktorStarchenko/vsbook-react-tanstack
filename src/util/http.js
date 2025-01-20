@@ -4,6 +4,15 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     // console.log(page)
     // console.log(sortOrder)
     // console.log(filtersArray)
+    if (!page) {
+        throw new Error("Invalid page data");
+    }
+    if (!sortOrder) {
+        throw new Error("Invalid sortOrder data");
+    }
+    if (!filtersArray) {
+        throw new Error("Invalid filtersArray data");
+    }
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
@@ -24,25 +33,34 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
         method: 'get',
         maxBodyLength: Infinity,
         url: url,
-        // signal: signal
+        signal: signal
     };
 
     try {
         const response = await axios.request(config);
+
+        if (response.status != 200) {
+            throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
+
         console.log(response)
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {
-        console.error("Error fetching books:", error);
-        const errorMessage = new Error('An error occurred while fetching the events');
-        error.message = "Error fetching books";
-        console.error("Error fetching books:", error);
-        throw new Error('An error occurred while fetching the books');
+        throw new Error(error.message || "Failed to fetch books");
     }
 }
 
-export async function fetchPostImage({post}) {
+export async function fetchPostImage({signal, post, postId}) {
+    if (!postId || !post) {
+        throw new Error("Invalid post data or postId is missing");
+    }
+
     try {
         const response = await axios.get(post?._links['wp:featuredmedia'][0]?.href);
+
+        if (response.status != 200) {
+            throw new Error(`Failed to fetch image: ${response.statusText}`);
+        }
 
         if (response.data && response.data.source_url) {
             return response.data.source_url;
@@ -52,16 +70,20 @@ export async function fetchPostImage({post}) {
             // If the image is missing, return null
             return null;
         }
-        throw error;
+        throw new Error(error.message || "Failed to fetch image");
     }
 }
 
 export async function fetchTaxonomy({taxonomyName}) {
+    if (!taxonomyName) {
+        throw new Error("Invalid taxonomyName data");
+    }
+
     try {
         const response = await axios.get(`https://a.vsbookcollection.space/wp-json/wp/v2/${taxonomyName}?per_page=100`);
         return response.data;
     } catch (error) {
-        return null;
+        throw new Error(error.message || "Failed to fetch image");
     }
 }
 
