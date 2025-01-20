@@ -6,10 +6,11 @@ import Filters from "../components/Filter/Filters";
 
 import Test from "../components/Test";
 import {useQuery} from "@tanstack/react-query";
-import {fetchBooks} from "../util/http";
+import {fetchPosts} from "../util/http";
 import Sorting from "../components/Sorting/Sorting";
 import Pagination from "../components/Pagination/Pagination";
 import {useBooksTaxonomies} from "../hooks/useBooksTaxonomies";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -18,14 +19,14 @@ export default function BooksPage() {
 
     const { page } = useParams();
 
-    const currentPage = parseInt(page, 10);
+    const currentPage = parseInt(page, 10) || 1;
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSortOrder = searchParams.get("order") || "desc";
     const filtersArray = Array.from(searchParams.entries());
 
-    const {data, isPending, isError, error} = useQuery({
+    const {data, isLoading, isError, error} = useQuery({
         queryKey: ['books', {page: currentPage, sortOrder: currentSortOrder, filters: searchParams, filtersArray: filtersArray }],
-        queryFn: ({signal}) => fetchBooks({signal, page: currentPage, sortOrder: currentSortOrder, filters: searchParams, filtersArray: filtersArray}),
+        queryFn: ({signal}) => fetchPosts({signal, page: currentPage, sortOrder: currentSortOrder, filters: searchParams, filtersArray: filtersArray}),
         // keepPreviousData: true,
     })
 
@@ -35,8 +36,16 @@ export default function BooksPage() {
 
     let content;
 
+    if (isLoading) {
+        content = <LoadingIndicator />
+    }
+
     if (data && data.posts) {
         content = <BooksListing books={data.posts} />
+    }
+
+    if (data && data.posts.length == 0) {
+        content = <div className="h2">There are no books matching your request.</div>
     }
 
     let pagination
@@ -53,11 +62,9 @@ export default function BooksPage() {
             {isError && (
                 <h1>{error}</h1>
             )}
-            {isPending & <h1>PENDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIING</h1>}
-            <h1>BOOKSPAGE BLABLABLA</h1>
+            <h1 className="h1">BOOKSPAGE BLABLABLA</h1>
             <Filters
                 searchParams={searchParams}
-
                 setSearchParams={setSearchParams}
             />
             {/*<Test />*/}

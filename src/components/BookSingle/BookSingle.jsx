@@ -7,16 +7,32 @@ import Taxonomy from "../elements/Taxonomy";
 import BookSingleDelete from "./BookSingleDelete";
 import Modal from "../Modal/Modal";
 import {useRouteLoaderData} from "react-router-dom";
+import {usePostImage} from "../../hooks/usePostImage";
+import LoadingIndicator from "../LoadingIndicator";
 
 export default function BookSingle({post}) {
     const token = useRouteLoaderData('root');
-    const { featuredImage, genre, language, wrirer, release, country, readingStatus } = usePostData(post);
+    const {data: featuredImage, isLoading: isLoadingImage, isError: isErrorImage, error: errorImage} = usePostImage({ post });
+
+    const { genre, language, wrirer, release, country, readingStatus } = usePostData(post);
 
     const deleteBookModalRef = useRef();
 
     function openDeleteModal(){
         deleteBookModalRef.current.open();
     }
+
+    let imageBlock;
+
+    if (isLoadingImage) {
+        imageBlock = <LoadingIndicator />
+    }
+
+    if (featuredImage) {
+        imageBlock = <img src={featuredImage} alt={post.title.rendered}/>
+    }
+
+
 
     return (
         <>

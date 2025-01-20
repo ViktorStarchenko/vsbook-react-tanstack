@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function fetchBooks({signal, page, sortOrder, filtersArray}) {
+export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     console.log(page)
     console.log(sortOrder)
     console.log(filtersArray)
@@ -36,7 +36,7 @@ export async function fetchBooks({signal, page, sortOrder, filtersArray}) {
 
     try {
         const response = await axios.request(config);
-        // console.log(response.data)
+        console.log(response)
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {
         console.error("Error fetching books:", error);
@@ -44,6 +44,22 @@ export async function fetchBooks({signal, page, sortOrder, filtersArray}) {
         error.message = "Error fetching books";
         console.error("Error fetching books:", error);
         throw new Error('An error occurred while fetching the books');
+    }
+}
+
+export async function fetchPostImage({post}) {
+    try {
+        const response = await axios.get(post?._links['wp:featuredmedia'][0]?.href);
+
+        if (response.data && response.data.source_url) {
+            return response.data.source_url;
+        }
+    } catch(error) {
+        if (error.response && error.response.status === 404) {
+            // Если изображение отсутствует, возвращаем null
+            return null;
+        }
+        throw error; // Для других ошибок кидаем исключение
     }
 }
 

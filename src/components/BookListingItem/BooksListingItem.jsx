@@ -12,12 +12,18 @@ import BookListingItemImage from "./BookListingItemImage";
 import BooksListingItemTitle from "./BooksListingItemTitle";
 import BooksListingItemDescription from "./BooksListingItemDescription";
 import TooltipModal from "../elements/TooltipModal";
+import {useQuery} from "@tanstack/react-query";
+import {fetchPostImage} from "../../util/http";
+import LoadingIndicator from "../LoadingIndicator";
 
 export default function BooksListingItem({post}) {
     const [showDescription, setShowDescription] = useState(false)
 
     const dialog = useRef();
-    const featuredImage = usePostImage({ post });
+    // const featuredImage = usePostImage({ post });
+    const {data, isLoading, isError, error} = usePostImage({ post });
+
+    console.log(data);
 
     function openModal() {
         // dialog.current.showModal();
@@ -28,16 +34,29 @@ export default function BooksListingItem({post}) {
         setShowDescription(value);
     }
 
+    let featuredImage;
+    let imageBlock;
+
+    if (isLoading) {
+        imageBlock = <LoadingIndicator />
+    }
+
+    if (data) {
+        featuredImage = data
+        imageBlock = <BookListingItemImage featuredImage={featuredImage} title={post.title.rendered}/>;
+    } else {
+        imageBlock = <div className={classes.listingItemImg}>
+            <img className="imageContain" src={logoImage} alt={post.title.rendered}/>
+        </div>
+    }
+
     return (
         <>
             <div
                 className={classes.listingItem}
             >
 
-                {featuredImage && <BookListingItemImage featuredImage={featuredImage} title={post.title.rendered}/>}
-                {!featuredImage && <div className={classes.listingItemImg}>
-                    <img className="imageContain" src={logoImage} alt={post.title.rendered}/>
-                </div>}
+                {imageBlock}
 
                 {lupaImage && <span onClick={openModal} className={classes.showDetailsIcon}>
                     <img src={lupaImage} alt="showMore"/>
