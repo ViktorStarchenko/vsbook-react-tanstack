@@ -2,14 +2,14 @@ import { Link, useLoaderData, useParams, useNavigate, useLocation, useSearchPara
 import BooksListing from "../components/BooksListing";
 import {useEffect, useRef, useState} from "react";
 
-import Filters from "../components/Filter/Filters";
+import Filters from "../components/Filters/Filters";
 
 import Test from "../components/Test";
 import {useQuery} from "@tanstack/react-query";
 import {fetchPosts} from "../util/http";
 import Sorting from "../components/Sorting/Sorting";
 import Pagination from "../components/Pagination/Pagination";
-import {useBooksTaxonomies} from "../hooks/useBooksTaxonomies";
+import {usePostTaxonomies} from "../hooks/usePostTaxonomies";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function BooksPage() {

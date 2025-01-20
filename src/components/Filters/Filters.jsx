@@ -2,12 +2,40 @@ import { useState, useEffect } from 'react';
 import {useParams, useSearchParams, useLocation, useNavigate} from 'react-router-dom';
 import AccordionFilter from "./AccordionFilter";
 import AccordionFilterItem from "./AccordionFilterItem";
-import {useBooksTaxonomies} from "../../hooks/useBooksTaxonomies";
+import {usePostTaxonomies} from "../../hooks/usePostTaxonomies";
+import LoadingIndicator from "../LoadingIndicator";
 
 export default function Filters({ searchParams, setSearchParams }) {
     const { page } = useParams();
     const navigate = useNavigate();
-    const {genre, country, language, release, wrirer, readingStatus, loading, error} = useBooksTaxonomies();
+    // const {genre, country, language, release, wrirer, readingStatus, loading, error} = usePostTaxonomies();
+    const {genre, country, language, release, wrirer, readingStatus} = usePostTaxonomies();
+
+    let genreData
+    let countryData
+    let languageData
+    let releaseData
+    let wrirerData
+    let readingStatusData
+    if (genre.data) {
+        genreData = genre.data
+    }
+    if (country.data) {
+        countryData = country.data
+    }
+    if (language.data) {
+        languageData = language.data
+    }
+    if (release.data) {
+        releaseData = release.data
+    }
+    if (wrirer.data) {
+        wrirerData = wrirer.data
+    }
+    if (readingStatus.data) {
+        readingStatusData = readingStatus.data
+    }
+
     // Local filter states
     const filterGenres = searchParams.get('genre') ? searchParams.get('genre').split(',') : [];
     const filterCountries = searchParams.get('country') ? searchParams.get('country').split(',') : [];
@@ -42,13 +70,19 @@ export default function Filters({ searchParams, setSearchParams }) {
         navigate(`/books/page/1`);
     };
 
-    return (
-        <div className="wrapper-1220">
+    let content
+
+    if (genre.isLoading || country.isLoading || language.isLoading || release.isLoading, wrirer.isLoading || readingStatus.isLoading) {
+        content = <LoadingIndicator />
+    }
+
+    if ( genreData && countryData && languageData && releaseData && wrirerData && readingStatusData) {
+        content = (
             <AccordionFilter className="filters">
                 <AccordionFilterItem id="genre">
                     <AccordionFilter.Title className="Title">Genre</AccordionFilter.Title>
                     <AccordionFilter.Checkbox
-                        object={genre} // Assuming `genre` is fetched from `useBooksTaxonomies`
+                        object={genreData} // Assuming `genre` is fetched from `usePostTaxonomies`
                         filterState={filterGenres}
                         handleFilterChange={handleFilterChange('genre')}
                     />
@@ -57,7 +91,7 @@ export default function Filters({ searchParams, setSearchParams }) {
                 <AccordionFilterItem id="country">
                     <AccordionFilter.Title className="Title">Country</AccordionFilter.Title>
                     <AccordionFilter.Checkbox
-                        object={country} // Assuming `country` is fetched from `useBooksTaxonomies`
+                        object={countryData} // Assuming `country` is fetched from `usePostTaxonomies`
                         filterState={filterCountries}
                         handleFilterChange={handleFilterChange('country')}
                     />
@@ -66,7 +100,7 @@ export default function Filters({ searchParams, setSearchParams }) {
                 <AccordionFilterItem id="language">
                     <AccordionFilter.Title className="Title">Language</AccordionFilter.Title>
                     <AccordionFilter.Checkbox
-                        object={language} // Assuming `language` is fetched from `useBooksTaxonomies`
+                        object={languageData} // Assuming `language` is fetched from `usePostTaxonomies`
                         filterState={filterLanguages}
                         handleFilterChange={handleFilterChange('language')}
                     />
@@ -75,7 +109,7 @@ export default function Filters({ searchParams, setSearchParams }) {
                 <AccordionFilterItem id="release">
                     <AccordionFilter.Title className="Title">Release Date</AccordionFilter.Title>
                     <AccordionFilter.Checkbox
-                        object={release} // Assuming `release` is fetched from `useBooksTaxonomies`
+                        object={releaseData} // Assuming `release` is fetched from `usePostTaxonomies`
                         filterState={filterReleases}
                         handleFilterChange={handleFilterChange('release')}
                     />
@@ -84,7 +118,7 @@ export default function Filters({ searchParams, setSearchParams }) {
                 <AccordionFilterItem id="wrirer">
                     <AccordionFilter.Title className="Title">Writer</AccordionFilter.Title>
                     <AccordionFilter.Checkbox
-                        object={wrirer} // Assuming `wrirer` is fetched from `useBooksTaxonomies`
+                        object={wrirerData} // Assuming `wrirer` is fetched from `usePostTaxonomies`
                         filterState={filterWrirers}
                         handleFilterChange={handleFilterChange('wrirer')}
                     />
@@ -93,7 +127,7 @@ export default function Filters({ searchParams, setSearchParams }) {
                 <AccordionFilterItem id="reading_status">
                     <AccordionFilter.Title className="Title">Reading Status</AccordionFilter.Title>
                     <AccordionFilter.Checkbox
-                        object={readingStatus} // Assuming `readingStatus` is fetched from `useBooksTaxonomies`
+                        object={readingStatusData} // Assuming `readingStatus` is fetched from `usePostTaxonomies`
                         filterState={filterReadingStatus}
                         handleFilterChange={handleFilterChange('reading_status')}
                     />
@@ -101,6 +135,12 @@ export default function Filters({ searchParams, setSearchParams }) {
 
                 <div className="btn" onClick={handleResetAllFilters}>Reset All Filters</div>
             </AccordionFilter>
+        )
+    }
+
+    return (
+        <div className="wrapper-1220">
+            {content}
         </div>
     );
 }

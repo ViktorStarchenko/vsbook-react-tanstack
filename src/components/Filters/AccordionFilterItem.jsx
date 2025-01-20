@@ -9,7 +9,7 @@ export function useAccordionFilterItemContext() {
     const ctx = useContext(AccordionFilterItemContext);
 
     if(!ctx) {
-        throw new Error('All Filter-related components must be wrapper by AccordionFilterItem')
+        throw new Error('All Filters-related components must be wrapper by AccordionFilterItem')
     }
 
     return ctx;

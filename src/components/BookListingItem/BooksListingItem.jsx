@@ -23,8 +23,6 @@ export default function BooksListingItem({post}) {
     // const featuredImage = usePostImage({ post });
     const {data, isLoading, isError, error} = usePostImage({ post });
 
-    console.log(data);
-
     function openModal() {
         // dialog.current.showModal();
         dialog.current.open();

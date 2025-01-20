@@ -63,6 +63,16 @@ export async function fetchPostImage({post}) {
     }
 }
 
+export async function fetchTaxonomy({taxonomyName}) {
+
+    try {
+        const response = await axios.get(`https://a.vsbookcollection.space/wp-json/wp/v2/${taxonomyName}?per_page=100`);
+        return response.data; // Вернёт массив данных о жанрах
+    } catch (error) {
+        return null; // В случае ошибки возвращаем null
+    }
+}
+
 // export async function booksLoader({params, request}) {
 //     // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');
 //     const url = new URL(request.url);
