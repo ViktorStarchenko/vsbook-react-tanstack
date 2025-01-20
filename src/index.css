@@ -17,7 +17,9 @@ body {
     margin: 0;
     box-sizing: border-box;
 }
-
+a {
+    color: #e1eeeb;
+}
 .h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -29,6 +31,15 @@ body {
     font-weight: bold;
     line-height: 1.2;
     margin-bottom: 25px;
+}
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
 }
 
 .wrapper-1020 {
@@ -334,4 +345,15 @@ select {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/*Flex styles*/
+.align-self-end {
+    align-self: flex-end;
+}
+.align-self-start {
+    align-self: flex-start;
+}
+.align-self-center {
+    align-self: center;
 }

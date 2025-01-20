@@ -22,22 +22,32 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 30px;
+    background: #000;
+    padding: 10px;
 }
 .book-single-image img {
     width: auto;
     max-width: 100%;
-    max-height: 600px;
+    max-height: 400px;
     object-fit: contain;
 }
-.book-single-body {
+.book-single-info {
+    width: 100%;
+    max-width: 350px;
+}
+.book-single-description {
+    width: 100%;
     max-width: 600px;
+}
+.book-single-body {
+    width: 100%;
     margin: auto;
-    padding: 40px 0;
+    padding: 20px 0;
     text-align: left;
+    line-height: 1.2;
 }
 .taxonomy-list {
     max-width: 800px;
-    margin: auto;
     display: flex;
     flex-direction: column;
     row-gap: 8px;

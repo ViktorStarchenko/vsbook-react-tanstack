@@ -5,6 +5,7 @@ import classes from './Root.module.css'
 import Footer from "../components/Footer";
 import {useEffect} from "react";
 import {getTokenDuration} from "../util/auth";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function RootLayout() {
     const token = useLoaderData();
@@ -30,7 +31,7 @@ export default function RootLayout() {
     return (
         <>
             <MainNavigation />
-            {navigation.state === 'loading' && <p>Loading...</p>}
+            {navigation.state === 'loading' && <LoadingIndicator />}
             <main className={classes.content}>
                 <Outlet />
             </main>

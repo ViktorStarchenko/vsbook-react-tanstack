@@ -8,10 +8,6 @@ export default function BookDetailPage() {
 
     return (
         <>
-            <p>Book id: {params.bookId}</p>
-            <p>
-                <Link to=".." relative="path">Go back</Link>
-            </p>
             <BookSingle post={book} />
         </>
 
