@@ -1,22 +1,15 @@
 import axios from "axios";
 
 export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
-    console.log(page)
-    console.log(sortOrder)
-    console.log(filtersArray)
+    // console.log(page)
+    // console.log(sortOrder)
+    // console.log(filtersArray)
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
 
     let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${paramPage}&order=${sort}`;
 
-    // if (filtersArray) {
-    //     filtersArray.map(item => {
-    //         if (item) {
-    //             url += `&${item[0]}=${item[1]}`;
-    //         }
-    //     })
-    // }
     if (filtersArray) {
         url += filtersArray.reduce((acc, [key, value]) => {
             if (key && value) {
@@ -56,22 +49,58 @@ export async function fetchPostImage({post}) {
         }
     } catch(error) {
         if (error.response && error.response.status === 404) {
-            // Если изображение отсутствует, возвращаем null
+            // If the image is missing, return null
             return null;
         }
-        throw error; // Для других ошибок кидаем исключение
+        throw error;
     }
 }
 
 export async function fetchTaxonomy({taxonomyName}) {
-
     try {
         const response = await axios.get(`https://a.vsbookcollection.space/wp-json/wp/v2/${taxonomyName}?per_page=100`);
-        return response.data; // Вернёт массив данных о жанрах
+        return response.data;
     } catch (error) {
-        return null; // В случае ошибки возвращаем null
+        return null;
     }
 }
+
+export async function fetchPostTaxonomies({signal, postId, terms}) {
+    if (!terms || terms.length === 0) return {};
+
+    try {
+        const results = await Promise.all(
+            terms.map(async (item) => {
+                try {
+                    const config = {
+                        method: 'get',
+                        maxBodyLength: Infinity,
+                        url: item.href,
+                        signal: signal,
+                    };
+                    const response = await axios.request(config);
+                    return { taxonomy: item.taxonomy, data: response.data };
+                } catch (error) {
+                    return { taxonomy: item.taxonomy, data: null };
+                }
+            })
+        );
+
+        // Collect data into an object
+        const data = results.reduce((acc, curr) => {
+            if (curr.data) {
+                acc[curr.taxonomy] = curr.data;
+            }
+            return acc;
+        }, {});
+
+        return data;
+    } catch (error) {
+        console.error("Error fetching taxonomies:", error);
+        return {};
+    }
+}
+
 
 // export async function booksLoader({params, request}) {
 //     // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');

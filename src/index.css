@@ -31,11 +31,21 @@ body {
     margin-bottom: 25px;
 }
 
+.wrapper-1020 {
+    width: 100%;
+    max-width: 1020px;
+    margin: auto;
+}
 .wrapper-1220 {
     width: 100%;
     max-width: 1220px;
     padding: 0 20px;
     margin: auto;
+}
+@media (max-width: 1040px) {
+    .wrapper-1020 {
+        padding: 0 20px;
+    }
 }
 .imageContain {
     object-fit: contain!important;

@@ -9,12 +9,11 @@ import Modal from "../Modal/Modal";
 import {useRouteLoaderData} from "react-router-dom";
 import {usePostImage} from "../../hooks/usePostImage";
 import LoadingIndicator from "../LoadingIndicator";
+import BookSingleCategories from "./BookSingleCategories";
+import BookSingleImage from "./BookSingleImage";
 
 export default function BookSingle({post}) {
     const token = useRouteLoaderData('root');
-    const {data: featuredImage, isLoading: isLoadingImage, isError: isErrorImage, error: errorImage} = usePostImage({ post });
-
-    const { genre, language, wrirer, release, country, readingStatus } = usePostData(post);
 
     const deleteBookModalRef = useRef();
 
@@ -22,35 +21,18 @@ export default function BookSingle({post}) {
         deleteBookModalRef.current.open();
     }
 
-    let imageBlock;
-
-    if (isLoadingImage) {
-        imageBlock = <LoadingIndicator />
-    }
-
-    if (featuredImage) {
-        imageBlock = <img src={featuredImage} alt={post.title.rendered}/>
-    }
-
-
-
     return (
         <>
-            <div className={classes.bookSingleWrapper}>
-                <h1>{post.title.rendered}</h1>
-                <div className={classes.bookSingleImage}>
-                    {featuredImage && <img src={featuredImage} alt={post.title.rendered}/>}
-                </div>
-                <div className={classes.taxonomyList}>
-                    {genre && <Taxonomy name="Genre" term={genre} />}
-                    {language && <Taxonomy name="Language" term={language} />}
-                    {wrirer && <Taxonomy name="Writer" term={wrirer} />}
-                    {release && <Taxonomy name="Release" term={release} />}
-                    {country && <Taxonomy name="Country" term={country} />}
-                    {readingStatus && <Taxonomy name="Reading Status" term={readingStatus} />}
-                </div>
-                <div>
-                    <div className={classes.bookSingleBody} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+            <div className={`${classes['book-single-wrapper']} wrapper-1020`}>
+                <div className={classes['book-single-row']}>
+                    <div className={classes['book-single-column']}>
+                        <BookSingleImage post={post}/>
+                        <h1 className="h1" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h1>
+                        <BookSingleCategories post={post}/>
+                    </div>
+                    <div className={classes['book-single-column']}>
+                        <div className={classes['book-single-body']} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+                    </div>
                 </div>
 
                 {token && (<>
