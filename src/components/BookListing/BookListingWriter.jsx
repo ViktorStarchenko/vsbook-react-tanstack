@@ -6,7 +6,7 @@ export default function BookListingWriter({object}) {
         <>
             <div className={classes.listingItemWriter}>
                 {object && object.map((item) => (
-                    <span>{item.name}</span>
+                    <span key={item.id}>{item.name}</span>
                 ))}
             </div>
         </>
