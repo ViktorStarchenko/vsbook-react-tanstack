@@ -6,7 +6,7 @@ import {getAuthToken} from "./util/auth";
 
 
 export async function booksLoader({params, request}) {
-    // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');
+
     const url = new URL(request.url);
     let page = params.page || 1; // Get the page number from the parameters or use 1 by default
     const sort = url.searchParams.get("sort") || "desc";
@@ -25,9 +25,7 @@ export async function booksLoader({params, request}) {
     const wrirerParam = wrirer ? `&wrirer=${wrirer}` : '';
     const readingStatusParam = readingStatus ? `&reading_status=${readingStatus}` : '';
 
-
     const response = await fetch(`https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${page}&order=${sort}${genreParam}${countryParam}${languageParam}${releaseParam}${wrirerParam}${readingStatusParam}`);
-
 
     if (!response.ok) {
         throw new Response(

@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
-    console.log(page)
-    console.log(sortOrder)
-    console.log(filtersArray)
+    // console.log(page)
+    // console.log(sortOrder)
+    // console.log(filtersArray)
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
@@ -33,19 +33,19 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
         if (response.status != 200) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
-        console.log(response)
+        // console.log(response)
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {
         throw new Error(error.message || "Failed to fetch books");
     }
 }
 
-export async function fetchPost({request, params}) {
+export async function fetchPost({request, params, postId}) {
     if (!params.bookId) {
         throw new Error("Invalid argument provided");
     }
 
-    const id = params.bookId;
+    let id = params.bookId;
 
     let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/book/' + id;
 
@@ -71,7 +71,6 @@ export async function fetchPost({request, params}) {
         }
         return null;
     }
-
 
 }
 
@@ -175,7 +174,41 @@ export async function fetchPostTaxonomies({signal, postId, terms}) {
     }
 }
 
+export async function fetchPage({signal, postId}) {
 
+    if (!postId) {
+        throw new Error("Invalid argument provided");
+    }
+
+    let id = postId;
+
+    let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/pages/' + id;
+
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: url,
+        signal: signal
+    }
+
+    try {
+        const response = await axios.request(config);
+
+        if (response.status != 200) {
+            throw new Error("Failed to fetch page with id " + id);
+        }
+
+        return response.data
+
+    } catch (error) {
+        throw new Error("Failed to fetch page with id " + id);
+        if (error.response && error.response.status === 404) {
+            throw new Error("I can't find a page with this ID " + id);
+        }
+        return null;
+    }
+
+}
 // export async function booksLoader({params, request}) {
 //     // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');
 //     const url = new URL(request.url);

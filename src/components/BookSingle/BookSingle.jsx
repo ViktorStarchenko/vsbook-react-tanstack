@@ -13,6 +13,7 @@ import BookSingleCategories from "./BookSingleCategories";
 import BookSingleImage from "./BookSingleImage";
 
 export default function BookSingle({post}) {
+
     const token = useRouteLoaderData('root');
 
     const location = useLocation();

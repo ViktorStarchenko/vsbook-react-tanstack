@@ -1,45 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {useQuery} from "@tanstack/react-query";
+import {fetchPost} from "../util/http";
 
-export function usePostData(post) {
-    const [data, setData] = useState({
-        featuredImage: '',
-        genre: '',
-        language: '',
-        wrirer: '',
-        release: '',
-        country: '',
-        readingStatus: '',
-    });
+export function usePostData(postId) {
 
-    useEffect(() => {
-        if (!post || !post.id) return;
+    const {data, isLoading, isError, error} = useQuery({
+        queryKey: ['post', {postId}],
+        queryFn: () => fetchPost({request: {}, params: {}, postId})
+    })
 
-        const fetchData = async () => {
-            try {
-                const newData = { ...data };
-
-                if (post._links['wp:featuredmedia']?.[0]?.href) {
-                    const imgResponse = await axios.get(post._links['wp:featuredmedia'][0].href);
-                    newData.featuredImage = imgResponse.data?.source_url || '';
-                }
-
-                for (let i = 0; i <= 5; i++) {
-                    if (post._links['wp:term']?.[i]?.href) {
-                        const termResponse = await axios.get(post._links['wp:term'][i].href);
-                        const key = ['genre', 'language', 'wrirer', 'release', 'country', 'readingStatus'][i];
-                        newData[key] = termResponse.data || '';
-                    }
-                }
-
-                setData(newData);
-            } catch (error) {
-                console.error("Error fetching post data:", error);
-            }
-        };
-
-        fetchData();
-    }, [post]);
-
-    return data;
+    return {data, isLoading, isError, error};
 }
