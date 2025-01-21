@@ -4,15 +4,6 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     console.log(page)
     console.log(sortOrder)
     console.log(filtersArray)
-    // if (!page) {
-    //     throw new Error("Invalid page data");
-    // }
-    // if (!sortOrder) {
-    //     throw new Error("Invalid sortOrder data");
-    // }
-    // if (!filtersArray) {
-    //     throw new Error("Invalid filtersArray data");
-    // }
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
@@ -49,6 +40,41 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     }
 }
 
+export async function fetchPost({request, params}) {
+    if (!params.bookId) {
+        throw new Error("Invalid argument provided");
+    }
+
+    const id = params.bookId;
+
+    let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/book/' + id;
+
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: url,
+    }
+
+    try {
+        const response = await axios.request(config);
+
+        if (response.status != 200) {
+            throw new Error("Failed to fetch book with id " + id);
+        }
+
+        return response.data
+
+    } catch (error) {
+        throw new Error("Failed to fetch book with id " + id);
+        if (error.response && error.response.status === 404) {
+            throw new Error("I can't find a post with this ID " + id);
+        }
+        return null;
+    }
+
+
+}
+
 export async function fetchPostImage({signal, post, postId}) {
     if (!postId || !post) {
         throw new Error("Invalid post data or postId is missing");
@@ -73,6 +99,7 @@ export async function fetchPostImage({signal, post, postId}) {
     }
 }
 
+
 export async function fetchTaxonomy({taxonomyName}) {
     if (!taxonomyName) {
         throw new Error("Invalid taxonomyName data");
@@ -83,6 +110,32 @@ export async function fetchTaxonomy({taxonomyName}) {
         return response.data;
     } catch (error) {
         throw new Error(error.message || "Failed to fetch image");
+    }
+}
+
+export async function fetchPostTaxonomy({signal, taxonomyName, postId}) {
+    if (!taxonomyName || !postId) {
+        throw new Error("Invalid taxonomyName or postId data");
+    }
+    // "https://a.vsbookcollection.space/wp-json/wp/v2/genre?post=3109"
+    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/${taxonomyName}?post=${postId}`
+
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: url
+    }
+
+    try {
+        const response = await axios.request(config);
+
+        if (response.status != 200) {
+            throw new Error(`Failed to fetch taxonomy: ${response.statusText}`);
+        }
+
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message || "Failed to fetch post taxonomy " + taxonomyName);
     }
 }
 

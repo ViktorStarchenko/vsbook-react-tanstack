@@ -1,4 +1,4 @@
-import classes from "../BooksListing.module.css";
+import classes from "./BooksListing.module.css";
 import logoImage from "../../assets/images/logo-3.svg";
 
 export default function BookListingItemImage({featuredImage, title}) {

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useState, useEffect, useRef } from 'react';
 
-import classes from '../BooksListing.module.css';
+import classes from './BooksListing.module.css';
 import lupaImage from '../../assets/images/noun-magnifying-glass-50744.svg'
 import logoImage from '../../assets/images/logo-3.svg'
 import Modal from "../Modal/Modal";
@@ -15,6 +15,8 @@ import TooltipModal from "../elements/TooltipModal";
 import {useQuery} from "@tanstack/react-query";
 import {fetchPostImage} from "../../util/http";
 import LoadingIndicator from "../LoadingIndicator";
+import {usePostTaxonomy} from "../../hooks/usePostTaxonomy";
+import BookListingWriter from "./BookListingWriter";
 
 export default function BooksListingItem({post}) {
     const [showDescription, setShowDescription] = useState(false)
@@ -22,6 +24,12 @@ export default function BooksListingItem({post}) {
     const dialog = useRef();
     // const featuredImage = usePostImage({ post });
     const {data, isLoading, isError, error} = usePostImage({ post });
+
+
+    const {data: dataWrirer, isLoading: isLoadingWrirer, isError: isErrorWrirer, error: errorWrirer} = usePostTaxonomy({
+        taxonomyName: 'wrirer',
+        postId: post.id
+    });
 
     function openModal() {
         // dialog.current.showModal();
@@ -65,7 +73,8 @@ export default function BooksListingItem({post}) {
                     onMouseEnter={() => toggleDescription(true)}
                     onMouseLeave={() => toggleDescription(false)}
                 >
-                    <BooksListingItemTitle title={post.title.rendered} postId={post.id}/>
+                    {post.title && <BooksListingItemTitle title={post.title.rendered} postId={post.id}/>}
+                    {dataWrirer && dataWrirer.length > 0 && <BookListingWriter object={dataWrirer}/>}
 
                     {/*<TooltipModal>*/}
                     {/*    <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>*/}

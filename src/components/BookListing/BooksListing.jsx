@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 
-import BooksListingItem from "./BookListingItem/BooksListingItem";
+import BooksListingItem from "./BooksListingItem";
 import classes from './BooksListing.module.css';
 
 export default function BooksListing({books}) {

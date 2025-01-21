@@ -46,11 +46,6 @@ export async function bookDetailLoader({request, params}) {
     const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book/' + id);
 
     if (!response.ok) {
-        // return json(
-        //     {message: "could not fetch books"},
-        //     {status: 500}
-        // );
-
         throw new Response(
             "could not fetch books",
             {status: 500}

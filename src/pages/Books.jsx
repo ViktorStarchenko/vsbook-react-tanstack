@@ -1,5 +1,5 @@
 import { Link, useLoaderData, useParams, useNavigate, useLocation, useSearchParams } from "react-router-dom";
-import BooksListing from "../components/BooksListing";
+import BooksListing from "../components/BookListing/BooksListing";
 import {useEffect, useRef, useState} from "react";
 
 import Filters from "../components/Filters/Filters";

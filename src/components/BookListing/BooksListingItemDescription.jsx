@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import classes from '../BooksListing.module.css';
+import classes from './BooksListing.module.css';
 
 export default function BooksListingItemDescription({children}) {
 

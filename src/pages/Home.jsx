@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
-import BooksListing from "../components/BooksListing";
+import BooksListing from "../components/BookListing/BooksListing";
 import {useQuery} from "@tanstack/react-query";
 import {booksLoader} from "../booksFunctions";
 import {fetchPosts} from "../util/http";

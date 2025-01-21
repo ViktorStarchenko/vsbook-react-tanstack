@@ -11,6 +11,7 @@ import NewBookPage from "./pages/NewBook";
 import Authentification, { action } from "./pages/Authentification";
 import { action as logoutAction } from "./pages/Logout"
 import {checkAuthLoader, tokenLoader} from "./util/auth";
+import {fetchPost} from "./util/http";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +39,8 @@ const router = createBrowserRouter([
             {
                 path: 'books/:bookId',
                 id: 'book-detail',
-                loader: bookDetailLoader,
+                // loader: bookDetailLoader,
+                loader: fetchPost,
                 children: [
                     {
                         index: true,
