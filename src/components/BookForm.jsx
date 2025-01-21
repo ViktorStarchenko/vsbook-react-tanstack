@@ -13,6 +13,7 @@ import CheckboxList from "./Checkbox/CheckboxList";
 import CustomCheckbox from "./Checkbox/CustomCheckbox";
 import Accordion from "./Accordion/Accordion";
 import ImagePicker from "./ImagePicker/ImagePicker";
+import ErrorBlock from "./ErrorsBlock/ErrorsBlock";
 
 export default function BookForm() {
     const data = useActionData();
@@ -48,18 +49,17 @@ export default function BookForm() {
 
            <Form method="POST" encType="multipart/form-data">
                {data && data.errors && (
-                   <ul className={classes.errorList}>
-                       {Object.entries(data.errors).map(([key, error]) => (
-                           <li key={key}>{error}</li>
-                       ))}
-                   </ul>
+                   <ErrorBlock errors={data.errors}/>
                )}
                <div className={classes.formInner}>
                    <Input name="title" type="text" placeholder="Post title"/>
-                   <Input name="status" type="text" placeholder="Post status"/>
-                   {/*<Input name="featured_image" type="file" placeholder="Image"/>*/}
+
+                   <Select name="status" object={[
+                       {'id': 'draft', 'name': 'draft'},
+                       {'id': 'publish', 'name': 'publish'}
+                   ]}/>
+
                    <ImagePicker id="featured_image" name="featured_image" placeholder="Select book cover"/>
-                   {/*<Input name="image" type="text" placeholder="Post image"/>*/}
 
                    <div className={classes.formField}>
                        <textarea className={classes.formFieldInput} type="textarea" name="content" placeholder="Content"/>

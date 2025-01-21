@@ -21,7 +21,7 @@ export default function RootLayout() {
         }
 
         const tokenDuration = getTokenDuration();
-        // console.log(tokenDuration)
+        console.log(token)
 
         setTimeout(() => {
             submit(null, {action: '/logout', method: 'POST'})

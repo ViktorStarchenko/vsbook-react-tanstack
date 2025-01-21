@@ -1,18 +1,18 @@
 import axios from "axios";
 
 export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
-    // console.log(page)
-    // console.log(sortOrder)
-    // console.log(filtersArray)
-    if (!page) {
-        throw new Error("Invalid page data");
-    }
-    if (!sortOrder) {
-        throw new Error("Invalid sortOrder data");
-    }
-    if (!filtersArray) {
-        throw new Error("Invalid filtersArray data");
-    }
+    console.log(page)
+    console.log(sortOrder)
+    console.log(filtersArray)
+    // if (!page) {
+    //     throw new Error("Invalid page data");
+    // }
+    // if (!sortOrder) {
+    //     throw new Error("Invalid sortOrder data");
+    // }
+    // if (!filtersArray) {
+    //     throw new Error("Invalid filtersArray data");
+    // }
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
@@ -42,7 +42,6 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
         if (response.status != 200) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
-
         console.log(response)
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {

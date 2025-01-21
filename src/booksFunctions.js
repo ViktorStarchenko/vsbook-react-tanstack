@@ -179,10 +179,18 @@ export async function postBook({request, params}) {
         }
     });
 
-    // Add featured media
+
     let featuredMedia = undefined;
     if (file.size > 0) {
         featuredMedia = await uploadMedia(file);
+    }
+
+    // Managing errors
+    if (!data['title']) {
+        errors.title = "The Title must not be empty"
+    }
+    if (!data['content']) {
+        errors.content = "The Content must not be empty"
     }
     if (!featuredMedia || !featuredMedia.id) {
         errors.featured_media = "Failed to upload featured media.";
@@ -228,10 +236,6 @@ export async function postBook({request, params}) {
             'Content-Type': 'application/json',
         }
     };
-
-    if (errorMessage) {
-        return {success: false, message: errorMessage};
-    }
 
     try {
         const response = await axios.request(config);

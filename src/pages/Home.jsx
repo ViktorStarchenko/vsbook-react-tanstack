@@ -20,6 +20,8 @@ function HomePage() {
         content = <LoadingIndicator />
     }
 
+    console.log(data)
+
     if (data && data.posts.length > 0) {
         posts = data.posts;
         content = <BooksListing books={posts} />
