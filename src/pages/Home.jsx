@@ -39,9 +39,8 @@ function HomePage() {
     return (
         <main>
             {homeBanner}
-            <h1>THIS IS HOME PAGE ASDASD ASD ASD D </h1>
-            <Link to="https://dou.ua/forums/topic/47479/">Somwhere external</Link>
-            <p>Go to <Link to="/books">Books page</Link>.</p>
+            <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
+            <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
             {content}
         </main>
     )

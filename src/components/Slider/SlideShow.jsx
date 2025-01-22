@@ -28,7 +28,7 @@ export default function SlideShow({data}) {
 
     return (
         <>
-            <div className="slideshow-wrapper">
+            <div className="slideshow-wrapper pb-1rem">
                 <SlideShowButtonPrev buttonHandler={handlePrev}/>
                 <div className="slideshow">
 
