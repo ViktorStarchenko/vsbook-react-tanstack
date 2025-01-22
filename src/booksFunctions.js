@@ -210,6 +210,7 @@ export async function postBook({request, params}) {
 
     // let token = await getBearerToken();
     let token = getAuthToken();
+    console.log(token)
 
     if (!token) {
         errors.token = "Token not available.";
@@ -219,6 +220,13 @@ export async function postBook({request, params}) {
     if (Object.keys(errors).length > 0) {
         return { success: false, errors };
     }
+
+    let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/book?'
+    url += urlParams;
+
+    console.log(url)
+
+    return null
 
     let config = {
         method: 'post',

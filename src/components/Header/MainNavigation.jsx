@@ -9,15 +9,6 @@ export default function MainNavigation() {
         <ul className="header-nav-list main-menu">
             <li>
                 <NavLink
-                    to="/"
-                    className={({isActive}) => isActive ? 'active' : undefined}
-                    end
-                >
-                    Home
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
                     to="/books"
                     className={({isActive}) => isActive ? 'active' : undefined}
                 >Books</NavLink>

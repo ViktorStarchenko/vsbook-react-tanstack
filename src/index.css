@@ -33,6 +33,9 @@ select {
     border: none;
     outline: unset;
 }
+input {
+    height: 40px;
+}
 input::placeholder,
 textarea::placeholder {
     color: #fff;

@@ -14,6 +14,8 @@ import CustomCheckbox from "./Checkbox/CustomCheckbox";
 import Accordion from "./Accordion/Accordion";
 import ImagePicker from "./ImagePicker/ImagePicker";
 import ErrorBlock from "./ErrorsBlock/ErrorsBlock";
+import {useMutation} from "@tanstack/react-query";
+import {createTaxonomyTerm} from "../util/http";
 
 export default function BookForm() {
     const data = useActionData();
@@ -40,6 +42,18 @@ export default function BookForm() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
+
+
+    const createGenreRef = useRef();
+
+    const {mutate} = useMutation({
+        mutationFn: createTaxonomyTerm
+    })
+
+    function handleCreateGenre(taxonomy) {
+        const name = createGenreRef.current.value;
+        mutate({taxonomy: taxonomy, name: name})
+    }
 
     return (
         <>
@@ -77,9 +91,12 @@ export default function BookForm() {
                                     </CheckboxList>
                                 </Accordion.Content>
                             </Accordion.Item>
-
                         </Accordion>}
 
+                        <div className={classes.formCreateTerm}>
+                            <input name="createGenre" type="text" placeholder="Create new genre" ref={createGenreRef}/>
+                            <div className="btn" onClick={() => handleCreateGenre('genre')}>Add genre</div>
+                        </div>
 
                         {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
                         {country && <Select name="country" object={country} emptyValueName="Select book country"/>}

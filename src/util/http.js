@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getAuthToken} from "./auth";
 
 export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     // console.log(page)
@@ -207,7 +208,59 @@ export async function fetchPage({signal, postId}) {
         }
         return null;
     }
+}
 
+
+export async function createTaxonomyTerm({taxonomy, name}) {
+    if (!name || !taxonomy) {
+        throw new Error("Wrong or empty term name");
+    }
+
+    const token = getAuthToken();
+
+    if (!token) {
+        throw new Error("Wrong Auth token");
+    }
+
+    const slug = createSlug(name);
+    const encodedText = encodeURIComponent(name);
+    console.log(taxonomy)
+    console.log(encodedText)
+    console.log(slug)
+
+    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/${taxonomy}?slug=${slug}&name=${encodedText}`;
+
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: url,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        }
+    }
+
+    try {
+        const response = await axios.request(config);
+        if (response.status != 200) {
+            throw new Error("Failed to create term " + name);
+        }
+        console.log(response)
+        return response
+    } catch (error) {
+        throw new Error("Failed to create term " + name);
+
+        return null;
+    }
+}
+
+function createSlug(text) {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
 }
 // export async function booksLoader({params, request}) {
 //     // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');
