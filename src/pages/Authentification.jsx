@@ -1,12 +1,16 @@
 import {Form, redirect, useActionData, useNavigation} from "react-router-dom";
 import axios from "axios";
 import Input from "../components/elements/Input";
+import ErrorBlock from "../components/ErrorsBlock/ErrorsBlock";
+import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
 
 export default function Authentification() {
     const data = useActionData();
     const navigation = useNavigation();
     const isSubmitting = navigation.state === 'submitting';
-
+    if(data && data.message){
+        console.log(data.message)
+    }
     return (
         <div className="wrapper-1220">
             <Form method="POST">
@@ -16,7 +20,12 @@ export default function Authentification() {
                         <li key={err}>{err}</li>
                     ))}
                 </ul>}
-                {data && data.message && <p>{data.message}</p>}
+                {data && data.message && (
+                    <ul className={classes['errors-block-list']}>
+                        <li className={classes['errors-block-item']}>{data.message}</li>
+                    </ul>
+                )}
+
                 <div className="formInner">
                     <Input name="username" type="text" placeholder="Username"/>
                     <Input name="password" type="password" placeholder="Password"/>
