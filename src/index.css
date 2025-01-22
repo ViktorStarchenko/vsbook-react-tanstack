@@ -266,6 +266,15 @@ select {
 }
 
 /*Form*/
+.formCreateTerm {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.formCreateTerm .btn {
+    min-width: unset;
+}
 .formInner {
     max-width: 800px;
     margin: auto;
@@ -282,15 +291,22 @@ select {
     width: 100%;
     height: 40px;
 }
-textarea {
-    min-height: 80px;
-}
 select {
     min-width: 250px;
     height: 40px;
 }
 .btnSubmit {
     width: 100%;
+}
+.form-row {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.form-input-50 {
+    min-width: 50%;
 }
 
 /*Accordion Item*/

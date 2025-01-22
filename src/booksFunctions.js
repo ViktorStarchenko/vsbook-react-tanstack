@@ -226,8 +226,6 @@ export async function postBook({request, params}) {
 
     console.log(url)
 
-    return null
-
     let config = {
         method: 'post',
         maxBodyLength: Infinity,

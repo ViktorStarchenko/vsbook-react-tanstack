@@ -1,4 +1,4 @@
-import classes from '../BookForm.module.css';
+import classes from '../BookForm/BookForm.module.css';
 
 export default function Input({type, name, placeholder}) {
 

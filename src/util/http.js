@@ -1,5 +1,8 @@
 import axios from "axios";
 import {getAuthToken} from "./auth";
+import {QueryClient} from "@tanstack/react-query";
+
+export const queryClient = new QueryClient()
 
 export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     // console.log(page)
@@ -195,7 +198,7 @@ export async function fetchPage({signal, postId}) {
     try {
         const response = await axios.request(config);
 
-        if (response.status != 200) {
+        if (response.status != 200 || response.status != 201) {
             throw new Error("Failed to fetch page with id " + id);
         }
 
@@ -242,13 +245,13 @@ export async function createTaxonomyTerm({taxonomy, name}) {
 
     try {
         const response = await axios.request(config);
-        if (response.status != 200) {
+        if (response.status != 200 && response.status != 201) {
             throw new Error("Failed to create term " + name);
         }
         console.log(response)
         return response
     } catch (error) {
-        throw new Error("Failed to create term " + name);
+        throw new Error("Catch error: Failed to create term " + name);
 
         return null;
     }

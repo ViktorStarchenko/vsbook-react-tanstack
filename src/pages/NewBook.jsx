@@ -1,5 +1,5 @@
 import { useActionData } from 'react-router-dom';
-import BookForm from "../components/BookForm";
+import BookForm from "../components/BookForm/BookForm";
 
 export default function NewBookPage() {
     const data = useActionData();

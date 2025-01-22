@@ -7,7 +7,6 @@ export default function Authentification() {
     const navigation = useNavigation();
     const isSubmitting = navigation.state === 'submitting';
 
-    console.log(data)
     return (
         <div className="wrapper-1220">
             <Form method="POST">
