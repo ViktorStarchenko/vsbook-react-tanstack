@@ -179,8 +179,9 @@ export async function fetchPostTaxonomies({signal, postId, terms}) {
 }
 
 export async function fetchPage({signal, postId}) {
-
+    let errors = {};
     if (!postId) {
+        errors.fetchPage = "Invalid argument provided"
         throw new Error("Invalid argument provided");
     }
 
@@ -198,7 +199,7 @@ export async function fetchPage({signal, postId}) {
     try {
         const response = await axios.request(config);
 
-        if (response.status != 200 || response.status != 201) {
+        if (response.status != 200 && response.status != 201) {
             throw new Error("Failed to fetch page with id " + id);
         }
 
@@ -227,9 +228,6 @@ export async function createTaxonomyTerm({taxonomy, name}) {
 
     const slug = createSlug(name);
     const encodedText = encodeURIComponent(name);
-    console.log(taxonomy)
-    console.log(encodedText)
-    console.log(slug)
 
     let url = `https://a.vsbookcollection.space/wp-json/wp/v2/${taxonomy}?slug=${slug}&name=${encodedText}`;
 
@@ -246,11 +244,14 @@ export async function createTaxonomyTerm({taxonomy, name}) {
     try {
         const response = await axios.request(config);
         if (response.status != 200 && response.status != 201) {
-            throw new Error("Failed to create term " + name);
+            throw new Error(response.data.message || `Failed to create term ${name}`);
         }
-        console.log(response)
-        return response
+        return response.data
     } catch (error) {
+
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
         throw new Error("Catch error: Failed to create term " + name);
 
         return null;

@@ -8,15 +8,12 @@ import Modal from "../Modal/Modal";
 import ModalSuccess from "../Modal/ModalSuccess";
 
 import { useTaxonomies } from "../../hooks/useTaxonomies";
-import Checkbox from "../elements/Checkbox";
+
 import CheckboxList from "../Checkbox/CheckboxList";
 import CustomCheckbox from "../Checkbox/CustomCheckbox";
 import Accordion from "../Accordion/Accordion";
 import ImagePicker from "../ImagePicker/ImagePicker";
 import ErrorBlock from "../ErrorsBlock/ErrorsBlock";
-import {useMutation} from "@tanstack/react-query";
-import {createTaxonomyTerm, queryClient} from "../../util/http";
-import LoadingIndicator from "../LoadingIndicator";
 import CreateTaxonomy from "./CreateTaxonomy";
 import FormRow from "./FormRow";
 
@@ -85,30 +82,30 @@ export default function BookForm() {
                                     </Accordion.Content>
                                 </Accordion.Item>
                             </Accordion>
-                            <CreateTaxonomy taxonomy="genre"/>
                         </FormRow>}
+                        {genre && <FormRow><CreateTaxonomy taxonomy="genre"/></FormRow>}
 
 
                         {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
                         {country && <FormRow>
                             <Select className="form-input-50" name="country" object={country} emptyValueName="Select book country"/>
-                            <CreateTaxonomy taxonomy="country"/>
                         </FormRow>}
+                        {country && <FormRow><CreateTaxonomy taxonomy="country"/></FormRow>}
 
                         {language && <FormRow>
                             <Select className="form-input-50" name="language" object={language} emptyValueName="Select book language"/>
-                            <CreateTaxonomy taxonomy="language"/>
                         </FormRow>}
+                        {language && <FormRow><CreateTaxonomy taxonomy="language"/></FormRow>}
 
                         {release && <FormRow>
                             <Select className="form-input-50" name="release" object={release} emptyValueName="Select book release year"/>
-                            <CreateTaxonomy taxonomy="release"/>
                         </FormRow>}
+                        {release && <FormRow><CreateTaxonomy taxonomy="release"/></FormRow>}
 
                         {wrirer && <FormRow>
                             <Select className="form-input-50" name="wrirer" object={wrirer} emptyValueName="Select book writer"/>
-                            <CreateTaxonomy taxonomy="wrirer"/>
                         </FormRow>}
+                        {wrirer && <FormRow><CreateTaxonomy taxonomy="wrirer"/></FormRow>}
 
                         {readingStatus && <Select name="reading_status" object={readingStatus} emptyValueName="Select book reading status"/>}
 

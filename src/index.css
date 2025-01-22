@@ -273,7 +273,7 @@ select {
     gap: 20px;
 }
 .formCreateTerm .btn {
-    min-width: unset;
+    /*min-width: unset;*/
 }
 .formInner {
     max-width: 800px;
