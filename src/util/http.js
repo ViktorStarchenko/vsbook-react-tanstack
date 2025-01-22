@@ -280,6 +280,137 @@ export async function createTaxonomyTerm({taxonomy, name}) {
     }
 }
 
+export async function uploadMedia(file) {
+
+    let token = getAuthToken();
+    if (!token || !file) {
+        return null;
+    }
+
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://a.vsbookcollection.space/wp-json/wp/v2/media',
+        headers: {
+            'Content-Type': 'image/png',
+            'Authorization': `Bearer ${token}`,
+            'Content-Disposition': `attachment; filename="${file.name}"`,
+        },
+        data: file
+    };
+
+    try {
+        const response = await axios.request(config);
+        return response.data; // Returning success data
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error("Catch error: upload image error");
+        return null; // In case of error we return null
+    }
+}
+
+export async function postBook(formData) {
+    let data = {};
+    let errors = {};
+    if (!formData) {
+        errors.empty = "The Content must not be empty"
+        throw {errors}
+    }
+
+    // Create an object and manually collect `genre` as an array
+    formData.forEach((value, key) => {
+        // If the key already exists (e.g. `genre`), add it to the array
+        if (data[key]) {
+            if (Array.isArray(data[key])) {
+                data[key].push(value); // Append to existing array
+            } else {
+                data[key] = [data[key], value]; // Convert to array
+            }
+        } else {
+            data[key] = value; // Add the first value
+        }
+    });
+
+    let file = formData.get("featured_image");
+    let featuredMedia = undefined;
+    if (file.size > 0) {
+        featuredMedia = await uploadMedia(file);
+    }
+
+    // Managing errors
+    if (!data['title']) {
+        errors.title = "The Title must not be empty"
+    }
+    if (!data['content']) {
+        errors.content = "The Content must not be empty"
+    }
+    if (!featuredMedia || !featuredMedia.id) {
+        errors.featured_media = "Failed to upload featured media.";
+    } else {
+        data.featured_media = featuredMedia.id;
+    }
+
+    // Convert `data` to a URL parameter string
+    let urlParams = new URLSearchParams();
+
+    // Adding data to `URLSearchParams`, correctly handling arrays
+    for (const key in data) {
+        if (Array.isArray(data[key])) {
+            // For arrays (e.g. `genre`), concatenate values ​​separated by spaces
+            urlParams.append(key, data[key].join(" "));
+        } else {
+            // For the remaining parameters, add one value
+            urlParams.append(key, data[key]);
+        }
+    }
+
+    console.log(data); // Now `genre` will be an array of all selected values
+    console.log(urlParams); // Now `genre` will be an array of all selected values
+
+    // let token = await getBearerToken();
+    let token = getAuthToken();
+    console.log(token)
+
+    if (!token) {
+        errors.token = "Token not available.";
+    }
+
+    // If there are errors, we return them
+    if (Object.keys(errors).length > 0) {
+        throw { errors }
+    }
+
+    let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/book?'
+    url += urlParams;
+
+    console.log(url)
+
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://a.vsbookcollection.space/wp-json/wp/v2/book?' + urlParams,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        }
+    };
+
+    try {
+        const response = await axios.request(config);
+        // return response.data; // Returning response date
+        return { success: true, post: response.data }; // Returning success data
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        console.error("Error posting book:", error);
+        return null; // In case of error we return null
+    }
+
+}
+
 function createSlug(text) {
     return text
         .toLowerCase()

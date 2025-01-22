@@ -15,98 +15,127 @@ import ImagePicker from "../ImagePicker/ImagePicker";
 import ErrorBlock from "../ErrorsBlock/ErrorsBlock";
 import CreateTaxonomy from "./CreateTaxonomy";
 import FormRow from "./FormRow";
+import {useMutation} from "@tanstack/react-query";
+import {postBook} from "../../util/http";
+import LoadingIndicator from "../LoadingIndicator";
+import FormGroup from "./FormGroup";
 
 export default function BookForm() {
-    const data = useActionData();
-
-    const navigation = useNavigation();
+    const [formErrors, setFormErrors] = useState(null); // State for errors
     const dialog = useRef();
 
-    const [requestStatus, setRequestStatus] = useState(false);
     const [createdBook, setCreatedBook] = useState(null);
-
-    useEffect(() => {
-        if (data) {
-            if (data.post) {
-                setCreatedBook(data.post);
-            }
-            if (data.success) {
-                dialog.current.open();
-            }
-
-        }
-    }, [data]);
 
     const {genre, country, language, release, wrirer, readingStatus, loading, error} = useTaxonomies();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
+    const {mutate, isPending} = useMutation({
+        mutationFn: postBook,
+        onError: (error) => {
+            // If the error contains an error object (e.g. errors), save it
+            if (error && error.errors) {
+                setFormErrors(error.errors);
+            } else {
+                setFormErrors({ general: error.message }); // Common error
+            }
+        },
+        onSuccess: (data) => {
+            setFormErrors(null); // Clearing errors on successful submission
+            if (data.success) {
+                console.log("Created post:", data.post);
+                setCreatedBook(data.post); // Обновление состояния компонента
+                dialog.current.open();
+            }
+        }
+    })
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        setFormErrors(null);
+        const formData = new FormData(event.target);
+        mutate(formData);
+    }
+
     return (
         <>
+            {isPending && <LoadingIndicator />}
             <Modal ref={dialog} title="Book was successfully created">
                 {createdBook && <ModalSuccess book={createdBook}/>}
             </Modal>
 
             <div className="wrapper-1220">
-                <Form method="POST" encType="multipart/form-data">
-                    {data && data.errors && (
-                        <ErrorBlock errors={data.errors}/>
+                <Form method="POST" encType="multipart/form-data" onSubmit={handleFormSubmit}>
+                    {formErrors&& (
+                        <ErrorBlock errors={formErrors}/>
                     )}
                     <div className="formInner">
-                        <Input name="title" type="text" placeholder="Post title"/>
+                        <FormGroup>
+                            <Input name="title" type="text" placeholder="Post title"/>
 
-                        <Select name="status" object={[
-                            {'id': 'draft', 'name': 'draft'},
-                            {'id': 'publish', 'name': 'publish'}
-                        ]}/>
+                            <Select name="status" object={[
+                                {'id': 'draft', 'name': 'draft'},
+                                {'id': 'publish', 'name': 'publish'}
+                            ]}/>
 
-                        <ImagePicker id="featured_image" name="featured_image" placeholder="Select book cover"/>
+                            <ImagePicker id="featured_image" name="featured_image" placeholder="Select book cover"/>
 
-                        <div className="formField">
-                            <textarea className="formFieldInput" type="textarea" name="content" placeholder="Content"/>
-                        </div>
+                            <div className="formField">
+                                <textarea className="formFieldInput" type="textarea" name="content" placeholder="Content"/>
+                            </div>
+                        </FormGroup>
 
-                        {genre && <FormRow>
-                            <Accordion>
-                                <Accordion.Item id="accordion-genre">
-                                    <Accordion.Title className="btn">Genre</Accordion.Title>
-                                    <Accordion.Content>
-                                        <CheckboxList id="genre-list">
-                                            {genre.map(item => (
-                                                <CustomCheckbox key={item.id} id={item.id} label={item.name}
-                                                                name="genre" value={item.id}/>
-                                            ))}
-                                        </CheckboxList>
-                                    </Accordion.Content>
-                                </Accordion.Item>
-                            </Accordion>
-                        </FormRow>}
-                        {genre && <FormRow><CreateTaxonomy taxonomy="genre"/></FormRow>}
+                        <FormGroup>
+                            {genre && <FormRow>
+                                <Accordion>
+                                    <Accordion.Item id="accordion-genre">
+                                        <Accordion.Title className="btn">Genre</Accordion.Title>
+                                        <Accordion.Content>
+                                            <CheckboxList id="genre-list">
+                                                {genre.map(item => (
+                                                    <CustomCheckbox key={item.id} id={item.id} label={item.name}
+                                                                    name="genre" value={item.id}/>
+                                                ))}
+                                            </CheckboxList>
+                                        </Accordion.Content>
+                                    </Accordion.Item>
+                                </Accordion>
+                            </FormRow>}
+                            {genre && <FormRow><CreateTaxonomy taxonomy="genre"/></FormRow>}
+                        </FormGroup>
 
+                        <FormGroup>
+                            {country && <FormRow>
+                                <Select className="form-input-flex-1" name="country" object={country} emptyValueName="Select book country"/>
+                            </FormRow>}
+                            {country && <FormRow><CreateTaxonomy taxonomy="country"/></FormRow>}
+                        </FormGroup>
 
-                        {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
-                        {country && <FormRow>
-                            <Select className="form-input-50" name="country" object={country} emptyValueName="Select book country"/>
-                        </FormRow>}
-                        {country && <FormRow><CreateTaxonomy taxonomy="country"/></FormRow>}
+                        <FormGroup>
+                            {language && <FormRow>
+                                <Select className="form-input-flex-1" name="language" object={language} emptyValueName="Select book language"/>
+                            </FormRow>}
+                            {language && <FormRow><CreateTaxonomy taxonomy="language"/></FormRow>}
+                        </FormGroup>
 
-                        {language && <FormRow>
-                            <Select className="form-input-50" name="language" object={language} emptyValueName="Select book language"/>
-                        </FormRow>}
-                        {language && <FormRow><CreateTaxonomy taxonomy="language"/></FormRow>}
+                        <FormGroup>
+                            {release && <FormRow>
+                                <Select className="form-input-flex-1" name="release" object={release} emptyValueName="Select book release year"/>
+                            </FormRow>}
+                            {release && <FormRow><CreateTaxonomy taxonomy="release"/></FormRow>}
+                        </FormGroup>
 
-                        {release && <FormRow>
-                            <Select className="form-input-50" name="release" object={release} emptyValueName="Select book release year"/>
-                        </FormRow>}
-                        {release && <FormRow><CreateTaxonomy taxonomy="release"/></FormRow>}
+                        <FormGroup>
+                            {wrirer && <FormRow>
+                                <Select className="form-input-flex-1" name="wrirer" object={wrirer} emptyValueName="Select book writer"/>
+                            </FormRow>}
+                            {wrirer && <FormRow><CreateTaxonomy taxonomy="wrirer"/></FormRow>}
+                        </FormGroup>
 
-                        {wrirer && <FormRow>
-                            <Select className="form-input-50" name="wrirer" object={wrirer} emptyValueName="Select book writer"/>
-                        </FormRow>}
-                        {wrirer && <FormRow><CreateTaxonomy taxonomy="wrirer"/></FormRow>}
-
-                        {readingStatus && <Select name="reading_status" object={readingStatus} emptyValueName="Select book reading status"/>}
+                        <FormGroup>
+                            {readingStatus && <FormRow><Select className="form-input-flex-1" name="reading_status" object={readingStatus} emptyValueName="Select book reading status"/></FormRow>}
+                        </FormGroup>
 
                         <button className="btn btnSubmit">Submit</button>
                     </div>

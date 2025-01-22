@@ -6,7 +6,7 @@ import BooksPage from "./pages/Books.jsx";
 import BookDetailPage from "./pages/BookDetail.jsx";
 import ErrorPage from "./pages/Error";
 
-import { booksLoader, bookDetailLoader, getBearerToken, postBook, deleteBookAction } from './booksFunctions';
+import { booksLoader, bookDetailLoader, getBearerToken, deleteBookAction } from './booksFunctions';
 import NewBookPage from "./pages/NewBook";
 import Authentification, { action } from "./pages/Authentification";
 import { action as logoutAction } from "./pages/Logout"
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
             {
                 path: 'new',
                 element: <NewBookPage />,
-                action: postBook,
+                // action: postBook,
                 loader: checkAuthLoader
             },
             {
