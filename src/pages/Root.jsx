@@ -1,11 +1,12 @@
 import {Outlet, useNavigation, useLoaderData, useSubmit} from 'react-router-dom';
 
-import MainNavigation from "../components/MainNavigation";
+import MainNavigation from "../components/Header/MainNavigation";
 import classes from './Root.module.css'
 import Footer from "../components/Footer";
 import {useEffect} from "react";
 import {getTokenDuration} from "../util/auth";
 import LoadingIndicator from "../components/LoadingIndicator";
+import Header from "../components/Header/Header";
 
 export default function RootLayout() {
     const token = useLoaderData();
@@ -30,7 +31,7 @@ export default function RootLayout() {
     const navigation = useNavigation();
     return (
         <>
-            <MainNavigation />
+            <Header />
             {navigation.state === 'loading' && <LoadingIndicator />}
             <main className={classes.content}>
                 <Outlet />

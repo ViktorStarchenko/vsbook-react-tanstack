@@ -47,50 +47,53 @@ export default function BookForm() {
                 {createdBook && <ModalSuccess book={createdBook}/>}
             </Modal>
 
-           <Form method="POST" encType="multipart/form-data">
-               {data && data.errors && (
-                   <ErrorBlock errors={data.errors}/>
-               )}
-               <div className={classes.formInner}>
-                   <Input name="title" type="text" placeholder="Post title"/>
+            <div className="wrapper-1220">
+                <Form method="POST" encType="multipart/form-data">
+                    {data && data.errors && (
+                        <ErrorBlock errors={data.errors}/>
+                    )}
+                    <div className={classes.formInner}>
+                        <Input name="title" type="text" placeholder="Post title"/>
 
-                   <Select name="status" object={[
-                       {'id': 'draft', 'name': 'draft'},
-                       {'id': 'publish', 'name': 'publish'}
-                   ]}/>
+                        <Select name="status" object={[
+                            {'id': 'draft', 'name': 'draft'},
+                            {'id': 'publish', 'name': 'publish'}
+                        ]}/>
 
-                   <ImagePicker id="featured_image" name="featured_image" placeholder="Select book cover"/>
+                        <ImagePicker id="featured_image" name="featured_image" placeholder="Select book cover"/>
 
-                   <div className={classes.formField}>
-                       <textarea className={classes.formFieldInput} type="textarea" name="content" placeholder="Content"/>
-                   </div>
+                        <div className={classes.formField}>
+                            <textarea className={classes.formFieldInput} type="textarea" name="content" placeholder="Content"/>
+                        </div>
 
-                   {genre && <Accordion>
-                       <Accordion.Item id="accordion-genre">
-                           <Accordion.Title className="btn">Genre</Accordion.Title>
-                           <Accordion.Content>
-                               <CheckboxList id="genre-list">
-                                   {genre.map(item => (
-                                       <CustomCheckbox key={item.id} id={item.id} label={item.name} name="genre" value={item.id}/>
-                                   ))}
-                               </CheckboxList>
-                           </Accordion.Content>
-                       </Accordion.Item>
+                        {genre && <Accordion>
+                            <Accordion.Item id="accordion-genre">
+                                <Accordion.Title className="btn">Genre</Accordion.Title>
+                                <Accordion.Content>
+                                    <CheckboxList id="genre-list">
+                                        {genre.map(item => (
+                                            <CustomCheckbox key={item.id} id={item.id} label={item.name} name="genre" value={item.id}/>
+                                        ))}
+                                    </CheckboxList>
+                                </Accordion.Content>
+                            </Accordion.Item>
 
-                   </Accordion>}
+                        </Accordion>}
 
 
-                   {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
-                   {country && <Select name="country" object={country} emptyValueName="Select book country"/>}
-                   {language && <Select name="language" object={language} emptyValueName="Select book language"/>}
-                   {release && <Select name="release" object={release} emptyValueName="Select book release year"/>}
-                   {wrirer && <Select name="wrirer" object={wrirer} emptyValueName="Select book writer"/>}
-                   {readingStatus && <Select name="reading_status" object={readingStatus} emptyValueName="Select book reading status"/>}
+                        {/*{genre && <Checkbox name="Genre" id="genre" object={genre}/>}*/}
+                        {country && <Select name="country" object={country} emptyValueName="Select book country"/>}
+                        {language && <Select name="language" object={language} emptyValueName="Select book language"/>}
+                        {release && <Select name="release" object={release} emptyValueName="Select book release year"/>}
+                        {wrirer && <Select name="wrirer" object={wrirer} emptyValueName="Select book writer"/>}
+                        {readingStatus && <Select name="reading_status" object={readingStatus} emptyValueName="Select book reading status"/>}
 
-                   <button className="btn btnSubmit">Submit</button>
-               </div>
+                        <button className="btn btnSubmit">Submit</button>
+                    </div>
 
-           </Form>
+                </Form>
+            </div>
+
         </>
     )
 }

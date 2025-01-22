@@ -34,7 +34,7 @@ export default function BookSingle({post}) {
                         <BookSingleCategories post={post}/>
                     </div>
                     <div className={`${classes['book-single-column']} ${classes['book-single-description']}`}>
-                        <Link className="btn align-self-end" to={previousPage}>Go Back</Link>
+                        <Link className="btn align-self-end mb-1rem" to={previousPage}>Go Back</Link>
                         <h1 className="h2 text-left" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h1>
                         <div className={classes['book-single-body']} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
                     </div>

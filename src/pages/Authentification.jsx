@@ -9,20 +9,23 @@ export default function Authentification() {
 
     console.log(data)
     return (
-        <Form method="POST">
-            {data && data.errors &&
-            <ul>
-                {Object.values(data.errors).map((err) => (
-                    <li key={err}>{err}</li>
-                ))}
-            </ul>}
-            {data && data.message && <p>{data.message}</p>}
-            <div className="formInner">
-                <Input name="username" type="text" placeholder="Username"/>
-                <Input name="password" type="password" placeholder="Password"/>
-                <button disabled={isSubmitting} className="btn btnSubmit">{isSubmitting ? 'Submitting...' : 'Submit'}</button>
-            </div>
-        </Form>
+        <div className="wrapper-1220">
+            <Form method="POST">
+                {data && data.errors &&
+                <ul>
+                    {Object.values(data.errors).map((err) => (
+                        <li key={err}>{err}</li>
+                    ))}
+                </ul>}
+                {data && data.message && <p>{data.message}</p>}
+                <div className="formInner">
+                    <Input name="username" type="text" placeholder="Username"/>
+                    <Input name="password" type="password" placeholder="Password"/>
+                    <button disabled={isSubmitting} className="btn btnSubmit">{isSubmitting ? 'Submitting...' : 'Submit'}</button>
+                </div>
+            </Form>
+        </div>
+
     )
 }
 
