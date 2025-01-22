@@ -2,7 +2,6 @@ import LoadingIndicator from "../LoadingIndicator";
 import {useMutation} from "@tanstack/react-query";
 import {createTaxonomyTerm, queryClient} from "../../util/http";
 import {useRef} from "react";
-import ErrorBlock from "../ErrorsBlock/ErrorsBlock";
 import classes from "../ErrorsBlock/ErrorsBlock.module.css";
 
 export default function CreateTaxonomy({taxonomy}) {
@@ -25,7 +24,7 @@ export default function CreateTaxonomy({taxonomy}) {
     return (
         <>
             <div className="formCreateTerm">
-                <input name="createGenre" type="text" placeholder="Create new genre" ref={createTermRef}/>
+                <input name="createGenre" type="text" placeholder={`Create new ${taxonomy}`} ref={createTermRef}/>
                 {isPending && <LoadingIndicator />}
                 {!isPending && <div className="btn" onClick={() => handleCreateGenre(taxonomy)}>Add {taxonomy}</div>}
                 {isError && (

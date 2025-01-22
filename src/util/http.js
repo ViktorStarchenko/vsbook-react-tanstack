@@ -41,6 +41,10 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {
         throw new Error(error.message || "Failed to fetch books");
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        return null;
     }
 }
 
@@ -98,7 +102,10 @@ export async function fetchPostImage({signal, post, postId}) {
             // If the image is missing, return null
             return null;
         }
-        throw new Error(error.message || "Failed to fetch image");
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        return null;
     }
 }
 
@@ -113,6 +120,10 @@ export async function fetchTaxonomy({taxonomyName}) {
         return response.data;
     } catch (error) {
         throw new Error(error.message || "Failed to fetch image");
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        return null
     }
 }
 
@@ -139,6 +150,10 @@ export async function fetchPostTaxonomy({signal, taxonomyName, postId}) {
         return response.data;
     } catch (error) {
         throw new Error(error.message || "Failed to fetch post taxonomy " + taxonomyName);
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        return null;
     }
 }
 
@@ -174,7 +189,10 @@ export async function fetchPostTaxonomies({signal, postId, terms}) {
         return data;
     } catch (error) {
         console.error("Error fetching taxonomies:", error);
-        return {};
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        return null;
     }
 }
 
@@ -207,9 +225,13 @@ export async function fetchPage({signal, postId}) {
 
     } catch (error) {
         throw new Error("Failed to fetch page with id " + id);
-        if (error.response && error.response.status === 404) {
-            throw new Error("I can't find a page with this ID " + id);
+        // if (error.response && error.response.status === 404) {
+        //     throw new Error("I can't find a page with this ID " + id);
+        // }
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
         }
+
         return null;
     }
 }
