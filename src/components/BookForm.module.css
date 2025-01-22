@@ -14,10 +14,3 @@
     width: 100%;
     height: 40px;
 }
-textarea {
-    min-height: 80px;
-}
-select {
-    min-width: 250px;
-    height: 40px;
-}
