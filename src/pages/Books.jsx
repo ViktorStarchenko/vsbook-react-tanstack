@@ -11,6 +11,7 @@ import Sorting from "../components/Sorting/Sorting";
 import Pagination from "../components/Pagination/Pagination";
 import {useTaxonomies} from "../hooks/useTaxonomies";
 import LoadingIndicator from "../components/LoadingIndicator";
+import BookListingCounts from "../components/BookListing/BookListingCounts";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -42,7 +43,11 @@ export default function BooksPage() {
     }
 
     if (data && data.posts) {
-        content = <BooksListing books={data.posts} />
+        console.log(data)
+        content = <div>
+            {data.totalPosts && <BookListingCounts postsCount={data.totalPosts}/>}
+            <BooksListing books={data.posts} />
+        </div>
     }
 
     if (data && data.posts.length == 0) {

@@ -113,6 +113,18 @@ select {
 .mb-1rem {
     margin-bottom: 1rem;
 }
+.d-flex {
+    display: flex;
+}
+.flex-justify-start {
+    justify-content: flex-start;
+}
+.flex-justify-end {
+    justify-content: flex-end;
+}
+.flex-justify-center {
+    justify-content: center;
+}
 
 .btn {
     height: 40px;
