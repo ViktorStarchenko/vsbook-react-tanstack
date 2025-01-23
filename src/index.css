@@ -682,3 +682,11 @@ select {
 .hero-banner-description {
     margin-bottom: 20px;
 }
+
+/*Footer*/
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 3rem 0;
+    text-align: center;
+}
