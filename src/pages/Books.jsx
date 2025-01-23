@@ -38,12 +38,6 @@ export default function BooksPage() {
         navigate(`/books/page/${newPage}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
     }
 
-    const errorRouter = useRouteError();
-
-    if (errorRouter) {
-        return <ErrorsBlockSingle error={error.message} />;
-    }
-
     let content;
 
     if (isLoading) {
@@ -72,9 +66,6 @@ export default function BooksPage() {
             <Pagination page={currentPage} totalPages={data.totalPages} onPageChange={handlePager}/>
         )
     }
-
-
-
 
     return (
         <>
