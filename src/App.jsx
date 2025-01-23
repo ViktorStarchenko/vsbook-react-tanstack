@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RouterProvider } from "react-router-dom";
-import axios from "axios";
+import { HelmetProvider } from "react-helmet-async";
+
 import { queryClient } from "./util/http";
 
 
@@ -13,9 +14,11 @@ function App() {
 
   return (
     <>
-        <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router}/>
-        </QueryClientProvider>
+        <HelmetProvider>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router}/>
+            </QueryClientProvider>
+        </HelmetProvider>
         {/*<RouterProvider router={router}/>*/}
     </>
   )

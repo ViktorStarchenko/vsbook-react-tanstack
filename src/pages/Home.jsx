@@ -7,6 +7,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import SlideShow from "../components/Slider/SlideShow";
 import {usePageData} from "../hooks/usePageData";
 import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
+import {Helmet} from "react-helmet-async";
 
 function HomePage() {
     // const books = useLoaderData();
@@ -41,6 +42,10 @@ function HomePage() {
 
     return (
         <main>
+            <Helmet>
+                <title>VSBookcollection test website</title>
+                <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, veniam."/>
+            </Helmet>
             {homeBanner}
             <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
             <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>

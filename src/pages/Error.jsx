@@ -2,6 +2,7 @@ import { useRouteError } from 'react-router-dom';
 
 import MainNavigation from "../components/Header/MainNavigation";
 import PageContent from "../components/PageContent";
+import {Helmet} from "react-helmet-async";
 
 export default function ErrorPage() {
     const error = useRouteError();
@@ -20,6 +21,9 @@ export default function ErrorPage() {
 
     return (
         <>
+            <Helmet>
+                <title>VSBookcollection - Error Page</title>
+            </Helmet>
             <MainNavigation />
             <PageContent title={title}>
                 <main>

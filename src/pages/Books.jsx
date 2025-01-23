@@ -12,6 +12,7 @@ import Pagination from "../components/Pagination/Pagination";
 import {useTaxonomies} from "../hooks/useTaxonomies";
 import LoadingIndicator from "../components/LoadingIndicator";
 import BookListingCounts from "../components/BookListing/BookListingCounts";
+import {Helmet} from "react-helmet-async";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -65,6 +66,10 @@ export default function BooksPage() {
 
     return (
         <>
+            <Helmet>
+                <title>VSBookcollection - Books Listing Page</title>
+                <meta name="description" content="VSBookcollection - Books Listing Page"/>
+            </Helmet>
             {isError && (
                 <h1>{error}</h1>
             )}

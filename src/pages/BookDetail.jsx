@@ -1,13 +1,25 @@
 import { Link, useParams, useLoaderData, useRouteLoaderData } from 'react-router-dom';
 import BookSingle from "../components/BookSingle/BookSingle";
+import {Helmet} from "react-helmet-async";
+import {cleanAndTruncate, truncateContentByWords} from "../util/http";
 
 export default function BookDetailPage() {
     const params = useParams();
     // const book = useLoaderData();
     const book = useRouteLoaderData('book-detail');
+    console.log(book.title.rendered)
+
+    let truncanedContent
+    if(book.content) {
+        truncanedContent = cleanAndTruncate(book.content.rendered, 50)
+    }
 
     return (
         <>
+            <Helmet>
+                <title>{book.title.rendered} - VSBookcollection</title>
+                {truncanedContent && <meta name="description" content={truncanedContent}/>}
+            </Helmet>
             <BookSingle post={book} />
         </>
 
