@@ -24,7 +24,7 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <HomePage />,
-                loader: booksLoader
+                // loader: booksLoader
             },
             {
                 path: 'books',

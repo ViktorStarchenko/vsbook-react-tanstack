@@ -13,6 +13,7 @@ import {useTaxonomies} from "../hooks/useTaxonomies";
 import LoadingIndicator from "../components/LoadingIndicator";
 import BookListingCounts from "../components/BookListing/BookListingCounts";
 import {Helmet} from "react-helmet-async";
+import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -37,12 +38,21 @@ export default function BooksPage() {
         navigate(`/books/page/${newPage}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
     }
 
+    const errorRouter = useRouteError();
+
+    if (errorRouter) {
+        return <ErrorsBlockSingle error={error.message} />;
+    }
+
     let content;
 
     if (isLoading) {
         content = <LoadingIndicator />
     }
-
+    if (isError) {
+        console.log("Error: ", error.message);
+        content = <ErrorsBlockSingle error={error.message} />;
+    }
     if (data && data.posts) {
         console.log(data)
         content = <div>
@@ -64,6 +74,8 @@ export default function BooksPage() {
     }
 
 
+
+
     return (
         <>
             <Helmet>
@@ -82,6 +94,7 @@ export default function BooksPage() {
             <div className="wrapper-1220">
                 <Sorting />
             </div>
+            {/*{isError && <ErrorsBlockSingle error={error.message}/>}*/}
             {content}
             {pagination}
         </>

@@ -12,7 +12,7 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
 
-    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${paramPage}&order=${sort}`;
+    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/books?page=${paramPage}&order=${sort}`;
 
     if (filtersArray) {
         url += filtersArray.reduce((acc, [key, value]) => {
@@ -37,18 +37,27 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
         if (response.status != 200) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
-
-        if (response.status == 404) {
-            throw new Error(`Failed to fetch posts: ${response.statusText}`);
-        }
         // console.log(response)
-        return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
+        return {
+            success: true,
+            posts: response.data,
+            totalPosts: response.headers['x-wp-total'],
+            totalPages: response.headers['x-wp-totalpages']
+        }; // Returning success data
     } catch (error) {
-        throw new Error(error.message || "Failed to fetch books");
-        if (error.response && error.response.data && error.response.data.message) {
-            throw new Error(error.response.data.message);
+        // If the error came from axios
+        if (error.response) {
+            const status = error.response.status;
+            const errorMessage = error.response.data?.message || error.response.statusText;
+
+            // We bring the error to the line with a detailed description
+            throw new Error(
+                `Error ${status}: ${errorMessage || "Something went wrong while fetching posts"}`
+            );
         }
-        return null;
+
+        // If it is another error (for example, with the network)
+        throw new Error(error.message || "Failed to fetch books");
     }
 }
 

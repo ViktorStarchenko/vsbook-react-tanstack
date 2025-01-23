@@ -1,7 +1,6 @@
 import {Form, redirect, useActionData, useNavigation} from "react-router-dom";
 import axios from "axios";
 import Input from "../components/elements/Input";
-import ErrorBlock from "../components/ErrorsBlock/ErrorsBlock";
 import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
 import {Helmet} from "react-helmet-async";
 

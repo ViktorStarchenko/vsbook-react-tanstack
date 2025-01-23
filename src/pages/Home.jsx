@@ -8,6 +8,7 @@ import SlideShow from "../components/Slider/SlideShow";
 import {usePageData} from "../hooks/usePageData";
 import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
 import {Helmet} from "react-helmet-async";
+import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 
 function HomePage() {
     // const books = useLoaderData();
@@ -50,9 +51,7 @@ function HomePage() {
             <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
             <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
             {content}
-            {isError && <ul className={classes['errors-block-list']}>
-                <li className={classes['errors-block-item']} >{error.message}</li>
-            </ul>}
+            {isError && <ErrorsBlockSingle error={error.message} />}
         </main>
     )
 }

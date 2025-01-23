@@ -12,7 +12,7 @@ import CheckboxList from "../Checkbox/CheckboxList";
 import CustomCheckbox from "../Checkbox/CustomCheckbox";
 import Accordion from "../Accordion/Accordion";
 import ImagePicker from "../ImagePicker/ImagePicker";
-import ErrorBlock from "../ErrorsBlock/ErrorsBlock";
+import ErrorBlock from "../ErrorsBlock/ErrorsBlockList";
 import CreateTaxonomy from "./CreateTaxonomy";
 import FormRow from "./FormRow";
 import {useMutation} from "@tanstack/react-query";
