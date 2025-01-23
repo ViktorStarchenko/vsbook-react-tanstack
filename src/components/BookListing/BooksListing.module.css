@@ -6,7 +6,6 @@
     box-sizing: border-box;
 }
 .listingItem {
-    max-width: 280px;
     position: relative;
     padding: 20px 10px;
     background: #000;
