@@ -1,14 +1,15 @@
 import { Link, useLoaderData } from "react-router-dom";
 import BooksListing from "../components/BookListing/BooksListing";
 import {useQuery} from "@tanstack/react-query";
-import {booksLoader} from "../booksFunctions";
+// import {booksLoader} from "../booksFunctions";
 import {fetchPosts} from "../util/http";
 import LoadingIndicator from "../components/LoadingIndicator";
 import SlideShow from "../components/Slider/SlideShow";
 import {usePageData} from "../hooks/usePageData";
+import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
 
 function HomePage() {
-    const books = useLoaderData();
+    // const books = useLoaderData();
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['books'],
         queryFn: ({signal}) => fetchPosts({signal})
@@ -22,6 +23,10 @@ function HomePage() {
 
     if (isLoading) {
         content = <LoadingIndicator />
+    }
+
+    if (isError) {
+        console.log(error.message)
     }
 
     if (data && data.posts.length > 0) {
@@ -40,6 +45,9 @@ function HomePage() {
             <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
             <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
             {content}
+            {isError && <ul className={classes['errors-block-list']}>
+                <li className={classes['errors-block-item']} >{error.message}</li>
+            </ul>}
         </main>
     )
 }

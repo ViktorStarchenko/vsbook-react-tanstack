@@ -37,6 +37,10 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
         if (response.status != 200) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
+
+        if (response.status == 404) {
+            throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
         // console.log(response)
         return { success: true, posts: response.data, totalPosts: response.headers['x-wp-total'], totalPages: response.headers['x-wp-totalpages']  }; // Returning success data
     } catch (error) {
