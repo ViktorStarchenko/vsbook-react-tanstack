@@ -30,9 +30,7 @@ function HomePage() {
     }
 
     let homeBanner
-    console.log(dataHome)
     if (dataHome && dataHome.acf && dataHome.acf.home_banner) {
-        console.log(dataHome.acf.home_banner)
         homeBanner = <SlideShow data={dataHome.acf.home_banner}/>
     }
 

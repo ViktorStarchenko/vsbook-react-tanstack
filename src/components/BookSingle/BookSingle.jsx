@@ -1,16 +1,19 @@
 import {useEffect, useRef, useState} from "react";
-import axios from "axios";
-
 import { usePostData } from "../../hooks/usePostData";
 import classes from './BookSingle.module.css';
-import Taxonomy from "../elements/Taxonomy";
 import BookSingleDelete from "./BookSingleDelete";
 import Modal from "../Modal/Modal";
 import {Link, useLocation, useRouteLoaderData} from "react-router-dom";
-import {usePostImage} from "../../hooks/usePostImage";
+
 import LoadingIndicator from "../LoadingIndicator";
 import BookSingleCategories from "./BookSingleCategories";
 import BookSingleImage from "./BookSingleImage";
+import BooksListing from "../BookListing/BooksListing";
+import {usePostTaxonomies} from "../../hooks/usePostTaxonomies";
+import {useQuery} from "@tanstack/react-query";
+import {fetchRelativePosts} from "../../util/http";
+import BookSingleRelatives from "./BookSingleRelatives";
+import Spacer from "../elements/Spacer";
 
 export default function BookSingle({post}) {
 
@@ -49,6 +52,9 @@ export default function BookSingle({post}) {
                         <BookSingleDelete />
                     </Modal>
                 </>)}
+
+                <Spacer height="1rem"/>
+                <BookSingleRelatives post={post}/>
 
             </div>
         </>

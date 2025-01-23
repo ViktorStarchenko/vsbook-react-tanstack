@@ -48,6 +48,47 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     }
 }
 
+export async function fetchRelativePosts({signal, filtersArray}) {
+    // console.log(page)
+    // console.log(sortOrder)
+    console.log(filtersArray)
+
+    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?order=desc`;
+
+    if (filtersArray) {
+        url += filtersArray.reduce((acc, [key, value]) => {
+            if (key && value) {
+                return `${acc}&${key}=${value}`;
+            }
+            return acc;
+        }, "");
+    }
+
+    console.log(url)
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: url,
+        signal: signal
+    };
+
+    try {
+        const response = await axios.request(config);
+
+        if (response.status != 200) {
+            throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
+        // console.log(response)
+        return response.data; // Returning success data
+    } catch (error) {
+        throw new Error(error.message || "Failed to fetch books");
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        return null;
+    }
+}
+
 export async function fetchPost({request, params, postId}) {
     if (!params.bookId) {
         throw new Error("Invalid argument provided");

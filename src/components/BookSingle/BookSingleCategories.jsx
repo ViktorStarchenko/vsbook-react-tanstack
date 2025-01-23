@@ -3,10 +3,16 @@ import Taxonomy from "../elements/Taxonomy";
 import LoadingIndicator from "../LoadingIndicator";
 
 import {usePostTaxonomies} from "../../hooks/usePostTaxonomies";
+import {useQuery} from "@tanstack/react-query";
+import {fetchRelativePosts} from "../../util/http";
 
 export default function BookSingleCategories({post}) {
 
     const {data, isLoading, isError, error} = usePostTaxonomies(post);
+
+    if(isError) {
+        console.log(error)
+    }
 
     return (
         <>

@@ -81,6 +81,9 @@ select {
     padding: 0 20px;
     margin: auto;
 }
+.spacer {
+    height: 2rem;
+}
 @media (max-width: 1040px) {
     .wrapper-1020 {
         padding: 0 20px;

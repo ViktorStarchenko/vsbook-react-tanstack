@@ -23,6 +23,7 @@ export default function BooksPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSortOrder = searchParams.get("order") || "desc";
     const filtersArray = Array.from(searchParams.entries());
+    console.log(filtersArray)
 
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['books', {page: currentPage, sortOrder: currentSortOrder, filters: searchParams, filtersArray: filtersArray }],
