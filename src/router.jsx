@@ -15,6 +15,7 @@ import {fetchPost} from "./util/http";
 
 import { loader as fetchPostsHome } from "./pages/Home.jsx";
 import { loader as fetchPostsBooks } from "./pages/Books.jsx";
+import { loader as fetchPostBook } from "./pages/BookDetail.jsx";
 
 const router = createBrowserRouter([
     {
@@ -46,7 +47,8 @@ const router = createBrowserRouter([
                 path: 'books/:bookId',
                 id: 'book-detail',
                 // loader: bookDetailLoader,
-                loader: fetchPost,
+                // loader: fetchPost,
+                loader: fetchPostBook,
                 children: [
                     {
                         index: true,

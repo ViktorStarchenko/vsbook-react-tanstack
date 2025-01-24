@@ -3,6 +3,7 @@
     row-gap: 20px;
     display: flex;
     flex-direction: column;
+    padding: 3rem 0;
 }
 .book-single-row {
     display: flex;

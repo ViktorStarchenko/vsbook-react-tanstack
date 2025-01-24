@@ -10,6 +10,7 @@ import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
 import {Helmet} from "react-helmet-async";
 import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 import PageContent from "../components/PageContent";
+import Spacer from "../components/elements/Spacer";
 
 function HomePage() {
     // const books = useLoaderData();
@@ -48,10 +49,12 @@ function HomePage() {
                 <link rel="canonical" href={currentFullURL}/>
             </Helmet>
             <PageContent>
+                <Spacer height="2rem"/>
                 {homeBanner}
                 <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
                 <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
                 {content}
+                <Spacer height="2rem"/>
             </PageContent>
         </>
     )

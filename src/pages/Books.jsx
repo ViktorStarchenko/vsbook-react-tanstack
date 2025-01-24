@@ -14,6 +14,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import BookListingCounts from "../components/BookListing/BookListingCounts";
 import {Helmet} from "react-helmet-async";
 import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
+import Spacer from "../components/elements/Spacer";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -26,7 +27,6 @@ export default function BooksPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSortOrder = searchParams.get("order") || "desc";
     const filtersArray = Array.from(searchParams.entries());
-    console.log(filtersArray)
 
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['books', {page: currentPage, sortOrder: currentSortOrder, filtersArray: filtersArray }],
@@ -62,14 +62,20 @@ export default function BooksPage() {
     else if (isError) content = <ErrorsBlockSingle error={error.message} />;
     else if (data?.posts?.length === 0)
         content = <div className="h2">There are no books matching your request.</div>;
-    else content = <BooksListing books={data.posts} />;
+    else content = (<BooksListing books={data.posts} />);
 
     if (data && data.posts.length == 0) {
         content = <div className="h2">There are no books matching your request.</div>
     }
 
-    let pagination
+    let postsCount
+    if (data && data.totalPosts) {
+        postsCount = (
+            <BookListingCounts postsCount={data.totalPosts}/>
+        )
+    }
 
+    let pagination
     if (data && data.totalPosts && data.totalPages) {
         pagination = (
             <Pagination page={currentPage} totalPages={data.totalPages} onPageChange={handlePager}/>
@@ -83,6 +89,7 @@ export default function BooksPage() {
                 <meta name="description" content="VSBookcollection - Books Listing Page"/>
                 <link rel="canonical" href={currentFullURL}/>
             </Helmet>
+            <Spacer height="3rem"/>
             <h1 className="h1">BOOKSPAGE</h1>
             <Filters
                 searchParams={searchParams}
@@ -92,6 +99,7 @@ export default function BooksPage() {
             <div className="wrapper-1220">
                 <Sorting />
             </div>
+            {postsCount}
             {content}
             {pagination}
         </>

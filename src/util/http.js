@@ -102,19 +102,22 @@ export async function fetchRelativePosts({signal, filtersArray}) {
     }
 }
 
-export async function fetchPost({request, params, postId}) {
-    if (!params.bookId) {
+export async function fetchPost({siganl, postId}) {
+    // if (!params.bookId) {
+    //     throw new Error("Invalid argument provided");
+    // }
+
+    if(!postId) {
         throw new Error("Invalid argument provided");
     }
-
-    let id = params.bookId;
-
+    let id = postId;
     let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/book/' + id;
 
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
         url: url,
+        siganl: siganl
     }
 
     try {
