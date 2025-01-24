@@ -3,12 +3,17 @@ import { useRouteError } from 'react-router-dom';
 import MainNavigation from "../components/Header/MainNavigation";
 import PageContent from "../components/PageContent";
 import {Helmet} from "react-helmet-async";
+import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer";
 
 export default function ErrorPage() {
     const error = useRouteError();
     console.log(error)
+    console.log(error.message)
     let title = 'En error occured';
     let message = 'could not find this page';
+    let content;
 
     if (error.status === 500) {
         message = error.data;
@@ -18,18 +23,22 @@ export default function ErrorPage() {
         title = 'Not Found';
         message = 'Missed page';
     }
+    if (error && error.message) {
+        content = <ErrorsBlockSingle error={error.message}/>;
+    }
 
     return (
         <>
             <Helmet>
                 <title>VSBookcollection - Error Page</title>
             </Helmet>
-            <MainNavigation />
+            <Header />
             <PageContent title={title}>
                 <main>
-                    <p>{message}</p>
+                    {content}
                 </main>
             </PageContent>
+            <Footer />
         </>
     )
 }

@@ -6,7 +6,7 @@ import Filters from "../components/Filters/Filters";
 
 import Test from "../components/Test";
 import {useQuery} from "@tanstack/react-query";
-import {fetchPosts} from "../util/http";
+import {fetchPosts, queryClient} from "../util/http";
 import Sorting from "../components/Sorting/Sorting";
 import Pagination from "../components/Pagination/Pagination";
 import {useTaxonomies} from "../hooks/useTaxonomies";
@@ -18,8 +18,8 @@ import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 export default function BooksPage() {
     // const books = useLoaderData();
     const navigate = useNavigate();
-    const { search } = useLocation();
-
+    const location = useLocation();
+    const currentFullURL = `${window.location.origin}${location.pathname}${location.search}`;
     const { page } = useParams();
 
     const currentPage = parseInt(page, 10) || 1;
@@ -29,31 +29,40 @@ export default function BooksPage() {
     console.log(filtersArray)
 
     const {data, isLoading, isError, error} = useQuery({
-        queryKey: ['books', {page: currentPage, sortOrder: currentSortOrder, filters: searchParams, filtersArray: filtersArray }],
-        queryFn: ({signal}) => fetchPosts({signal, page: currentPage, sortOrder: currentSortOrder, filters: searchParams, filtersArray: filtersArray}),
-        // keepPreviousData: true,
+        queryKey: ['books', {page: currentPage, sortOrder: currentSortOrder, filtersArray: filtersArray }],
+        queryFn: ({signal}) => fetchPosts({signal, page: currentPage, sortOrder: currentSortOrder, filtersArray: filtersArray}),
+        keepPreviousData: true,
     })
 
     const handlePager = (newPage) => {
         navigate(`/books/page/${newPage}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
     }
 
-    let content;
+    // let content;
+    //
+    // if (isLoading) {
+    //     content = <LoadingIndicator />
+    // }
+    // if (isError) {
+    //     console.log("Error: ", error.message);
+    //     content = <ErrorsBlockSingle error={error.message} />;
+    // }
+    // if (data && data.posts) {
+    //     console.log(data)
+    //     content = <div>
+    //         {data.totalPosts && <BookListingCounts postsCount={data.totalPosts}/>}
+    //         <BooksListing books={data.posts} />
+    //     </div>
+    // }
 
-    if (isLoading) {
-        content = <LoadingIndicator />
-    }
-    if (isError) {
-        console.log("Error: ", error.message);
-        content = <ErrorsBlockSingle error={error.message} />;
-    }
-    if (data && data.posts) {
-        console.log(data)
-        content = <div>
-            {data.totalPosts && <BookListingCounts postsCount={data.totalPosts}/>}
-            <BooksListing books={data.posts} />
-        </div>
-    }
+
+
+    let content;
+    if (isLoading) content = <LoadingIndicator />;
+    else if (isError) content = <ErrorsBlockSingle error={error.message} />;
+    else if (data?.posts?.length === 0)
+        content = <div className="h2">There are no books matching your request.</div>;
+    else content = <BooksListing books={data.posts} />;
 
     if (data && data.posts.length == 0) {
         content = <div className="h2">There are no books matching your request.</div>
@@ -70,13 +79,11 @@ export default function BooksPage() {
     return (
         <>
             <Helmet>
-                <title>VSBookcollection - Books Listing Page</title>
+                <title>{`Books Page - Page ${currentPage}`}</title>
                 <meta name="description" content="VSBookcollection - Books Listing Page"/>
+                <link rel="canonical" href={currentFullURL}/>
             </Helmet>
-            {isError && (
-                <h1>{error}</h1>
-            )}
-            <h1 className="h1">BOOKSPAGE BLABLABLA</h1>
+            <h1 className="h1">BOOKSPAGE</h1>
             <Filters
                 searchParams={searchParams}
                 setSearchParams={setSearchParams}
@@ -85,10 +92,21 @@ export default function BooksPage() {
             <div className="wrapper-1220">
                 <Sorting />
             </div>
-            {/*{isError && <ErrorsBlockSingle error={error.message}/>}*/}
             {content}
             {pagination}
         </>
 
     )
+}
+
+export function loader({params, request}) {
+    const url = new URL(request.url)
+    const currentPage = params.page || 1
+    const currentSortOrder = url.searchParams.get('sort') || 'desc';
+    const filtersArray = Array.from(url.searchParams.entries());
+    const signal = request.signal;
+    return queryClient.fetchQuery({
+        queryKey: ['books', {page: currentPage, sortOrder: currentSortOrder, filtersArray: filtersArray }],
+        queryFn: ({signal}) => fetchPosts({signal, page: currentPage, sortOrder: currentSortOrder, filtersArray: filtersArray}),
+    })
 }

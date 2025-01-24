@@ -13,6 +13,9 @@ import { action as logoutAction } from "./pages/Logout"
 import {checkAuthLoader, tokenLoader} from "./util/auth";
 import {fetchPost} from "./util/http";
 
+import { loader as fetchPostsHome } from "./pages/Home.jsx";
+import { loader as fetchPostsBooks } from "./pages/Books.jsx";
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -25,16 +28,19 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HomePage />,
                 // loader: booksLoader
+                loader: fetchPostsHome
             },
             {
                 path: 'books',
                 element: <BooksPage />,
                 // loader: booksLoader
+                loader: fetchPostsBooks
             },
             {
                 path: 'books/page/:page',
                 element: <BooksPage />,
                 // loader: booksLoader
+                loader: fetchPostsBooks
             },
             {
                 path: 'books/:bookId',

@@ -12,7 +12,7 @@ export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
 
-    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/books?page=${paramPage}&order=${sort}`;
+    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${paramPage}&order=${sort}`;
 
     if (filtersArray) {
         url += filtersArray.reduce((acc, [key, value]) => {
@@ -490,6 +490,10 @@ export function cleanAndTruncate(content, maxLength) {
         return text;
     }
     return text.slice(0, maxLength) + '...';
+}
+
+export function fetchBooks({ signal, page, sortOrder, filtersArray }) {
+    return fetchPosts({ signal, page, sortOrder, filtersArray });
 }
 // export async function booksLoader({params, request}) {
 //     // const response = await fetch('https://a.vsbookcollection.space/wp-json/wp/v2/book');
