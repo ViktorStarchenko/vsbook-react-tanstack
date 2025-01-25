@@ -1,6 +1,5 @@
 import { Link, useLoaderData, useParams, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import BooksListing from "../components/BookListing/BooksListing";
-import {useEffect, useRef, useState} from "react";
 
 import Filters from "../components/Filters/Filters";
 
@@ -9,7 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchPosts, queryClient} from "../util/http";
 import Sorting from "../components/Sorting/Sorting";
 import Pagination from "../components/Pagination/Pagination";
-import {useTaxonomies} from "../hooks/useTaxonomies";
+
 import LoadingIndicator from "../components/LoadingIndicator";
 import BookListingCounts from "../components/BookListing/BookListingCounts";
 import {Helmet} from "react-helmet-async";

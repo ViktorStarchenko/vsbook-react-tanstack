@@ -18,7 +18,7 @@ function HomePage() {
     const currentFullURL = `${window.location.origin}${location.pathname}${location.search}`;
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['books'],
-        queryFn: ({signal}) => fetchPosts({signal})
+        queryFn: ({signal}) => fetchPosts({signal, perPage: 8})
     })
 
     const {data: dataHome, isLoading: isLoadingHome, isError: isErrorHome, error: errorHome} = usePageData(5);
@@ -66,6 +66,6 @@ export function loader({params}) {
     console.log(params)
     return queryClient.fetchQuery({
         queryKey: ['books'],
-        queryFn: ({signal}) => fetchPosts({signal})
+        queryFn: ({signal}) => fetchPosts({signal, perPage: 8})
     })
 }

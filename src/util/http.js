@@ -4,15 +4,16 @@ import {QueryClient} from "@tanstack/react-query";
 
 export const queryClient = new QueryClient()
 
-export async function fetchPosts({signal, page, sortOrder, filtersArray}) {
+export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray}) {
     // console.log(page)
     // console.log(sortOrder)
     // console.log(filtersArray)
 
     let paramPage = page || 1;
     const sort = sortOrder || "desc";
+    const paramPerPage = perPage || 10
 
-    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${paramPage}&order=${sort}`;
+    let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?page=${paramPage}&order=${sort}&per_page=${paramPerPage}`;
 
     if (filtersArray) {
         url += filtersArray.reduce((acc, [key, value]) => {
