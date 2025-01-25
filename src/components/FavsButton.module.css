@@ -1,0 +1,17 @@
+.favButton {
+    display: inline-block;
+    position: absolute;
+    top: 14px;
+    right: 50px;
+    cursor: pointer;
+}
+.favButton svg {
+    width: 24px;
+    height: 24px;
+    fill: #e1eeeb;
+}
+
+.favButton.active svg,
+.favButton:hover svg {
+    fill: #c02121;
+}

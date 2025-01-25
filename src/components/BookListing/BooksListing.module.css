@@ -106,6 +106,12 @@
     display: none;
 }
 
+.listingItem .favButton {
+    position: absolute;
+    top: 14px;
+    right: 50px;
+}
+
 @media (max-width: 767px) {
     .listingItemImg {
         height: 250px;

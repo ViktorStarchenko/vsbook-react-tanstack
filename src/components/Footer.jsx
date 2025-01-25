@@ -1,11 +1,15 @@
 import classes from './Footer.module.css';
+import RecentlyViewed from "./RecentlyViewed";
 
 export default function Footer() {
     return (
-        <footer className="">
-            <div className="wrapper-1220">
-                <p>Viktor Starchenko Test React</p>
-            </div>
-        </footer>
+        <>
+            <RecentlyViewed />
+            <footer className="">
+                <div className="wrapper-1220">
+                    <p>Viktor Starchenko Test React</p>
+                </div>
+            </footer>
+        </>
     )
 }

@@ -17,6 +17,8 @@ import {fetchPostImage} from "../../util/http";
 import LoadingIndicator from "../LoadingIndicator";
 import {usePostTaxonomy} from "../../hooks/usePostTaxonomy";
 import BookListingWriter from "./BookListingWriter";
+import FavsButton from "../FavsButton";
+import Spacer from "../elements/Spacer";
 
 export default function BooksListingItem({post}) {
     const [showDescription, setShowDescription] = useState(false)
@@ -67,14 +69,17 @@ export default function BooksListingItem({post}) {
                 {lupaImage && <span onClick={openModal} className={classes.showDetailsIcon}>
                     <img src={lupaImage} alt="showMore"/>
                 </span>}
-
+                <FavsButton post={post}/>
+                
                 <div
                     className={classes.listingItemContent}
                     onMouseEnter={() => toggleDescription(true)}
                     onMouseLeave={() => toggleDescription(false)}
                 >
+                    <Spacer />
                     {post.title && <BooksListingItemTitle title={post.title.rendered} postId={post.id}/>}
                     {dataWrirer && dataWrirer.length > 0 && <BookListingWriter object={dataWrirer}/>}
+
 
                     {/*<TooltipModal>*/}
                     {/*    <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>*/}
@@ -85,12 +90,14 @@ export default function BooksListingItem({post}) {
                     </BooksListingItemDescription>}
 
                     {/*<BooksListingItemDescription/>*/}
+
                 </div>
 
             </div>
             <Modal ref={dialog} title="">
                 <ModalBookDetail book={post}/>
             </Modal>
+
         </>
 
     )

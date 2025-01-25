@@ -225,6 +225,18 @@ select {
     color: #f57eb6;
     text-decoration: underline;
 }
+.header-nav-list svg {
+    width: 24px;
+    height: 24px;
+    fill: #e1eeeb;
+    transition: all .2s;
+}
+.header-nav-list svg {
+    animation: header-pumping 1s linear 1;
+}
+.header-nav-list a:hover svg {
+    fill: #f57eb6;
+}
 
 .menu-burger {
     width: 30px;
@@ -263,6 +275,19 @@ select {
 }
 .mobile-menu.open {
     right: 0;
+}
+
+@keyframes header-pumping {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+        fill: #c02121;
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 /*.menu-burger svg {*/
 /*    width: 20px;*/
