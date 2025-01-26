@@ -6,6 +6,7 @@ import AuthNavigation from "./AuthNavigation";
 import {useRef, useState} from "react";
 import MobileMenu from "./MobileMenu";
 import HeaderLogo from "./HeaderLogo";
+import FavouriteNavigation from "./FavouriteNavigation";
 
 export default function Header() {
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
@@ -27,6 +28,8 @@ export default function Header() {
 
                         <AuthNavigation />
                     </div>
+
+                    <FavouriteNavigation />
 
                     <div className={`menu-burger ${openMobileMenu ? 'open' : 'closed'}`} onClick={handleOpenMobileMenu}></div>
 

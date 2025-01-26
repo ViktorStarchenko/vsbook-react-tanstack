@@ -9,7 +9,12 @@ export default function FavsButton({post}) {
 
     function addFav() {
         console.log(post)
-        dispatch(favPostsActions.toggleFavs(post))
+        // dispatch(favPostsActions.toggleFavs(post))
+        dispatch(favPostsActions.startLoading());
+        dispatch(favPostsActions.toggleFavs(post));
+        setTimeout(() => {
+            dispatch(favPostsActions.stopLoading());
+        }, 600);
     }
 
     const isInFavs = favsList.some(item => item.id === post.id);

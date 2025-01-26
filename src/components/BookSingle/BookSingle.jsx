@@ -14,6 +14,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchRelativePosts} from "../../util/http";
 import BookSingleRelatives from "./BookSingleRelatives";
 import Spacer from "../elements/Spacer";
+import Section from "../Section";
 
 export default function BookSingle({post}) {
 
@@ -53,9 +54,9 @@ export default function BookSingle({post}) {
                     </Modal>
                 </>)}
 
-                <Spacer height="1rem"/>
-                <BookSingleRelatives post={post}/>
-
+                <Section >
+                    <BookSingleRelatives contentWrapper="" post={post}/>
+                </Section>
             </div>
         </>
     )
