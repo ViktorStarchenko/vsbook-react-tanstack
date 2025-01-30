@@ -1,7 +1,7 @@
 import {createStore} from "redux";
 import {configureStore} from "@reduxjs/toolkit";
 
-import favPostsSlice from "./favourite-posts";
+import favPostsSlice from "./favourite-slice";
 import viewedPostsSlice from "./viewed-posts";
 
 const store = configureStore({

@@ -1,15 +1,23 @@
 import {useDispatch, useSelector} from "react-redux";
-import { favPostsActions } from "../store/favourite-posts";
+import { favPostsActions } from "../store/favourite-slice";
 import classes from './FavsButton.module.css'
 
 export default function FavsButton({post}) {
     const dispatch = useDispatch()
     const favsList = useSelector( state => state.favPosts.favPosts);
-    // console.log(favsList)
+    const isInFavs = favsList.some(item => item.id === post.id);
 
     function addFav() {
-        console.log(post)
-        // dispatch(favPostsActions.toggleFavs(post))
+        // let updatedFavs = favsList.slice();
+        //
+        // updatedFavs = isInFavs ? updatedFavs.filter((item) => item.id != post.id) : [...updatedFavs, post];
+        // dispatch(favPostsActions.startLoading());
+        // dispatch(favPostsActions.replaceFavs(updatedFavs));
+        // setTimeout(() => {
+        //     dispatch(favPostsActions.stopLoading());
+        // }, 600);
+
+
         dispatch(favPostsActions.startLoading());
         dispatch(favPostsActions.toggleFavs(post));
         setTimeout(() => {
@@ -17,7 +25,7 @@ export default function FavsButton({post}) {
         }, 600);
     }
 
-    const isInFavs = favsList.some(item => item.id === post.id);
+
 
     return (
         <>
