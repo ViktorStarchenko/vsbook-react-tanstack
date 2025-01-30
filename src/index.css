@@ -172,14 +172,14 @@ select {
 /*HEADER*/
 .header {
     background-color: #000;
-    position: fixed;
+    /*position: fixed;*/
     width: 100%;
     left: 0;
     top: 0;
     z-index: 100;
 }
 .header-spacing {
-    height: 60px;
+    /*height: 60px;*/
 }
 .header-inner {
     width: 100%;
@@ -639,7 +639,7 @@ select {
     box-sizing: border-box;
     font-size: 14px;
     color: #e1eeeb;
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, .5);
     outline: none;
     border: none;
     cursor: pointer;

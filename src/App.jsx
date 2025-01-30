@@ -7,13 +7,42 @@ import { queryClient } from "./util/http";
 
 import router from './router.jsx'
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
+import {useDispatch, useSelector} from "react-redux";
+
+import Notification from "./components/Notification";
+import {fetchFavsData, sendFavsData} from "./store/favourite-actions";
+
+let isInitial = true;
 
 function App() {
     const routes = router.routes;
 
+    const dispatch = useDispatch();
+    const favList = useSelector(state => state.favPosts.favPosts);
+    const notification = useSelector(state => state.favPosts.notification);
+    const isFavsChanged = useSelector(state => state.favPosts.changed)
+
+    useEffect(() => {
+        dispatch(fetchFavsData());
+    }, [dispatch])
+
+    useEffect(()=> {
+        if (isInitial) {
+            isInitial = false;
+            return;
+        }
+        if (isFavsChanged) {
+            dispatch(sendFavsData(favList));
+        }
+    }, [favList, dispatch, isFavsChanged])
 
   return (
     <>
+        {notification && <Notification
+            status={notification.status}
+            title={notification.title}
+            message={notification.message}
+        />}
         <HelmetProvider>
             <QueryClientProvider client={queryClient}>
                 <RouterProvider router={router}/>
