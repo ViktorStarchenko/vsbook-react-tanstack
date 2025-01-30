@@ -6,12 +6,17 @@ import {useQuery} from "@tanstack/react-query";
 import LoadingIndicator from "../components/LoadingIndicator";
 import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 import Spacer from "../components/elements/Spacer";
+import {useDispatch} from "react-redux";
+import { useEffect } from 'react'
+import { viewedPostsActions } from "../store/viewed-posts";
 
 export default function BookDetailPage() {
     const params = useParams();
     // const book = useLoaderData();
     // const book = useRouteLoaderData('book-detail');
     // console.log(book.title.rendered)
+    const dispatch = useDispatch();
+
 
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['book', {postId: params.bookId}],
@@ -36,6 +41,17 @@ export default function BookDetailPage() {
     if(data.content) {
         truncanedContent = cleanAndTruncate(data.content.rendered, 50)
     }
+
+    useEffect(() => {
+        if (data) {
+            // dispatch({
+            //     type: TOGGLE_VIEWED,
+            //     payload: data,
+            // });
+            dispatch(viewedPostsActions.addViewed(data));
+        }
+    }, [data, dispatch]);
+
 
     return (
         <>

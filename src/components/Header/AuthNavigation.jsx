@@ -2,6 +2,7 @@ import {Form, NavLink, useRouteLoaderData} from "react-router-dom";
 
 export default function AuthNavigation() {
     const token = useRouteLoaderData('root');
+
     return (
         <>
             <ul className="header-nav-list login-menu">
