@@ -14,7 +14,7 @@ export default function BookSingleRelatives({post, title = "See similar books"})
             return Object.entries(obj)
                 .filter(([key]) => !['reading_status', 'release', 'language', 'wrirer'].includes(key))
                 .map(([key, value]) => {
-                    const ids = value.map(item => item.id).join(','); // Преобразуем массив ID в строку через запятую
+                    const ids = value.map(item => item.id).join(','); // Convert the ID array to a comma-separated string
                     return [key, ids];
                 });
         };
@@ -22,8 +22,8 @@ export default function BookSingleRelatives({post, title = "See similar books"})
     }
 
     const {data: dataRelative, isLoading: isLoadingRelative, isError: isErrorRelative, error: errorRelative} = useQuery({
-        queryKey: ['relativePosts', { postId: post.id }],
-        queryFn: ({signal}) => fetchRelativePosts({signal, filtersArray}),
+        queryKey: ['relativePosts', { postId: post.id, filtersArray: filtersArray, perPage: 5 }],
+        queryFn: ({signal}) => fetchRelativePosts({signal, filtersArray, perPage: 5}),
         enabled: !!filtersArray
     });
 

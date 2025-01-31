@@ -62,12 +62,16 @@ export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray
     }
 }
 
-export async function fetchRelativePosts({signal, filtersArray}) {
+export async function fetchRelativePosts({signal, filtersArray, perPage}) {
     // console.log(page)
     // console.log(sortOrder)
     console.log(filtersArray)
 
     let url = `https://a.vsbookcollection.space/wp-json/wp/v2/book?order=desc`;
+
+    if (perPage) {
+        url += `&per_page=${perPage}`;
+    }
 
     if (filtersArray) {
         url += filtersArray.reduce((acc, [key, value]) => {

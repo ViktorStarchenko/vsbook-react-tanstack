@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import Notification from "./components/Notification";
 import {fetchFavsData, sendFavsData} from "./store/favourite-actions";
+import {fetchCartData, sendCartData} from "./store/cart-actions";
 
 let isInitial = true;
 
@@ -20,13 +21,17 @@ function App() {
     const dispatch = useDispatch();
     const favList = useSelector(state => state.favPosts.favPosts);
     const notification = useSelector(state => state.favPosts.notification);
-    const isFavsChanged = useSelector(state => state.favPosts.changed)
+    const isFavsChanged = useSelector(state => state.favPosts.changed);
+
+    const isCartChanged = useSelector(state => state.cart.changed);
+    const cartItems = useSelector(state => state.cart.items);
+    const cartTotalQuantity = useSelector(state => state.cart.totalQuantity);
 
     useEffect(() => {
         dispatch(fetchFavsData());
     }, [dispatch])
 
-    useEffect(()=> {
+    useEffect(() => {
         if (isInitial) {
             isInitial = false;
             return;
@@ -35,6 +40,23 @@ function App() {
             dispatch(sendFavsData(favList));
         }
     }, [favList, dispatch, isFavsChanged])
+
+    useEffect(() => {
+        dispatch(fetchCartData());
+    }, [dispatch])
+
+    useEffect(() => {
+
+        console.log(cartItems)
+        if (isInitial) {
+            isInitial = false;
+            return;
+        }
+
+        if (isCartChanged) {
+            dispatch(sendCartData(cartItems, cartTotalQuantity));
+        }
+    }, [cartItems, cartTotalQuantity, dispatch, isCartChanged])
 
   return (
     <>

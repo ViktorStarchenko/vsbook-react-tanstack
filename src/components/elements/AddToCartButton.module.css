@@ -1,0 +1,11 @@
+.addToCartButton {
+    cursor: pointer;
+}
+.addToCartButton svg {
+    width: auto;
+    height: 26px;
+    fill: #e1eeeb;
+}
+.addToCartButton:hover svg {
+    fill: #f57eb6;
+}

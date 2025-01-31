@@ -7,6 +7,7 @@ import {useRef, useState} from "react";
 import MobileMenu from "./MobileMenu";
 import HeaderLogo from "./HeaderLogo";
 import FavouriteNavigation from "./FavouriteNavigation";
+import CartNavigation from "./CartNavigation";
 
 export default function Header() {
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
@@ -30,6 +31,8 @@ export default function Header() {
                     </div>
 
                     <FavouriteNavigation />
+
+                    <CartNavigation />
 
                     <div className={`menu-burger ${openMobileMenu ? 'open' : 'closed'}`} onClick={handleOpenMobileMenu}></div>
 

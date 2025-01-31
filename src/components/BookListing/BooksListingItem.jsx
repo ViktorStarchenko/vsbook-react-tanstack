@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
 
 import classes from './BooksListing.module.css';
-import lupaImage from '../../assets/images/noun-magnifying-glass-50744.svg'
 import logoImage from '../../assets/images/logo-3.svg'
 import Modal from "../Modal/Modal";
 import ModalBookDetail from "../Modal/ModalBookDetail";
@@ -17,8 +16,12 @@ import {fetchPostImage} from "../../util/http";
 import LoadingIndicator from "../LoadingIndicator";
 import {usePostTaxonomy} from "../../hooks/usePostTaxonomy";
 import BookListingWriter from "./BookListingWriter";
-import FavsButton from "../FavsButton";
+import FavsButton from "../elements/FavsButton";
 import Spacer from "../elements/Spacer";
+import {useDispatch} from "react-redux";
+import {cartSliceActions} from "../../store/cart-slice";
+import LupaButton from "../elements/LupaButton";
+import AddToCartButton from "../elements/AddToCartButton";
 
 export default function BooksListingItem({post}) {
     const [showDescription, setShowDescription] = useState(false)
@@ -26,6 +29,8 @@ export default function BooksListingItem({post}) {
     const dialog = useRef();
     // const featuredImage = usePostImage({ post });
     const {data, isLoading, isError, error} = usePostImage({ post });
+
+
 
 
     const {data: dataWrirer, isLoading: isLoadingWrirer, isError: isErrorWrirer, error: errorWrirer} = usePostTaxonomy({
@@ -63,13 +68,13 @@ export default function BooksListingItem({post}) {
             <div
                 className={classes.listingItem}
             >
+                <div className={classes.listingItemHeader}>
+                    <AddToCartButton post={post} />
+                    <FavsButton post={post}/>
+                    <LupaButton clickHandler={openModal}/>
+                </div>
 
                 {imageBlock}
-
-                {lupaImage && <span onClick={openModal} className={classes.showDetailsIcon}>
-                    <img src={lupaImage} alt="showMore"/>
-                </span>}
-                <FavsButton post={post}/>
                 
                 <div
                     className={classes.listingItemContent}
