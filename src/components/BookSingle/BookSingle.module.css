@@ -3,7 +3,8 @@
     row-gap: 20px;
     display: flex;
     flex-direction: column;
-    padding: 3rem 0;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 .book-single-row {
     display: flex;
@@ -39,6 +40,17 @@
 .book-single-description {
     width: 100%;
     max-width: 600px;
+}
+.book-single-description--header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.book-single-description--icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
 }
 .book-single-body {
     width: 100%;

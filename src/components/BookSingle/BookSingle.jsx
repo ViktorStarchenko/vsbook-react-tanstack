@@ -15,6 +15,8 @@ import {fetchRelativePosts} from "../../util/http";
 import BookSingleRelatives from "./BookSingleRelatives";
 import Spacer from "../elements/Spacer";
 import Section from "../Section";
+import AddToCartButton from "../elements/AddToCartButton";
+import FavsButton from "../elements/FavsButton";
 
 export default function BookSingle({post}) {
 
@@ -38,7 +40,14 @@ export default function BookSingle({post}) {
                         <BookSingleCategories post={post}/>
                     </div>
                     <div className={`${classes['book-single-column']} ${classes['book-single-description']}`}>
-                        <Link className="btn align-self-end mb-1rem" to={previousPage}>Go Back</Link>
+                        <div className={classes['book-single-description--header']}>
+                            <div className={classes['book-single-description--icons']}>
+                                <AddToCartButton height="35px" post={post}/>
+                                <FavsButton height="30px" post={post}/>
+                            </div>
+                            <Link className="btn align-self-end mb-1rem" to={previousPage}>Go Back</Link>
+                        </div>
+
                         <h1 className="h2 text-left" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h1>
                         <div className={classes['book-single-body']} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
                     </div>
@@ -54,10 +63,11 @@ export default function BookSingle({post}) {
                     </Modal>
                 </>)}
 
-                <Section >
-                    <BookSingleRelatives contentWrapper="" post={post}/>
-                </Section>
+
             </div>
+            <Section >
+                <BookSingleRelatives contentWrapper="" post={post}/>
+            </Section>
         </>
     )
 }

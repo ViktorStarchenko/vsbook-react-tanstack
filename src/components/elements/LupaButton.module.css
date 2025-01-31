@@ -1,0 +1,10 @@
+.lupaButton {
+    cursor: pointer;
+}
+.lupaButton svg {
+    width: auto;
+    height: 24px;
+}
+.lupaButton:hover svg {
+    fill: #f57eb6;
+}

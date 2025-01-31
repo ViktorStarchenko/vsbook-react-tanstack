@@ -1,12 +1,12 @@
 .favButton {
     display: inline-block;
-    position: absolute;
+    /*position: absolute;*/
     top: 14px;
     right: 50px;
     cursor: pointer;
 }
 .favButton svg {
-    width: 24px;
+    width: auto;
     height: 24px;
     fill: #e1eeeb;
 }

@@ -28,7 +28,7 @@ const reducer = (state = defaultState, action) => {
     }
 };
 store.subscribe(() => {
-    console.log("Updated state:", store.getState());
+    // console.log("Updated state:", store.getState());
 });
 createRoot(document.getElementById('root')).render(
   <StrictMode>
