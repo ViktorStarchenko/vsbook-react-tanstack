@@ -4,9 +4,15 @@ import {configureStore} from "@reduxjs/toolkit";
 import favPostsSlice from "./favourite-slice";
 import viewedPostsSlice from "./viewed-posts";
 import cartSlice from "./cart-slice";
+import viewsSlice from "./views-slice";
 
 const store = configureStore({
-    reducer: { recentlyViewed: viewedPostsSlice.reducer, favPosts: favPostsSlice.reducer, cart: cartSlice.reducer }
+    reducer: {
+        recentlyViewed: viewedPostsSlice.reducer,
+        favPosts: favPostsSlice.reducer,
+        cart: cartSlice.reducer,
+        views: viewsSlice.reducer
+    }
 });
 
 export default store

@@ -17,8 +17,12 @@ import Spacer from "../elements/Spacer";
 import Section from "../Section";
 import AddToCartButton from "../elements/AddToCartButton";
 import FavsButton from "../elements/FavsButton";
+import {useDispatch} from "react-redux";
+import {viewsSliceActions} from "../../store/views-slice";
+import PostViewsCount from "../elements/PostViewsCount";
 
 export default function BookSingle({post}) {
+    const dispatch = useDispatch();
 
     const token = useRouteLoaderData('root');
 
@@ -29,6 +33,10 @@ export default function BookSingle({post}) {
 
     function openDeleteModal(){
         deleteBookModalRef.current.open();
+    }
+
+    if (post) {
+        dispatch(viewsSliceActions.updateItemViews(post.id));
     }
 
     return (
@@ -42,6 +50,7 @@ export default function BookSingle({post}) {
                     <div className={`${classes['book-single-column']} ${classes['book-single-description']}`}>
                         <div className={classes['book-single-description--header']}>
                             <div className={classes['book-single-description--icons']}>
+                                <PostViewsCount height="35px" postId={post.id}/>
                                 <AddToCartButton height="35px" post={post}/>
                                 <FavsButton height="30px" post={post}/>
                             </div>

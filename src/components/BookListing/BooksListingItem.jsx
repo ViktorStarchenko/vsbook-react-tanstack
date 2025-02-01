@@ -22,6 +22,7 @@ import {useDispatch} from "react-redux";
 import {cartSliceActions} from "../../store/cart-slice";
 import LupaButton from "../elements/LupaButton";
 import AddToCartButton from "../elements/AddToCartButton";
+import PostViewsCount from "../elements/PostViewsCount";
 
 export default function BooksListingItem({post}) {
     const [showDescription, setShowDescription] = useState(false)
@@ -69,6 +70,7 @@ export default function BooksListingItem({post}) {
                 className={classes.listingItem}
             >
                 <div className={classes.listingItemHeader}>
+                    <PostViewsCount postId={post.id} />
                     <AddToCartButton post={post} />
                     <FavsButton post={post}/>
                     <LupaButton clickHandler={openModal}/>
