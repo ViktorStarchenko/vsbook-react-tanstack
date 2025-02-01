@@ -1,0 +1,16 @@
+.postViewsCount {
+    position: relative;
+}
+.postViewsCount svg {
+    width: auto;
+    height: 20px;
+    fill: #1a8ed1;
+}
+.postViewsCount span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #e1eeeb;
+}

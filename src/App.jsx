@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Notification from "./components/Notification";
 import {fetchFavsData, sendFavsData} from "./store/favourite-actions";
 import {fetchCartData, sendCartData} from "./store/cart-actions";
+import {fetchViewsData, sendViewsData} from "./store/views-action";
 
 let isInitial = true;
 
@@ -27,8 +28,11 @@ function App() {
     const cartItems = useSelector(state => state.cart.items);
     const cartTotalQuantity = useSelector(state => state.cart.totalQuantity);
 
+    const isViewsChanged = useSelector(state => state.views.changed);
+    const viewsItems = useSelector(state => state.views.items);
+
     useEffect(() => {
-        dispatch(fetchFavsData());
+        dispatch(fetchViewsData());
     }, [dispatch])
 
     useEffect(() => {
@@ -46,17 +50,32 @@ function App() {
     }, [dispatch])
 
     useEffect(() => {
+        if (isInitial) {
+            isInitial = false;
+            return;
+        }
+        if (isCartChanged) {
+            dispatch(sendCartData(cartItems, cartTotalQuantity));
+        }
+    }, [cartItems, cartTotalQuantity, dispatch, isCartChanged])
 
-        console.log(cartItems)
+    useEffect(() => {
+        dispatch(fetchCartData());
+    }, [dispatch])
+
+    useEffect(() => {
         if (isInitial) {
             isInitial = false;
             return;
         }
 
-        if (isCartChanged) {
-            dispatch(sendCartData(cartItems, cartTotalQuantity));
+        console.log(isViewsChanged)
+        console.log(viewsItems)
+
+        if (isViewsChanged) {
+            dispatch(sendViewsData(viewsItems));
         }
-    }, [cartItems, cartTotalQuantity, dispatch, isCartChanged])
+    }, [viewsItems, isViewsChanged])
 
   return (
     <>

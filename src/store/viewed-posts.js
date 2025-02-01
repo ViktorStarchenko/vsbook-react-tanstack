@@ -13,7 +13,7 @@ const viewedPostsSlice = createSlice({
         addViewed(state, action) {
             const viewedId = action.payload.id;
             const isViewed = state.recentlyViewed.some(item => item.id === viewedId);
-            console.log(isViewed)
+            // console.log(isViewed)
             return {
                 ...state,
                 recentlyViewed: !isViewed
