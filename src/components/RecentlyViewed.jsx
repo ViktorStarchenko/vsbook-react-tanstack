@@ -4,7 +4,6 @@ import BooksListing from "./BookListing/BooksListing";
 export default function RecentlyViewed() {
 
     const recentlyViewed = useSelector(state => state.recentlyViewed.recentlyViewed);
-    console.log(recentlyViewed);
 
     return (
         <>

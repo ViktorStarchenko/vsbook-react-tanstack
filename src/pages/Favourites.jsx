@@ -6,6 +6,8 @@ export default function Favourites() {
 
     const favPosts = useSelector((state) => state.favPosts.favPosts);
 
+    console.log(favPosts)
+
     return (
         <>
             {favPosts && (

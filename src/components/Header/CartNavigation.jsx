@@ -9,7 +9,6 @@ export default function CartNavigation() {
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
     const isLoading = useSelector(state => state.cart.loading);
     const isCartOpen = useSelector(state => state.cart.isCartOpen);
-    console.log(totalQuantity)
     const modalRef = useRef();
 
     function handleOpenCart() {
