@@ -98,7 +98,7 @@ export default function MultiLevelMenu() {
         setDropdownItems([]);
     }
 
-    // Закрываем меню при клике вне него
+    // Close the menu when clicking outside of it
     useEffect(() => {
         function handleClickOutside(event) {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
