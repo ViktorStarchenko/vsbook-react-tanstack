@@ -17,7 +17,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: #690000;
+    background: #000000;
     z-index: 999;
 }
 .multiLevelMenuDropdownList {
@@ -30,7 +30,7 @@
     font-size: 16px;
     font-weight: bold;
     list-style: none;
-    padding: 10px;
+    padding: 10px 10px 40px;
 }
 .multiLevelMenuDropdown.open {
     animation: slide-dropdown .6s linear 1;
@@ -45,11 +45,25 @@
     font-size: 18px;
     font-weight: 800;
     color: #e1eeeb;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+}
+.multiLevelMenuLink:hover,
+.multiLevelMenuLink:hover .arrow,
+.multiLevelMenuGoBack:hover {
+    color: #f57eb6;
 }
 .arrow {
     font-size: 12px;
     color: #e1eeeb;
-    transition: all .2s;
+    transition: all .1s;
+}
+.multiLevelMenuGoBack {
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 @keyframes slide-dropdown {
     0% {
@@ -57,5 +71,23 @@
     }
     100% {
         transform: translateX(0);
+    }
+}
+
+@media (max-width: 940px) {
+    .multiLevelMenuNav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .multiLevelMenuDropdown {
+        position: relative;
+        width: 100%;
+    }
+    .multiLevelMenuDropdownList {
+        padding: 30px 0;
+    }
+    .multiLevelMenuLink,
+    .multiLevelMenuGoBack {
+        font-size: 16px;
     }
 }

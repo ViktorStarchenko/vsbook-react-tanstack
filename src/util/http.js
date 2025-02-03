@@ -298,6 +298,29 @@ export async function fetchPage({signal, postId}) {
     }
 }
 
+export async function fetchHeaderSettings() {
+    const config = {
+        method: 'get',
+        url: 'https://a.vsbookcollection.space/wp-json/canopy/v2/header-settings-acf',
+        maxBodyLength: Infinity,
+    }
+
+    try {
+        const response = await axios.request(config);
+        if (response.status != 200 && response.status != 201) {
+            throw new Error(response.data.message || `Failed to create term ${name}`);
+        }
+        return response.data
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+
+        return null;
+    }
+
+}
+
 
 export async function createTaxonomyTerm({taxonomy, name}) {
     if (!name || !taxonomy) {

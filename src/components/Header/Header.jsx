@@ -27,7 +27,7 @@ export default function Header() {
 
                     <div className="header-nav-desktop">
 
-                        <MultiLevelMenu />
+                        {/*<MultiLevelMenu />*/}
 
                         <MainNavigation />
 

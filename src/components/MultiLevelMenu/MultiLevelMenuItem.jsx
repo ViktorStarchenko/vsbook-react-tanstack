@@ -1,6 +1,7 @@
 import { useMultiLevelMenuContext } from "./MultiLevelMenu";
 import classes from "./MultiLevelMenu.module.css";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 export default function MultiLevelMenuItem({ item, isTopLevel }) {
     const { isOpen, openMenu, closeMenu, dropdownItems, dropdownParent, setDropdownParent, topLevelItem, setTopLevelItem } = useMultiLevelMenuContext();
@@ -23,11 +24,13 @@ export default function MultiLevelMenuItem({ item, isTopLevel }) {
         <li className={classes.multiLevelMenuItem}>
             {item.children ? (
                 <div className={classes.multiLevelMenuLink} onClick={() => handleClick(item)}>
-                    {item.title}
-                    {item.children && <span className={classes.arrow}>{isCurrentOpenTopLevel ? "▲" : "▼"}</span>}
+                    {item.link && item.link.title}
+
+                    {item.children.length > 0 && isTopLevel && <span className={classes.arrow}>{isCurrentOpenTopLevel ? "▲" : "▼"}</span>}
+                    {item.children.length > 0 && !isTopLevel && <span className={classes.arrow}>⇾</span>}
                 </div>
             ) : (
-                <a className={classes.multiLevelMenuLink} href={item.link}>{item.title}</a>
+                <NavLink className={classes.multiLevelMenuLink} to={item.link.url}>{item.link.title}</NavLink>
             )}
         </li>
     );

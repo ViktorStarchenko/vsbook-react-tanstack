@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import classes from './MultiLevelMenu.module.css';
 import MultiLevelMenuItem from "./MultiLevelMenuItem";
+import {useQuery} from "@tanstack/react-query";
+import {fetchHeaderSettings} from "../../util/http";
 
 const MultiLevelMenuContext = createContext();
 
@@ -21,50 +23,57 @@ export default function MultiLevelMenu() {
 
     const menuRef = useRef(null);
 
-    const menuData = [
-        {
-            id: 1,
-            title: "Главная",
-            link: "/",
-        },
-        {
-            id: 2,
-            title: "О нас",
-            link: "/about",
-            children: [
-                {
-                    id: 3,
-                    title: "Команда",
-                    link: "/about/team",
-                    children: [
-                        { id: 4, title: "Разработчики", link: "/about/team/devs" },
-                        { id: 5, title: "Менеджеры", link: "/about/team/managers" },
-                    ],
-                },
-                { id: 6, title: "История", link: "/about/history" },
-            ],
-        },
-        {
-            id: 7,
-            title: "Контакты",
-            link: "/contacts",
-            children: [
-                {
-                    id: 8,
-                    title: "Что-то рандомное",
-                    link: "/about/team",
-                    children: [
-                        { id: 9, title: "Уборщики", link: "/about/team/devs" },
-                        { id: 10, title: "Доставка", link: "/about/team/managers" },
-                    ],
-                },
-                { id: 11, title: "Еще что-то ", link: "/about/history" },
-            ],
-        },
-    ];
+    // const menuData = [
+    //     {
+    //         id: 1,
+    //         title: "Главная",
+    //         url: "/",
+    //     },
+    //     {
+    //         id: 2,
+    //         title: "О нас",
+    //         url: "/about",
+    //         children: [
+    //             {
+    //                 id: 3,
+    //                 title: "Команда",
+    //                 url: "/about/team",
+    //                 children: [
+    //                     { id: 4, title: "Разработчики", url: "/about/team/devs" },
+    //                     { id: 5, title: "Менеджеры", url: "/about/team/managers" },
+    //                 ],
+    //             },
+    //             { id: 6, title: "История", url: "/about/history" },
+    //         ],
+    //     },
+    //     {
+    //         id: 7,
+    //         title: "Контакты",
+    //         url: "/contacts",
+    //         children: [
+    //             {
+    //                 id: 8,
+    //                 title: "Что-то рандомное",
+    //                 url: "/about/team",
+    //                 children: [
+    //                     { id: 9, title: "Уборщики", url: "/about/team/devs" },
+    //                     { id: 10, title: "Доставка", url: "/about/team/managers" },
+    //                 ],
+    //             },
+    //             { id: 11, title: "Еще что-то ", url: "/about/history" },
+    //         ],
+    //     },
+    // ];
+
+    const {data, isLoading, isError, error} = useQuery({
+        queryKey: ['header-settings'],
+        queryFn: ({signal}) => fetchHeaderSettings({signal})
+    })
+
+    const menuData = (data && data.items) ? data.items : [];
 
     function openMenu(item) {
-        if (item.children) {
+        if (item.children.length > 0) {
             // If the menu is already open at this point, close it
             if (dropdownItems === item.children) {
                 closeMenu();
@@ -116,29 +125,31 @@ export default function MultiLevelMenu() {
 
     return (
         <MultiLevelMenuContext.Provider value={contextValue}>
-            <div ref={menuRef} className={classes.multiLevelMenu}>
-                <div>
-                    <ul className={classes.multiLevelMenuNav}>
-                        {menuData.map((item, index) => (
-                            <MultiLevelMenuItem key={index} item={item} isTopLevel={true}/>
-                        ))}
-                    </ul>
+            {menuData && menuData.length > 0 && (
+                <div ref={menuRef} className={classes.multiLevelMenu}>
+                    <div>
+                        <ul className={classes.multiLevelMenuNav}>
+                            {menuData.map((item, index) => (
+                                <MultiLevelMenuItem key={index} item={item} isTopLevel={true}/>
+                            ))}
+                        </ul>
 
-                    {isOpen && (
-                        <div className={classes.multiLevelMenuDropdown}>
-                            <div className="wrapper-1220">
-                                <ul className={`${classes.multiLevelMenuDropdownList} ${classes.open}`}>
-                                    {JSON.stringify(topLevelItem.children) === JSON.stringify(dropdownItems) && <div onClick={closeMenu}>Close</div>}
-                                    {JSON.stringify(topLevelItem.children) !== JSON.stringify(dropdownItems) && <div onClick={() => goBack(prevState)}>Back to {dropdownParent.title}</div>}
-                                    {dropdownItems.map((item, index) => (
-                                        <MultiLevelMenuItem key={index} item={item} />
-                                    ))}
-                                </ul>
+                        {isOpen && (
+                            <div className={classes.multiLevelMenuDropdown}>
+                                <div className="wrapper-1220">
+                                    <ul className={`${classes.multiLevelMenuDropdownList} ${classes.open}`}>
+                                        {JSON.stringify(topLevelItem.children) === JSON.stringify(dropdownItems) && <div className={classes.multiLevelMenuGoBack} onClick={closeMenu}>Close ⤬</div>}
+                                        {JSON.stringify(topLevelItem.children) !== JSON.stringify(dropdownItems) && <div className={classes.multiLevelMenuGoBack} onClick={() => goBack(prevState)}>⇽ Back to {dropdownParent.link.title}</div>}
+                                        {dropdownItems.map((item, index) => (
+                                            <MultiLevelMenuItem key={index} item={item} />
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
         </MultiLevelMenuContext.Provider>
     );
 }
