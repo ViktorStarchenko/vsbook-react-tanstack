@@ -239,6 +239,7 @@ select {
 }
 .header-nav-list.cart {
     cursor: pointer;
+    position: relative;
 }
 .header-nav-list.cart svg {
     width: 30px;

@@ -1,9 +1,9 @@
 import {viewsSliceActions} from "./views-slice";
-import {favPostsActions} from "./favourite-slice";
+import {uiSliceActions} from "./ui-slice";
 
 export const fetchViewsData = () => {
     return async (dispatch) => {
-        dispatch(favPostsActions.showNotification({
+        dispatch(uiSliceActions.showNotification({
             status: 'pending',
             title: 'Sending...',
             message: 'Sending cart data!'
@@ -25,18 +25,21 @@ export const fetchViewsData = () => {
             const data = await fetchData();
             dispatch(viewsSliceActions.replaceViewsItems(data || []))
         } catch (error) {
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'error',
                 title: 'Error...',
                 message: 'Sending views data failed!'
             }))
         }
+        setTimeout(() => {
+            dispatch(uiSliceActions.clearNotification());
+        }, 3000);
     }
 }
 
 export const sendViewsData = (viewsItems) => {
     return async (dispatch) => {
-        dispatch(favPostsActions.showNotification({
+        dispatch(uiSliceActions.showNotification({
             status: 'pending',
             title: 'Sending...',
             message: 'Sending cart data!'
@@ -58,19 +61,20 @@ export const sendViewsData = (viewsItems) => {
 
         try {
             await sendRequest();
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'success',
                 title: 'Success...',
                 message: 'Sent views data successfully!'
             }))
         } catch (error) {
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'error',
                 title: 'Error...',
                 message: 'Sending views data failed!'
             }))
         }
-
-
+        setTimeout(() => {
+            dispatch(uiSliceActions.clearNotification());
+        }, 3000);
     }
 }

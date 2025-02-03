@@ -1,8 +1,9 @@
 import {favPostsActions} from "./favourite-slice";
+import {uiSliceActions} from "./ui-slice";
 
 export const fetchFavsData = () => {
     return async (dispatch) => {
-        dispatch(favPostsActions.showNotification({
+        dispatch(uiSliceActions.showNotification({
             status: 'pending',
             title: 'Sending...',
             message: 'Sending favs data!'
@@ -24,18 +25,21 @@ export const fetchFavsData = () => {
             const favsData = await fetchData();
             dispatch(favPostsActions.replaceFavs(favsData || []))
         } catch (error) {
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'error',
                 title: 'Error...',
                 message: 'Sending favs data failed!'
             }))
         }
+        setTimeout(() => {
+            dispatch(uiSliceActions.clearNotification());
+        }, 3000);
     }
 }
 
 export const sendFavsData = (favList) => {
     return async (dispatch) => {
-        dispatch(favPostsActions.showNotification({
+        dispatch(uiSliceActions.showNotification({
             status: 'pending',
             title: 'Sending...',
             message: 'Sending favs data!'
@@ -57,19 +61,20 @@ export const sendFavsData = (favList) => {
 
         try {
             await sendRequest();
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'success',
                 title: 'Success...',
                 message: 'Sent favs data successfully!'
             }))
         } catch (error) {
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'error',
                 title: 'Error...',
                 message: 'Sending favs data failed!'
             }))
         }
-
-
+        setTimeout(() => {
+            dispatch(uiSliceActions.clearNotification());
+        }, 3000);
     }
 }

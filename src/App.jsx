@@ -9,7 +9,7 @@ import router from './router.jsx'
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
 import {useDispatch, useSelector} from "react-redux";
 
-import Notification from "./components/Notification";
+import Notification from "./components/Notification/Notification";
 import {fetchFavsData, sendFavsData} from "./store/favourite-actions";
 import {fetchCartData, sendCartData} from "./store/cart-actions";
 import {fetchViewsData, sendViewsData} from "./store/views-action";
@@ -21,7 +21,7 @@ function App() {
 
     const dispatch = useDispatch();
     const favList = useSelector(state => state.favPosts.favPosts);
-    const notification = useSelector(state => state.favPosts.notification);
+    const notification = useSelector(state => state.ui.notification);
     const isFavsChanged = useSelector(state => state.favPosts.changed);
 
     const isCartChanged = useSelector(state => state.cart.changed);
@@ -76,6 +76,7 @@ function App() {
         }
     }, [viewsItems, isViewsChanged])
 
+    console.log(notification)
   return (
     <>
         {notification && <Notification

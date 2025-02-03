@@ -1,9 +1,9 @@
-import {favPostsActions} from "./favourite-slice";
 import {cartSliceActions} from "./cart-slice";
+import {uiSliceActions} from "./ui-slice";
 
 export const fetchCartData = () => {
     return async (dispatch) => {
-        dispatch(favPostsActions.showNotification({
+        dispatch(uiSliceActions.showNotification({
             status: 'pending',
             title: 'Sending...',
             message: 'Sending cart data!'
@@ -23,24 +23,29 @@ export const fetchCartData = () => {
 
         try {
             const data = await fetchData();
+            console.log(data)
             const cartData = {
                 items: data.items || [],
                 totalQuantity: data.totalQuantity || 0
             }
             dispatch(cartSliceActions.replaceCart(cartData || []))
         } catch (error) {
-            dispatch(favPostsActions.showNotification({
+            console.log(error)
+            dispatch(uiSliceActions.showNotification({
                 status: 'error',
                 title: 'Error...',
-                message: 'Sending favs data failed!'
+                message: 'Sending cart data failed!'
             }))
         }
+        setTimeout(() => {
+            dispatch(uiSliceActions.clearNotification());
+        }, 3000);
     }
 }
 
 export const sendCartData = (cart, cartTotalQuantity) => {
     return async (dispatch) => {
-        dispatch(favPostsActions.showNotification({
+        dispatch(uiSliceActions.showNotification({
             status: 'pending',
             title: 'Sending...',
             message: 'Sending cart data!'
@@ -62,19 +67,20 @@ export const sendCartData = (cart, cartTotalQuantity) => {
 
         try {
             await sendRequest();
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'success',
                 title: 'Success...',
                 message: 'Sent cart data successfully!'
-            }))
+            }));
         } catch (error) {
-            dispatch(favPostsActions.showNotification({
+            dispatch(uiSliceActions.showNotification({
                 status: 'error',
                 title: 'Error...',
-                message: 'Sending favs data failed!'
+                message: 'Sending cart data failed!'
             }))
         }
-
-
+        setTimeout(() => {
+            dispatch(uiSliceActions.clearNotification());
+        }, 3000);
     }
 }
