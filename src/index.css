@@ -187,13 +187,15 @@ select {
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .header-logo {
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: auto;
 }
 .header-logo img {
     width: auto;
@@ -211,7 +213,7 @@ select {
     display: flex;
     gap: 1rem;
     list-style: none;
-    position: relative;
+    /*position: relative;*/
 }
 .header-nav-list.favourites a {
     margin-bottom: -5px;
@@ -277,6 +279,8 @@ svg.animate-pumping {
 .mobile-menu {
     width: 100%;
     max-width: 410px;
+    height: 80vh;
+    overflow: auto;
     position: fixed;
     right: -100%;
     top: 54px;
@@ -312,12 +316,12 @@ svg.animate-pumping {
 /*    width: 20px;*/
 /*    height: auto;*/
 /*}*/
-@media (max-width: 767px) {
+@media (max-width: 940px) {
     .header-logo {
         height: 34px;
     }
     .header-inner {
-        justify-content: space-between;
+        justify-content: flex-end;
         padding: 10px 20px;
         gap: 10px;
     }

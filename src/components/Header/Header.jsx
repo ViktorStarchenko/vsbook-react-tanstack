@@ -8,6 +8,7 @@ import MobileMenu from "./MobileMenu";
 import HeaderLogo from "./HeaderLogo";
 import FavouriteNavigation from "./FavouriteNavigation";
 import CartNavigation from "./CartNavigation";
+import MultiLevelMenu from "../MultiLevelMenu/MultiLevelMenu";
 
 export default function Header() {
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
@@ -25,6 +26,9 @@ export default function Header() {
                     <HeaderLogo />
 
                     <div className="header-nav-desktop">
+
+                        {/*<MultiLevelMenu />*/}
+
                         <MainNavigation />
 
                         <AuthNavigation />

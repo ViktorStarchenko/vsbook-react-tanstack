@@ -32,7 +32,7 @@ function App() {
     const viewsItems = useSelector(state => state.views.items);
 
     useEffect(() => {
-        dispatch(fetchViewsData());
+        dispatch(fetchFavsData());
     }, [dispatch])
 
     useEffect(() => {
@@ -45,6 +45,8 @@ function App() {
         }
     }, [favList, dispatch, isFavsChanged])
 
+
+    // Cart redux
     useEffect(() => {
         dispatch(fetchCartData());
     }, [dispatch])
@@ -60,7 +62,7 @@ function App() {
     }, [cartItems, cartTotalQuantity, dispatch, isCartChanged])
 
     useEffect(() => {
-        dispatch(fetchCartData());
+        dispatch(fetchViewsData());
     }, [dispatch])
 
     useEffect(() => {
@@ -68,9 +70,6 @@ function App() {
             isInitial = false;
             return;
         }
-
-        console.log(isViewsChanged)
-        console.log(viewsItems)
 
         if (isViewsChanged) {
             dispatch(sendViewsData(viewsItems));
