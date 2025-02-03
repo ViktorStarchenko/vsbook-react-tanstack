@@ -279,6 +279,8 @@ svg.animate-pumping {
 .mobile-menu {
     width: 100%;
     max-width: 410px;
+    height: 80vh;
+    overflow: auto;
     position: fixed;
     right: -100%;
     top: 54px;
