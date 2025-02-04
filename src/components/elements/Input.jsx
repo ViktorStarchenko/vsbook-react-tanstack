@@ -1,4 +1,4 @@
-export default function Input({type, name, placeholder}) {
+export default function Input({type='text', name='', placeholder=''}) {
 
     return (
         <>

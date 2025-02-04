@@ -3,6 +3,7 @@ import classes from './MultiLevelMenu.module.css';
 import MultiLevelMenuItem from "./MultiLevelMenuItem";
 import {useQuery} from "@tanstack/react-query";
 import {fetchHeaderSettings} from "../../util/http";
+import {useSelector} from "react-redux";
 
 const MultiLevelMenuContext = createContext();
 
@@ -70,7 +71,10 @@ export default function MultiLevelMenu() {
         queryFn: ({signal}) => fetchHeaderSettings({signal})
     })
 
-    const menuData = (data && data.items) ? data.items : [];
+
+
+    // const menuData = (data && data.items) ? data.items : [];
+    const menuData = useSelector(state => state.mainMenu.items);
 
     function openMenu(item) {
         if (item.children.length > 0) {
@@ -139,7 +143,8 @@ export default function MultiLevelMenu() {
                                 <div className="wrapper-1220">
                                     <ul className={`${classes.multiLevelMenuDropdownList} ${classes.open}`}>
                                         {JSON.stringify(topLevelItem.children) === JSON.stringify(dropdownItems) && <div className={classes.multiLevelMenuGoBack} onClick={closeMenu}>Close ⤬</div>}
-                                        {JSON.stringify(topLevelItem.children) !== JSON.stringify(dropdownItems) && <div className={classes.multiLevelMenuGoBack} onClick={() => goBack(prevState)}>⇽ Back to {dropdownParent.link.title}</div>}
+                                        {/*{JSON.stringify(topLevelItem.children) !== JSON.stringify(dropdownItems) && <div className={classes.multiLevelMenuGoBack} onClick={() => goBack(prevState)}>⇽ Back to {dropdownParent.link.title}</div>}*/}
+                                        {JSON.stringify(topLevelItem.children) !== JSON.stringify(dropdownItems) && <div className={classes.multiLevelMenuGoBack} onClick={() => goBack(prevState)}>⇽ Back to {dropdownParent.title}</div>}
                                         {dropdownItems.map((item, index) => (
                                             <MultiLevelMenuItem key={index} item={item} />
                                         ))}
