@@ -1,7 +1,11 @@
-import { useState } from "react";
+import {useRef, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {mainMenuSliceActions} from "../../store/main-menu-slice";
+
+import classes from './MenuForm.module.css'
+import MenuFormItem from "./MenuFormItem";
+import MenuItemList from "./MenuItemList";
 
 export default function MenuForm() {
     // const [menuItems, setMenuItems] = useState([]);
@@ -17,68 +21,56 @@ export default function MenuForm() {
     }
 
     return (
-        <div>
-            <h1>Manage Menu</h1>
-            <MenuItemForm onAdd={handleAddItem} />
-            <MenuItemList items={menuItems} />
-        </div>
-    );
-}
-
-function MenuItemForm({ onAdd, level = 1 }) {
-    const [title, setTitle] = useState("");
-    const [url, setUrl] = useState("");
-    const [children, setChildren] = useState([]);
-    const [showChildForm, setShowChildForm] = useState(false); // Управляет отображением вложенной формы
-
-    function handleAddChild(newChild) {
-        setChildren((prevChildren) => [...prevChildren, newChild]);
-    }
-
-    function handleSubmit() {
-        if (!title || !url) return;
-        onAdd({ id: Date.now(), title, url, children: children.length ? children : undefined });
-        setTitle("");
-        setUrl("");
-        setChildren([]);
-        setShowChildForm(false); // Скрываем форму после добавления
-    }
-
-    return (
-        <div style={{ marginLeft: level * 20, border: "1px solid #ddd", padding: "10px" }}>
-            <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-            <input type="text" placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} required />
-            <button type="button" onClick={handleSubmit}>Add Item</button>
-
-            <div>
-                <button type="button" onClick={() => setShowChildForm(!showChildForm)}>
-                    {showChildForm ? "Hide Subitems" : "Add Subitems (Level " + (level + 1) + ")"}
-                </button>
-
-                {showChildForm && (
-                    <>
-                        <MenuItemForm onAdd={handleAddChild} level={level + 1} />
-                        <MenuItemList items={children} />
-                    </>
-                )}
+        <div className="wrapper-860">
+            <h1 className="h1">Manage Menu</h1>
+            <MenuFormItem onAdd={handleAddItem} />
+            <div className={classes.menuFormListWrapper}>
+                <MenuItemList items={menuItems} />
             </div>
         </div>
     );
 }
 
-function MenuItemList({ items }) {
-    return (
-        <ul>
-            {items.map((item) => (
-                <li key={item.id}>
-                    {item.title} - {item.url}
-                    {item.children && <MenuItemList items={item.children} />}
-                </li>
-            ))}
-        </ul>
-    );
-}
-
+// function MenuFormItem({ onAdd, level = 1 }) {
+//     const [title, setTitle] = useState("");
+//     const [url, setUrl] = useState("");
+//     const [children, setChildren] = useState([]);
+//     const [showChildForm, setShowChildForm] = useState(false); // Управляет отображением вложенной формы
+//
+//     function handleAddChild(newChild) {
+//         setChildren((prevChildren) => [...prevChildren, newChild]);
+//     }
+//
+//     function handleSubmit() {
+//         if (!title || !url) return;
+//         onAdd({ id: Date.now(), title, url, children: children.length ? children : undefined });
+//         setTitle("");
+//         setUrl("");
+//         setChildren([]);
+//         setShowChildForm(false); // Скрываем форму после добавления
+//     }
+//
+//     return (
+//         <div style={{ marginLeft: level * 20, border: "1px solid #ddd", padding: "10px" }}>
+//             <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+//             <input type="text" placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} required />
+//             <button type="button" onClick={handleSubmit}>Add Item</button>
+//
+//             <div>
+//                 <button type="button" onClick={() => setShowChildForm(!showChildForm)}>
+//                     {showChildForm ? "Hide Subitems" : "Add Subitems (Level " + (level + 1) + ")"}
+//                 </button>
+//
+//                 {showChildForm && (
+//                     <>
+//                         <MenuFormItem onAdd={handleAddChild} level={level + 1} />
+//                         <MenuItemList items={children} />
+//                     </>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// }
 
 
 
@@ -102,13 +94,13 @@ function MenuItemList({ items }) {
 //     return (
 //         <div>
 //             <h1>Manage Menu</h1>
-//             <MenuItemForm onAdd={handleAddItem} />
+//             <MenuFormItem onAdd={handleAddItem} />
 //             <MenuItemList items={menuItems} />
 //         </div>
 //     );
 // }
 //
-// function MenuItemForm({ onAdd, level = 1 }) {
+// function MenuFormItem({ onAdd, level = 1 }) {
 //     const [title, setTitle] = useState("");
 //     const [url, setUrl] = useState("");
 //     const [children, setChildren] = useState([]);

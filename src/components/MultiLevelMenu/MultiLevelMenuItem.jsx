@@ -20,8 +20,6 @@ export default function MultiLevelMenuItem({ item, isTopLevel }) {
         }
     }
 
-    console.log(item)
-
     return (
         <li className={classes.multiLevelMenuItem}>
             {item.children ? (

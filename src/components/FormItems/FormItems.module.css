@@ -1,0 +1,8 @@
+.formItem {
+
+}
+.formItem > input,
+.formItem > textarea,
+.formItem > select {
+    width: 100%;
+}

@@ -61,6 +61,12 @@ select {
     line-height: 1.2;
     margin-bottom: 25px;
 }
+.h3 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
 .text-left {
     text-align: left;
 }
@@ -71,23 +77,39 @@ select {
     text-align: right;
 }
 
+.wrapper-860 {
+    width: 100%;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .wrapper-1020 {
     width: 100%;
     max-width: 1020px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 .wrapper-1220 {
     width: 100%;
     max-width: 1220px;
     padding: 0 20px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 .spacer {
     height: 2rem;
 }
 @media (max-width: 1040px) {
     .wrapper-1020 {
-        padding: 0 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 880px) {
+    .wrapper-860 {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 .imageContain {
