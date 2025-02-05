@@ -14,11 +14,11 @@ import Accordion from "../Accordion/Accordion";
 import ImagePicker from "../ImagePicker/ImagePicker";
 import ErrorBlock from "../ErrorsBlock/ErrorsBlockList";
 import CreateTaxonomy from "./CreateTaxonomy";
-import FormRow from "./FormRow";
+import FormRow from "../FormItems/FormRow";
 import {useMutation} from "@tanstack/react-query";
 import {postBook} from "../../util/http";
 import LoadingIndicator from "../LoadingIndicator";
-import FormGroup from "./FormGroup";
+import FormGroup from "../FormItems/FormGroup";
 
 export default function BookForm() {
     const [formErrors, setFormErrors] = useState(null); // State for errors

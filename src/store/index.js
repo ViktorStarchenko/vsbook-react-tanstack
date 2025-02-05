@@ -6,6 +6,7 @@ import viewedPostsSlice from "./viewed-posts";
 import cartSlice from "./cart-slice";
 import viewsSlice from "./views-slice";
 import uiSlice from "./ui-slice";
+import mainMenuSlice from "./main-menu-slice";
 
 const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
         favPosts: favPostsSlice.reducer,
         cart: cartSlice.reducer,
         views: viewsSlice.reducer,
-        ui: uiSlice.reducer
+        ui: uiSlice.reducer,
+        mainMenu: mainMenuSlice.reducer
     }
 });
 

@@ -9,7 +9,6 @@ const uiSlice = createSlice({
     initialState: initialUiState,
     reducers: {
         showNotification(state, action) {
-            console.log(action.payload)
             state.notification = {
                 status: action.payload.status,
                 title: action.payload.title,

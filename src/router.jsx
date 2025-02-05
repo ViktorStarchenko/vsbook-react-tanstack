@@ -17,6 +17,7 @@ import { loader as fetchPostsHome } from "./pages/Home.jsx";
 import { loader as fetchPostsBooks } from "./pages/Books.jsx";
 import { loader as fetchPostBook } from "./pages/BookDetail.jsx";
 import Favourites from "./pages/Favourites";
+import MenuSettings from "./pages/MenuSettings";
 
 const router = createBrowserRouter([
     {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
             {
                 path: '/favourites',
                 element: <Favourites />
+            },
+            {
+                path: '/menu-settings',
+                element: <MenuSettings />
             }
         ]
     },

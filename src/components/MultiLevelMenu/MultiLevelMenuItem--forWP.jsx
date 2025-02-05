@@ -24,13 +24,13 @@ export default function MultiLevelMenuItem({ item, isTopLevel }) {
         <li className={classes.multiLevelMenuItem}>
             {item.children ? (
                 <div className={classes.multiLevelMenuLink} onClick={() => handleClick(item)}>
-                    {item.title && item.title}
+                    {item.link && item.link.title}
 
                     {item.children.length > 0 && isTopLevel && <span className={classes.arrow}>{isCurrentOpenTopLevel ? "▲" : "▼"}</span>}
                     {item.children.length > 0 && !isTopLevel && <span className={classes.arrow}>⇾</span>}
                 </div>
             ) : (
-                <NavLink className={classes.multiLevelMenuLink} to={item.url}>{item.title}</NavLink>
+                <NavLink className={classes.multiLevelMenuLink} to={item.link.url}>{item.link.title}</NavLink>
             )}
         </li>
     );

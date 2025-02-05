@@ -13,6 +13,7 @@ import Notification from "./components/Notification/Notification";
 import {fetchFavsData, sendFavsData} from "./store/favourite-actions";
 import {fetchCartData, sendCartData} from "./store/cart-actions";
 import {fetchViewsData, sendViewsData} from "./store/views-action";
+import {fetchMainMenuData, sendMainMenuData} from "./store/main-menu-actions";
 
 let isInitial = true;
 
@@ -30,6 +31,9 @@ function App() {
 
     const isViewsChanged = useSelector(state => state.views.changed);
     const viewsItems = useSelector(state => state.views.items);
+
+    const isMainMenuChanged = useSelector(state => state.mainMenu.changed);
+    const mainMenuItems = useSelector(state => state.mainMenu.items);
 
     useEffect(() => {
         dispatch(fetchFavsData());
@@ -76,7 +80,21 @@ function App() {
         }
     }, [viewsItems, isViewsChanged])
 
-    console.log(notification)
+    useEffect(() => {
+        dispatch(fetchMainMenuData());
+    }, [dispatch])
+
+    useEffect(() => {
+        if (isInitial) {
+            isInitial = false;
+            return;
+        }
+
+        if (isMainMenuChanged) {
+            dispatch(sendMainMenuData(mainMenuItems))
+        }
+    }, [mainMenuItems, isMainMenuChanged])
+
   return (
     <>
         {notification && <Notification
