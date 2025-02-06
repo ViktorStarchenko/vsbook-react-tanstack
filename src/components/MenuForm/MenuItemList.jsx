@@ -6,13 +6,14 @@ import Modal from "../Modal/Modal";
 import MenuFormEditItem from "./MenuFormEditItem";
 import MenuFormAddItem from "./MenuFormAddItem";
 import {NavLink} from "react-router-dom";
+import MenuItemChangeIndex from "./MenuItemChangeIndex";
 
 export default function MenuItemList({items}) {
     const [modalType, setModalType] = useState();
     const [selectedItem, setSelectedItem] = useState(null);
     const modalEditRef = useRef();
     const dispatch = useDispatch();
-
+    // console.log(items)
     function handleOpenEdit(item) {
         setSelectedItem(item);
         setModalType('edit');
@@ -30,10 +31,11 @@ export default function MenuItemList({items}) {
 
     return (
         <ul className={classes.menuFormList}>
-            {items.map((item) => (
+            {items.map((item, index) => (
                 <li key={item.id}>
                     <div className={classes.menuFormListInner}>
                         <div className={classes.menuFormListName}>
+                            <MenuItemChangeIndex items={items} index={index}/>
                             {item.title} -
                             <NavLink to={item.url}>{item.url}</NavLink>
                         </div>

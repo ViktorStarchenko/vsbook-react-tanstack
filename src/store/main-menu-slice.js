@@ -47,6 +47,32 @@ const editItemRecursive = (items, itemToEdit) => {
     })
 }
 
+const changeItemIndexRecursive = (items, arrayToEdit, fromIndex, toIndex) => {
+    if (JSON.stringify(items) === JSON.stringify(arrayToEdit)) {
+        return swapItems(items, fromIndex, toIndex);
+    }
+
+    return items.map(item => {
+        if (item.children) {
+            return {
+                ...item,
+                children: changeItemIndexRecursive(item.children, arrayToEdit, fromIndex, toIndex)
+            };
+        }
+        return item;
+    });
+}
+
+function swapItems(arr, fromIndex, toIndex) {
+    if (fromIndex < 0 || toIndex < 0 || fromIndex >= arr.length || toIndex >= arr.length) {
+        console.error("Invalid indices");
+        return arr;
+    }
+    const newArr = [...arr]; // Copy the array so as not to mutate the original
+    [newArr[fromIndex], newArr[toIndex]] = [newArr[toIndex], newArr[fromIndex]];
+    return newArr;
+}
+
 const mainMenuSlice = createSlice({
     name: 'mainMenu',
     initialState: initialMainMenuSlice,
@@ -74,6 +100,10 @@ const mainMenuSlice = createSlice({
         editMenuItem(state, action) {
             const itemToEdit = action.payload;
             state.items = editItemRecursive(state.items, itemToEdit);
+            state.changed = true;
+        },
+        changeItemIndex(state, action) {
+            state.items = changeItemIndexRecursive(state.items, action.payload.arrayToEdit, action.payload.fromIndex, action.payload.toIndex);
             state.changed = true;
         }
     }
