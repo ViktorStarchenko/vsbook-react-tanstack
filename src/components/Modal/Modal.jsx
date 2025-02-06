@@ -19,6 +19,7 @@ const Modal = forwardRef(function Modal({title, children}, ref) {
     });
 
     function handleBackdropClick(event) {
+        console.log(event.target === dialog.current)
         if (event.target === dialog.current) {
             dialog.current.close();
         }

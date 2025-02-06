@@ -7,6 +7,7 @@ import MenuFormEditItem from "./MenuFormEditItem";
 import MenuFormAddItem from "./MenuFormAddItem";
 import {NavLink} from "react-router-dom";
 import MenuItemChangeIndex from "./MenuItemChangeIndex";
+import MenuItemActionRemove from "./MenuItemActionRemove";
 
 export default function MenuItemList({items}) {
     const [modalType, setModalType] = useState();
@@ -25,9 +26,9 @@ export default function MenuItemList({items}) {
         modalEditRef.current.open();
     }
 
-    function handleRemove(item) {
-        dispatch(mainMenuSliceActions.removeMenuItem(item))
-    }
+    // function handleRemove(item) {
+    //     dispatch(mainMenuSliceActions.removeMenuItem(item))
+    // }
 
     return (
         <ul className={classes.menuFormList}>
@@ -41,7 +42,8 @@ export default function MenuItemList({items}) {
                         </div>
                         <div className={classes.actions}>
                             <span onClick={() => handleOpenEdit(item)}>Edit</span>
-                            <span onClick={() => handleRemove(item)} >Remove</span>
+                            {/*<span onClick={() => handleRemove(item)} >Remove</span>*/}
+                            <MenuItemActionRemove item={item}/>
                             <span onClick={() => handleOpenAddSubItem(item)} >Add Sub Item</span>
                         </div>
                     </div>
