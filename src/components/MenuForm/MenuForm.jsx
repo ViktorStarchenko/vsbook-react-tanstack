@@ -13,7 +13,7 @@ export default function MenuForm() {
 
     const menuItems = useSelector(state => state.mainMenu.items || []);
 
-    console.log(menuItems)
+    // console.log(menuItems)
 
     function handleAddItem(newItem) {
         // setMenuItems([...menuItems, newItem]);

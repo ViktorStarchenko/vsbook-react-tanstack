@@ -25,7 +25,7 @@ export default function MenuFormItem({ onAdd, level = 1 }) {
     }
 
     return (
-        <div style={{ marginLeft: level * 20, border: "1px solid #ddd", padding: "10px" }}>
+        <div>
             <FormGroup>
                 <FormRow>
                     <FormItem flexSizing="1">
@@ -35,23 +35,28 @@ export default function MenuFormItem({ onAdd, level = 1 }) {
                         <input type="text" placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} required />
                     </FormItem>
                 </FormRow>
+                <FormRow>
+                    <FormItem width="100%">
+                        <button className="btn" type="button" onClick={handleSubmit}>Add Item</button>
+                    </FormItem>
+                </FormRow>
             </FormGroup>
 
 
-            <button type="button" onClick={handleSubmit}>Add Item</button>
 
-            <div>
-                <button type="button" onClick={() => setShowChildForm(!showChildForm)}>
-                    {showChildForm ? "Hide Subitems" : "Add Subitems (Level " + (level + 1) + ")"}
-                </button>
 
-                {showChildForm && (
-                    <>
-                        <MenuFormItem onAdd={handleAddChild} level={level + 1} />
-                        <MenuItemList items={children} />
-                    </>
-                )}
-            </div>
+            {/*<div>*/}
+            {/*    <button type="button" onClick={() => setShowChildForm(!showChildForm)}>*/}
+            {/*        {showChildForm ? "Hide Subitems" : "Add Subitems (Level " + (level + 1) + ")"}*/}
+            {/*    </button>*/}
+
+            {/*    {showChildForm && (*/}
+            {/*        <>*/}
+            {/*            <MenuFormItem onAdd={handleAddChild} level={level + 1} />*/}
+            {/*            <MenuItemList items={children} />*/}
+            {/*        </>*/}
+            {/*    )}*/}
+            {/*</div>*/}
         </div>
     );
 }

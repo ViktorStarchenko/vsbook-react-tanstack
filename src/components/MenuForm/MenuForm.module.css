@@ -37,7 +37,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 10px;
+    padding-right: 10px;
 }
 .actions span {
     font-size: 16px;
@@ -46,4 +47,28 @@
 }
 .actions span:hover {
     color: #f57eb6;
+}
+.actionChangeIndex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*gap: 5px;*/
+}
+.actionChangeIndex > span {
+    width: 10px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.actionChangeIndex span:hover {
+    color: #f57eb6;
+}
+.actionChangeIndexUp {
+    /*transform: rotate(-90deg);*/
+}
+.actionChangeIndexDown {
+    /*transform: rotate(90deg);*/
 }
