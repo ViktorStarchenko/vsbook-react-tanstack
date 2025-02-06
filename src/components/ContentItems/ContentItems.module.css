@@ -1,0 +1,8 @@
+.contentRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.contentItem {
+
+}
