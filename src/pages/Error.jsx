@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 export default function ErrorPage() {
     const error = useRouteError();
     console.log(error)
-    console.log(error.message)
+    console.log(error.error)
     let title = 'En error occured';
     let message = 'could not find this page';
     let content;
@@ -25,6 +25,9 @@ export default function ErrorPage() {
     }
     if (error && error.message) {
         content = <ErrorsBlockSingle error={error.message}/>;
+    }
+    if (error && error.error) {
+        content = <ErrorsBlockSingle error={error.error.message}/>;
     }
 
     return (

@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 
 import classes from './Notification.module.css';
+import {useDispatch} from "react-redux";
+import {uiSliceActions} from "../../store/ui-slice";
 
 const Notification = (props) => {
+    const dispatch = useDispatch();
+
     let specialClasses = '';
 
     if (props.status === 'error') {
@@ -15,6 +19,10 @@ const Notification = (props) => {
     const cssClasses = `${classes.notification} ${specialClasses}`;
 
     const [progress, setProgress] = useState(100);
+
+    const closeNotification = () => {
+        dispatch(uiSliceActions.clearNotification());
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -29,6 +37,7 @@ const Notification = (props) => {
             <h2>{props.title}</h2>
             <p>{props.message}</p>
             <progress max="100" value={progress}></progress>
+            <span onClick={closeNotification}>⤬</span>
         </section>
     );
 };

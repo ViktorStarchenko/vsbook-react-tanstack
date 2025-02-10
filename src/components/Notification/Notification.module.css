@@ -45,3 +45,12 @@
 .notification progress::-webkit-progress-bar {
     background-color: transparent;
 }
+
+.notification span {
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 8px);
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
