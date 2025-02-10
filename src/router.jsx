@@ -48,10 +48,8 @@ const router = createBrowserRouter([
                 loader: fetchPostsBooks
             },
             {
-                path: 'books/:bookId',
+                path: 'books/:slugOrId',
                 id: 'book-detail',
-                // loader: bookDetailLoader,
-                // loader: fetchPost,
                 loader: fetchPostBook,
                 children: [
                     {

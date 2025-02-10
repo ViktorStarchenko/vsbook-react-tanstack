@@ -17,12 +17,12 @@ export default function BookDetailPage() {
     // console.log(book.title.rendered)
     const dispatch = useDispatch();
 
-
     const {data, isLoading, isError, error} = useQuery({
-        queryKey: ['book', {postId: params.bookId}],
-        queryFn: ({signal}) => fetchPost({signal, postId: params.bookId}),
+        queryKey: ['book', {slugOrId: params.slugOrId}],
+        queryFn: ({signal}) => fetchPost({signal, slugOrId: params.slugOrId}),
     })
 
+    console.log(error)
     let content;
 
     if (isLoading) {
@@ -44,10 +44,6 @@ export default function BookDetailPage() {
 
     useEffect(() => {
         if (data) {
-            // dispatch({
-            //     type: TOGGLE_VIEWED,
-            //     payload: data,
-            // });
             dispatch(viewedPostsActions.addViewed(data));
         }
     }, [data, dispatch]);
@@ -66,9 +62,9 @@ export default function BookDetailPage() {
 }
 
 export function loader({params, request}) {
-    const postId = params.bookId
+    const slugOrId = params.slugOrId;
     return queryClient.fetchQuery({
-        queryKey: ['book', {postId}],
-        queryFn: ({signal}) => fetchPost({signal, postId})
+        queryKey: ['book', {slugOrId}],
+        queryFn: ({signal}) => fetchPost({signal, slugOrId})
     })
 }
