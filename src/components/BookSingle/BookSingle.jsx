@@ -35,9 +35,11 @@ export default function BookSingle({post}) {
         deleteBookModalRef.current.open();
     }
 
-    if (post) {
-        dispatch(viewsSliceActions.updateItemViews(post.id));
-    }
+    useEffect(() => {
+        if (post) {
+            dispatch(viewsSliceActions.updateItemViews(post.id));
+        }
+    }, [dispatch, post]);
 
     return (
         <>

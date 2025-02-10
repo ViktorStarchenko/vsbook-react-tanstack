@@ -4,19 +4,37 @@ import MenuItemList from "./MenuItemList";
 import FormGroup from "../FormItems/FormGroup";
 import FormRow from "../FormItems/FormRow";
 import FormItem from "../FormItems/FormItem";
+import {useDispatch} from "react-redux";
+import {uiSliceActions} from "../../store/ui-slice";
 
 export default function MenuFormItem({ onAdd, level = 1 }) {
     const [title, setTitle] = useState("");
     const [url, setUrl] = useState("");
     const [children, setChildren] = useState([]);
     const [showChildForm, setShowChildForm] = useState(false); // Controls the display of a nested form.
+    const [errorFields, setErrorFields] = useState({ title: false, url: false });
 
-    function handleAddChild(newChild) {
-        setChildren((prevChildren) => [...prevChildren, newChild]);
-    }
+    const dispatch = useDispatch();
 
     function handleSubmit() {
-        if (!title || !url) return;
+
+        const errors = {
+            title: !title,
+            url: !url
+        };
+
+        if (errors.title || errors.url) {
+            setErrorFields(errors);
+            dispatch(uiSliceActions.showNotification({
+                status: "error",
+                title: "Error",
+                message: "Empty fields or wrong format"
+            }));
+            return;
+        }
+
+        setErrorFields({ title: false, url: false });
+
         onAdd({ id: Date.now(), title, url, children: children.length ? children : undefined });
         setTitle("");
         setUrl("");
@@ -29,10 +47,24 @@ export default function MenuFormItem({ onAdd, level = 1 }) {
             <FormGroup>
                 <FormRow>
                     <FormItem flexSizing="1">
-                        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                        <input
+                            className={errorFields.title ? "error" : ""}
+                            type="text"
+                            name="title"
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required />
                     </FormItem>
                     <FormItem flexSizing="1">
-                        <input type="text" placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} required />
+                        <input
+                            className={errorFields.url ? "error" : ""}
+                            type="text"
+                            name="url"
+                            placeholder="URL"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            required />
                     </FormItem>
                 </FormRow>
                 <FormRow>
@@ -41,19 +73,6 @@ export default function MenuFormItem({ onAdd, level = 1 }) {
                     </FormItem>
                 </FormRow>
             </FormGroup>
-
-            {/*<div>*/}
-            {/*    <button type="button" onClick={() => setShowChildForm(!showChildForm)}>*/}
-            {/*        {showChildForm ? "Hide Subitems" : "Add Subitems (Level " + (level + 1) + ")"}*/}
-            {/*    </button>*/}
-
-            {/*    {showChildForm && (*/}
-            {/*        <>*/}
-            {/*            <MenuFormItem onAdd={handleAddChild} level={level + 1} />*/}
-            {/*            <MenuItemList items={children} />*/}
-            {/*        </>*/}
-            {/*    )}*/}
-            {/*</div>*/}
         </div>
     );
 }

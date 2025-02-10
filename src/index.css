@@ -209,7 +209,7 @@ select {
     z-index: 100;
 }
 .header-spacing {
-    /*height: 60px;*/
+    height: 60px;
 }
 .header-inner {
     width: 100%;
@@ -409,6 +409,9 @@ select {
     color: #e1eeeb;
     min-width: 250px;
     height: 40px;
+}
+input.error {
+    background-color: #690000;
 }
 .btnSubmit {
     width: 100%;

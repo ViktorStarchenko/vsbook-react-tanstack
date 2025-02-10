@@ -3,6 +3,8 @@ import axios from "axios";
 import Input from "../components/elements/Input";
 import classes from "../components/ErrorsBlock/ErrorsBlock.module.css";
 import {Helmet} from "react-helmet-async";
+import Spacer from "../components/elements/Spacer";
+import PageContent from "../components/PageContent";
 
 export default function Authentification() {
     const data = useActionData();
@@ -16,27 +18,30 @@ export default function Authentification() {
             <Helmet>
                 <title>VSBookcollection - Auth page</title>
             </Helmet>
-            <div className="wrapper-1220">
-                <Form method="POST">
-                    {data && data.errors &&
-                    <ul>
-                        {Object.values(data.errors).map((err) => (
-                            <li key={err}>{err}</li>
-                        ))}
-                    </ul>}
-                    {data && data.message && (
-                        <ul className={classes['errors-block-list']}>
-                            <li className={classes['errors-block-item']}>{data.message}</li>
-                        </ul>
-                    )}
+            <Spacer />
+            <PageContent title="Login">
+                <div className="wrapper-1220">
+                    <Form method="POST">
+                        {data && data.errors &&
+                        <ul>
+                            {Object.values(data.errors).map((err) => (
+                                <li key={err}>{err}</li>
+                            ))}
+                        </ul>}
+                        {data && data.message && (
+                            <ul className={classes['errors-block-list']}>
+                                <li className={classes['errors-block-item']}>{data.message}</li>
+                            </ul>
+                        )}
 
-                    <div className="formInner">
-                        <Input name="username" type="text" placeholder="Username"/>
-                        <Input name="password" type="password" placeholder="Password"/>
-                        <button disabled={isSubmitting} className="btn btnSubmit">{isSubmitting ? 'Submitting...' : 'Submit'}</button>
-                    </div>
-                </Form>
-            </div>
+                        <div className="formInner">
+                            <Input name="username" type="text" placeholder="Username"/>
+                            <Input name="password" type="password" placeholder="Password"/>
+                            <button disabled={isSubmitting} className="btn btnSubmit">{isSubmitting ? 'Submitting...' : 'Submit'}</button>
+                        </div>
+                    </Form>
+                </div>
+            </PageContent>
         </>
     )
 }

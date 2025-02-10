@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import classes from './BooksListing.module.css';
 import logoImage from '../../assets/images/logo-3.svg'
@@ -10,16 +10,13 @@ import { usePostImage } from "../../hooks/usePostImage";
 import BookListingItemImage from "./BookListingItemImage";
 import BooksListingItemTitle from "./BooksListingItemTitle";
 import BooksListingItemDescription from "./BooksListingItemDescription";
-import TooltipModal from "../elements/TooltipModal";
-import {useQuery} from "@tanstack/react-query";
-import {fetchPostImage} from "../../util/http";
+
 import LoadingIndicator from "../LoadingIndicator";
 import {usePostTaxonomy} from "../../hooks/usePostTaxonomy";
 import BookListingWriter from "./BookListingWriter";
 import FavsButton from "../elements/FavsButton";
 import Spacer from "../elements/Spacer";
-import {useDispatch} from "react-redux";
-import {cartSliceActions} from "../../store/cart-slice";
+
 import LupaButton from "../elements/LupaButton";
 import AddToCartButton from "../elements/AddToCartButton";
 import PostViewsCount from "../elements/PostViewsCount";
@@ -84,7 +81,7 @@ export default function BooksListingItem({post}) {
                     onMouseLeave={() => toggleDescription(false)}
                 >
                     <Spacer />
-                    {post.title && <BooksListingItemTitle title={post.title.rendered} postId={post.id}/>}
+                    {post.title && <BooksListingItemTitle title={post.title.rendered} postSlug={post.slug} postId={post.id}/>}
                     {dataWrirer && dataWrirer.length > 0 && <BookListingWriter object={dataWrirer}/>}
 
 
