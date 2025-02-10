@@ -16,8 +16,10 @@ import {fetchPost} from "./util/http";
 import { loader as fetchPostsHome } from "./pages/Home.jsx";
 import { loader as fetchPostsBooks } from "./pages/Books.jsx";
 import { loader as fetchPostBook } from "./pages/BookDetail.jsx";
+import { loader as fetchDynamicPage } from "./pages/DynamicPage";
 import Favourites from "./pages/Favourites";
 import MenuSettings from "./pages/MenuSettings";
+import DynamicPage from "./pages/DynamicPage";
 
 const router = createBrowserRouter([
     {
@@ -64,6 +66,11 @@ const router = createBrowserRouter([
                 element: <NewBookPage />,
                 // action: postBook,
                 loader: checkAuthLoader
+            },
+            {
+                path: ':slug',
+                element: <DynamicPage />,
+                loader: fetchDynamicPage
             },
             {
                 path: '/auth',

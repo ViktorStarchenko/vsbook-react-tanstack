@@ -21,7 +21,7 @@ function HomePage() {
         queryFn: ({signal}) => fetchPosts({signal, perPage: 8})
     })
 
-    const {data: dataHome, isLoading: isLoadingHome, isError: isErrorHome, error: errorHome} = usePageData(5);
+    const {data: dataHome, isLoading: isLoadingHome, isError: isErrorHome, error: errorHome} = usePageData( 'home' );
 
     let posts = [];
 

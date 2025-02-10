@@ -144,6 +144,40 @@ export async function fetchPost({siganl, postId}) {
 
 }
 
+// export async function fetchPage({signal, slug}) {
+//
+//     if (!slug) {
+//         return null;
+//     }
+//
+//     let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/page';
+//
+//     if (slug) {
+//         url += `?slug=${slug}`
+//     }
+//
+//     const config = {
+//         method: 'get',
+//         maxBodyLength: Infinity,
+//         url: url,
+//         signal: signal
+//     }
+//
+//     try {
+//         const response = await axios.request(config);
+//         if (response.status != 200) {
+//             throw new Error("Failed to fetch book with slug " + slug);
+//         }
+//         console.log(response.data);
+//     } catch (error) {
+//         throw new Error("Failed to fetch book with slug " + slug);
+//         if (error.response && error.response.status === 404) {
+//             throw new Error("I can't find a post with this slug " + slug);
+//         }
+//         return null;
+//     }
+// }
+
 export async function fetchPostImage({signal, post, postId}) {
     if (!postId || !post) {
         throw new Error("Invalid post data or postId is missing");
@@ -258,16 +292,27 @@ export async function fetchPostTaxonomies({signal, postId, terms}) {
     }
 }
 
-export async function fetchPage({signal, postId}) {
+// export async function fetchPage({signal, postId}) {
+/*
+
+ */
+export async function fetchPage({signal, slugOrId}) {
+    console.log(slugOrId)
     let errors = {};
-    if (!postId) {
+    if (!slugOrId) {
         errors.fetchPage = "Invalid argument provided"
         throw new Error("Invalid argument provided");
     }
 
-    let id = postId;
+    const isId = !isNaN(slugOrId);
 
-    let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/pages/' + id;
+
+    let url = 'https://a.vsbookcollection.space/wp-json/wp/v2/pages'
+    url = isId
+        ? `${url}/${slugOrId}`
+        : `${url}?slug=${slugOrId}`;
+
+    console.log(url)
 
     let config = {
         method: 'get',
@@ -283,7 +328,7 @@ export async function fetchPage({signal, postId}) {
             throw new Error("Failed to fetch page with id " + id);
         }
 
-        return response.data
+        return Array.isArray(response.data) ? response.data[0] : response.data
 
     } catch (error) {
         throw new Error("Failed to fetch page with id " + id);
