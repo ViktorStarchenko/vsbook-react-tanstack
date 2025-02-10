@@ -42,9 +42,6 @@ export default function MenuFormItem({ onAdd, level = 1 }) {
                 </FormRow>
             </FormGroup>
 
-
-
-
             {/*<div>*/}
             {/*    <button type="button" onClick={() => setShowChildForm(!showChildForm)}>*/}
             {/*        {showChildForm ? "Hide Subitems" : "Add Subitems (Level " + (level + 1) + ")"}*/}
