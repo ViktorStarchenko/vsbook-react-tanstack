@@ -796,3 +796,42 @@ footer {
 section {
     padding: 2rem 0;
 }
+
+
+/*Keen Slider*/
+.keen-slider-wrapper {
+    position: relative;
+}
+.keen-slider__slide > div {
+    width: 100%;
+}
+.keen-arrow-button {
+    width: 40px;
+    height: 40px;
+    min-width: unset;
+    position: absolute;
+    top: calc(50% - 20px);
+    padding: 0;
+}
+.keen-arrow-button svg {
+    width: 25px;
+    height: 25px;
+    fill: #e1eeeb
+}
+.keen-arrow-button:hover svg {
+    fill: #000;
+}
+.keen-arrow-button.prev {
+    left: 0;
+}
+.keen-arrow-button.next {
+    right: 0;
+}
+.book-listing-slide {
+    max-width: 261px;
+}
+
+/*Slick Slider*/
+.slick-slide > div > div > div {
+    width: 100%;
+}

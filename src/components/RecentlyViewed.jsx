@@ -1,5 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import BooksListing from "./BookListing/BooksListing";
+import KeenSlider from "./KeenSlider/KeenSlider";
+import KeenSliderSlide from "./KeenSlider/KeenSliderSlide";
+import BooksListingItem from "./BookListing/BooksListingItem";
 
 export default function RecentlyViewed() {
 
@@ -10,8 +13,15 @@ export default function RecentlyViewed() {
             {recentlyViewed && recentlyViewed.length > 0 && (
                 <section>
                     <div className="wrapper-1220">
-                        <div className="h2">Recentrly viewed</div>
-                        <BooksListing books={recentlyViewed}/>
+                        <KeenSlider title="Recentrly viewed" spacing={40}>
+                            {recentlyViewed.map((item, index) => (
+                                <KeenSliderSlide key={index} classes="book-listing-slide">
+                                    <BooksListingItem post={item}/>
+                                </KeenSliderSlide>
+                            ))}
+                        </KeenSlider>
+                        {/*<div className="h2">Recentrly viewed</div>*/}
+                        {/*<BooksListing books={recentlyViewed}/>*/}
                     </div>
                 </section>
             )}

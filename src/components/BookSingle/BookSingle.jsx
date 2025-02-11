@@ -20,6 +20,7 @@ import FavsButton from "../elements/FavsButton";
 import {useDispatch} from "react-redux";
 import {viewsSliceActions} from "../../store/views-slice";
 import PostViewsCount from "../elements/PostViewsCount";
+import FavouritesSection from "../FavouritesSection";
 
 export default function BookSingle({post}) {
     const dispatch = useDispatch();
@@ -78,6 +79,10 @@ export default function BookSingle({post}) {
             </div>
             <Section >
                 <BookSingleRelatives contentWrapper="" post={post}/>
+            </Section>
+
+            <Section>
+                <FavouritesSection/>
             </Section>
         </>
     )
