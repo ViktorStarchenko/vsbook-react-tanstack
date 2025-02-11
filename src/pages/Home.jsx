@@ -11,6 +11,7 @@ import {Helmet} from "react-helmet-async";
 import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 import PageContent from "../components/PageContent";
 import Spacer from "../components/elements/Spacer";
+import Section from "../components/Section/Section";
 
 function HomePage() {
     // const books = useLoaderData();
@@ -50,10 +51,17 @@ function HomePage() {
             </Helmet>
             <PageContent>
                 <Spacer height="2rem"/>
-                {homeBanner}
-                <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
-                <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
-                {content}
+                <Section contentWrapper="wrapper-1220">
+                    {homeBanner}
+                </Section>
+                <Section contentWrapper="wrapper-1220">
+                    <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
+                    <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
+                </Section>
+                <Section contentWrapper="wrapper-1220" sectionBgColor="beige">
+                    {content}
+                </Section>
+
                 <Spacer height="2rem"/>
             </PageContent>
         </>

@@ -14,6 +14,8 @@ import BookListingCounts from "../components/BookListing/BookListingCounts";
 import {Helmet} from "react-helmet-async";
 import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
 import Spacer from "../components/elements/Spacer";
+import PageContent from "../components/PageContent";
+import Section from "../components/Section/Section";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -88,21 +90,23 @@ export default function BooksPage() {
                 <meta name="description" content="VSBookcollection - Books Listing Page"/>
                 <link rel="canonical" href={currentFullURL}/>
             </Helmet>
-            <Spacer height="3rem"/>
-            <h1 className="h1">BOOKSPAGE</h1>
-            <Filters
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-            />
-            {/*<Test />*/}
-            <div className="wrapper-1220">
-                <Sorting />
-            </div>
-            {postsCount}
-            {content}
-            {pagination}
+            <PageContent>
+                <Spacer height="3rem"/>
+                <Section>
+                    <h1 className="h1">BOOKSPAGE</h1>
+                    <Filters
+                        searchParams={searchParams}
+                        setSearchParams={setSearchParams}
+                    />
+                </Section>
+                <Section>
+                    <Sorting />
+                    {postsCount}
+                    {content}
+                    {pagination}
+                </Section>
+            </PageContent>
         </>
-
     )
 }
 
