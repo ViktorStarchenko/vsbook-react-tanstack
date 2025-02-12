@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
@@ -14,6 +14,7 @@ import {fetchFavsData, sendFavsData} from "./store/favourite-actions";
 import {fetchCartData, sendCartData} from "./store/cart-actions";
 import {fetchViewsData, sendViewsData} from "./store/views-action";
 import {fetchMainMenuData, sendMainMenuData} from "./store/main-menu-actions";
+import ThemeToggle, {useThemeToggleContext} from "./components/ThemeContext";
 
 let isInitial = true;
 
@@ -93,7 +94,7 @@ function App() {
         if (isMainMenuChanged) {
             dispatch(sendMainMenuData(mainMenuItems))
         }
-    }, [mainMenuItems, isMainMenuChanged])
+    }, [mainMenuItems, isMainMenuChanged]);
 
   return (
     <>
@@ -102,11 +103,15 @@ function App() {
             title={notification.title}
             message={notification.message}
         />}
-        <HelmetProvider>
-            <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router}/>
-            </QueryClientProvider>
-        </HelmetProvider>
+
+        <ThemeToggle>
+            <HelmetProvider>
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router}/>
+                </QueryClientProvider>
+            </HelmetProvider>
+        </ThemeToggle>
+
         {/*<RouterProvider router={router}/>*/}
     </>
   )

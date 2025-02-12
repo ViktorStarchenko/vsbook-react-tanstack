@@ -2,6 +2,7 @@ import {Form, NavLink, useRouteLoaderData} from "react-router-dom";
 
 import classes from '../MainNavigation.module.css'
 import MultiLevelMenu from "../MultiLevelMenu/MultiLevelMenu";
+import ThemeColorToggle from "../ThemeColorToggle/ThemeColorToggle";
 
 export default function MainNavigation() {
     const token = useRouteLoaderData('root');
@@ -14,6 +15,7 @@ export default function MainNavigation() {
             {/*        className={({isActive}) => isActive ? 'active' : undefined}*/}
             {/*    >Books</NavLink>*/}
             {/*</li>*/}
+            <ThemeColorToggle />
             <MultiLevelMenu />
             {token && (
                 <li>

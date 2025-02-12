@@ -5,6 +5,7 @@ import KeenSlider from "./KeenSlider/KeenSlider";
 // import Spacer from "./elements/Spacer";
 // import SlickSlider from "./SlickSlider/SlickSlider";
 // import SlickSliderSlide from "./SlickSlider/SlickSliderSlide";
+import Section from "./Section/Section";
 
 export default function FavouritesSection() {
 
@@ -13,29 +14,25 @@ export default function FavouritesSection() {
     return (
         <>
             {favPosts && (
-                <>
-
-                    <div className="wrapper-1220">
-                        <h2 className="h1">Your favourites</h2>
-                        <KeenSlider spacing={40}>
-                            {favPosts.map((item, index) => (
-                                <KeenSliderSlide key={index} classes="book-listing-slide">
-                                    <BooksListingItem post={item}/>
-                                </KeenSliderSlide>
-                            ))}
-                        </KeenSlider>
-                        {/*<Spacer />*/}
-                        {/*<Spacer />*/}
-                        {/*<SlickSlider slidesToShow={3} slidesToScroll={1}>*/}
-                        {/*    {favPosts.map((item, index) => (*/}
-                        {/*        <SlickSliderSlide key={index}>*/}
-                        {/*            <BooksListingItem post={item}/>*/}
-                        {/*        </SlickSliderSlide>*/}
-                        {/*    ))}*/}
-                        {/*</SlickSlider>*/}
-                    </div>
-
-                </>
+                <div className="">
+                    <h2 className="h1">Your favourites</h2>
+                    <KeenSlider spacing={40}>
+                        {favPosts.map((item, index) => (
+                            <KeenSliderSlide key={index} classes="book-listing-slide">
+                                <BooksListingItem post={item}/>
+                            </KeenSliderSlide>
+                        ))}
+                    </KeenSlider>
+                    {/*<Spacer />*/}
+                    {/*<Spacer />*/}
+                    {/*<SlickSlider slidesToShow={3} slidesToScroll={1}>*/}
+                    {/*    {favPosts.map((item, index) => (*/}
+                    {/*        <SlickSliderSlide key={index}>*/}
+                    {/*            <BooksListingItem post={item}/>*/}
+                    {/*        </SlickSliderSlide>*/}
+                    {/*    ))}*/}
+                    {/*</SlickSlider>*/}
+                </div>
             )}
 
         </>

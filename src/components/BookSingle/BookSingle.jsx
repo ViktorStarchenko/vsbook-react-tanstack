@@ -14,7 +14,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchRelativePosts} from "../../util/http";
 import BookSingleRelatives from "./BookSingleRelatives";
 import Spacer from "../elements/Spacer";
-import Section from "../Section";
+import Section from "../Section/Section";
 import AddToCartButton from "../elements/AddToCartButton";
 import FavsButton from "../elements/FavsButton";
 import {useDispatch} from "react-redux";
@@ -44,44 +44,47 @@ export default function BookSingle({post}) {
 
     return (
         <>
-            <div className={`${classes['book-single-wrapper']} wrapper-1020`}>
-                <div className={`${classes['book-single-row']}`}>
-                    <div className={`${classes['book-single-column']}, ${classes['book-single-info']}`}>
-                        <BookSingleImage post={post}/>
-                        <BookSingleCategories post={post}/>
-                    </div>
-                    <div className={`${classes['book-single-column']} ${classes['book-single-description']}`}>
-                        <div className={classes['book-single-description--header']}>
-                            <div className={classes['book-single-description--icons']}>
-                                <PostViewsCount height="35px" postId={post.id}/>
-                                <AddToCartButton height="35px" post={post}/>
-                                <FavsButton height="30px" post={post}/>
+            <Section contentWrapper="wrapper-1020">
+                <div className={`${classes['book-single-wrapper']}`}>
+                    <div className={`${classes['book-single-row']}`}>
+                        <div className={`${classes['book-single-column']}, ${classes['book-single-info']}`}>
+                            <BookSingleImage post={post}/>
+                            <BookSingleCategories post={post}/>
+                        </div>
+                        <div className={`${classes['book-single-column']} ${classes['book-single-description']}`}>
+                            <div className={classes['book-single-description--header']}>
+                                <div className={classes['book-single-description--icons']}>
+                                    <PostViewsCount height="35px" postId={post.id}/>
+                                    <AddToCartButton height="35px" post={post}/>
+                                    <FavsButton height="30px" post={post}/>
+                                </div>
+                                <Link className="btn align-self-end mb-1rem" to={previousPage}>Go Back</Link>
                             </div>
-                            <Link className="btn align-self-end mb-1rem" to={previousPage}>Go Back</Link>
+
+                            <h1 className="h2 text-left" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h1>
+                            <div className={classes['book-single-body']} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+                        </div>
+                    </div>
+
+                    {token && (<>
+                        <div className={classes['book-single-delete-wrapper']}>
+                            <div className="btn" onClick={openDeleteModal}>Delete Book</div>
                         </div>
 
-                        <h1 className="h2 text-left" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></h1>
-                        <div className={classes['book-single-body']} dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
-                    </div>
+                        <Modal ref={deleteBookModalRef} title="Are You sure you want to delete this book?">
+                            <BookSingleDelete />
+                        </Modal>
+                    </>)}
+
+
                 </div>
-
-                {token && (<>
-                    <div className={classes['book-single-delete-wrapper']}>
-                        <div className="btn" onClick={openDeleteModal}>Delete Book</div>
-                    </div>
-
-                    <Modal ref={deleteBookModalRef} title="Are You sure you want to delete this book?">
-                        <BookSingleDelete />
-                    </Modal>
-                </>)}
-
-
-            </div>
-            <Section >
-                <BookSingleRelatives contentWrapper="" post={post}/>
             </Section>
 
             <Section>
+                <BookSingleRelatives contentWrapper="" post={post}/>
+            </Section>
+
+            <Section sectionBgColor="beige">
                 <FavouritesSection/>
             </Section>
         </>

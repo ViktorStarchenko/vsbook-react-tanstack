@@ -2,7 +2,7 @@
     text-align: center;
 }
 main {
-    max-width: 1220px;
+    /*max-width: 1220px;*/
     min-height: calc(100vh - 115.2px - 60px);
     margin: auto;
 }
