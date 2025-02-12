@@ -58,11 +58,9 @@ function HomePage() {
                     <h1 className="h1">THIS IS HOME PAGE ASDASD ASD ASD D </h1>
                     <p className="pb-1rem">Go see <Link to="/books">more books</Link>.</p>
                 </Section>
-                <Section contentWrapper="wrapper-1220" sectionBgColor="beige">
+                <Section sectionClass="pt-xl pb-xl" contentWrapper="wrapper-1220">
                     {content}
                 </Section>
-
-                <Spacer height="2rem"/>
             </PageContent>
         </>
     )

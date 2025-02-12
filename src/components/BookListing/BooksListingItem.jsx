@@ -67,10 +67,10 @@ export default function BooksListingItem({post}) {
                 className={classes.listingItem}
             >
                 <div className={classes.listingItemHeader}>
-                    <PostViewsCount postId={post.id} />
-                    <AddToCartButton post={post} />
-                    <FavsButton post={post}/>
-                    <LupaButton clickHandler={openModal}/>
+                    <PostViewsCount height="15px" postId={post.id} />
+                    <AddToCartButton height="18px" post={post} />
+                    <FavsButton height="15px" post={post}/>
+                    <LupaButton height="15px" clickHandler={openModal}/>
                 </div>
 
                 {imageBlock}

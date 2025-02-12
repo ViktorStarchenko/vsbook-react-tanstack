@@ -28,7 +28,6 @@ export default function Header() {
                     <div className="header-nav-desktop">
 
                         {/*<MultiLevelMenu />*/}
-
                         <MainNavigation />
 
                         <AuthNavigation />
