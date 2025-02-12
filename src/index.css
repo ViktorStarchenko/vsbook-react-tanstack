@@ -593,7 +593,7 @@ svg.animate-pumping {
 .theme-light .link-count {
     color: var(--color-secondary-light);
 }
-.theme-light:hover .link-count {
+.theme-light .header-nav-list:hover .link-count {
     color: var(--color-accent-2-light);
 }
 
