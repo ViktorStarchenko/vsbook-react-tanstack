@@ -155,6 +155,13 @@ select {
     margin-left: auto;
     margin-right: auto;
 }
+.wrapper-fullwidth-p-0 {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
 .spacer {
     height: 2rem;
 }
@@ -226,19 +233,19 @@ select {
     padding-top: 0;
 }
 .pb-xl {
-    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
 }
 .pb-l {
-    padding-top: var(--spacing-l);
+    padding-bottom: var(--spacing-l);
 }
 .pb-m {
-    padding-top: var(--spacing-m);
+    padding-bottom: var(--spacing-m);
 }
 .pb-s {
-    padding-top: var(--spacing-s);
+    padding-bottom: var(--spacing-s);
 }
 .pb-0 {
-    padding-top: 0;
+    padding-bottom: 0;
 }
 @media (max-width: 767px) {
 

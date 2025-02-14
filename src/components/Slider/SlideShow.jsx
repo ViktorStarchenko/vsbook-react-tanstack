@@ -56,7 +56,5 @@ export default function SlideShow({data}) {
             </div>
         </>
 
-
-
     );
 }

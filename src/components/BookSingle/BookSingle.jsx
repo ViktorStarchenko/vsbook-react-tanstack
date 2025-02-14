@@ -44,7 +44,7 @@ export default function BookSingle({post}) {
 
     return (
         <>
-            <Section contentWrapper="wrapper-1020">
+            <Section contentWrapper="wrapper-1020" sectionClass="pt-m pb-m">
                 <div className={`${classes['book-single-wrapper']}`}>
                     <div className={`${classes['book-single-row']}`}>
                         <div className={`${classes['book-single-column']}, ${classes['book-single-info']}`}>
@@ -80,11 +80,11 @@ export default function BookSingle({post}) {
                 </div>
             </Section>
 
-            <Section>
+            <Section sectionClass="pt-0 pb-0">
                 <BookSingleRelatives contentWrapper="" post={post}/>
             </Section>
 
-            <Section sectionBgColor="beige">
+            <Section sectionClass="pb-0">
                 <FavouritesSection/>
             </Section>
         </>

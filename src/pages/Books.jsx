@@ -91,15 +91,14 @@ export default function BooksPage() {
                 <link rel="canonical" href={currentFullURL}/>
             </Helmet>
             <PageContent>
-                <Spacer height="3rem"/>
-                <Section>
+                <Section sectionClass="pt-m pb-0">
                     <h1 className="h1">BOOKSPAGE</h1>
                     <Filters
                         searchParams={searchParams}
                         setSearchParams={setSearchParams}
                     />
                 </Section>
-                <Section>
+                <Section sectionClass="pt-s">
                     <Sorting />
                     {postsCount}
                     {content}

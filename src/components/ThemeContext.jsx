@@ -16,7 +16,7 @@ export default function ThemeToggle({ children }) {
     const [isDarkMode, setIsDarkMode] = useState(
         localStorage.getItem("isDarkMode") === "true"
     );
-    console.log(localStorage.getItem("isDarkMode"))
+
     useEffect(() => {
         document.body.className = isDarkMode ? "theme-dark" : "theme-light";
         localStorage.setItem("theme", isDarkMode ? "theme-dark" : "theme-light");
