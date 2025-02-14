@@ -66,18 +66,22 @@
     margin-bottom: 10px;
 }
 
-:global(.theme-light) .multiLevelMenuLink {
+:global(.theme-light) .multiLevelMenuLink,
+:global(.theme-light) .multiLevelMenuGoBack {
     color: var(--color-secondary-light);
 }
 :global(.theme-light) .multiLevelMenuLink:hover,
-:global(.theme-light) .multiLevelMenuLink:hover .arrow {
+:global(.theme-light) .multiLevelMenuLink:hover .arrow,
+:global(.theme-light) .multiLevelMenuGoBack:hover {
     color: var(--color-accent-2-light);
 }
-:global(.theme-dark) .multiLevelMenuLink {
+:global(.theme-dark) .multiLevelMenuLink,
+:global(.theme-dark) .multiLevelMenuGoBack {
     color: var(--color-secondary-dark);
 }
 :global(.theme-dark) .multiLevelMenuLink:hover,
-:global(.theme-dark) .multiLevelMenuLink:hover .arrow {
+:global(.theme-dark) .multiLevelMenuLink:hover .arrow,
+:global(.theme-dark) .multiLevelMenuGoBack:hover {
     color: var(--color-accent-2-dark);
 }
 :global(.theme-light) .arrow {

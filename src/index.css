@@ -6,16 +6,22 @@
     --spacing-m: 40px;
     --spacing-s: 20px;
 
-    --color-primary-light: #FCF5ED;
-    --color-text-light: #1F1717 ;
-    --color-accent-light: #CE5A67;
-    --color-accent-2-light: #F4BF96;
-    --color-secondary-light: #D62828 ;
+    /*--color-primary-light: #FCF5ED;*/
+    /*--color-text-light: #1F1717 ;*/
+    /*--color-accent-light: #CE5A67;*/
+    /*--color-accent-2-light: #F4BF96;*/
+    /*--color-secondary-light: #D62828 ;    */
+    --color-primary-light: #F8F0E5;
+    --color-text-light: #181C14 ;
+    --color-accent-light: #4D3C77;
+    --color-accent-2-light: #E19898;
+    --color-secondary-light: #EADBC8 ;
 
     --color-primary-dark: #121212;
     --color-text-dark: #E0E0E0;
     /*--color-text-dark:  #FAF3E0;*/
     --color-accent-dark: #F77F00;
+    /*--color-accent-2-dark: #e1eeeb;*/
     --color-accent-2-dark: #92cad1;
     --color-secondary-dark: #FAF3E0;
 
@@ -58,14 +64,14 @@ body.theme-dark {
 }
 
 a {
-    color: var(--color-accent-light);
+    color: var(--color-accent-dark);
 }
 
 a:hover {
     color: var(--color-secondary-light);
 }
 .theme-light a {
-    color: var(--color-secondary-light);
+    color: var(--color-accent-light);
 }
 .theme-light a:hover {
     color: var(--color-accent-2-light);
@@ -272,7 +278,7 @@ select {
 }
 .theme-light .btn {
     background-color: var(--color-accent-light);
-    color: var(--color-text-light);
+    color: var(--color-secondary-light);
 }
 .theme-light .btn:hover {
     background-color: var(--color-secondary-light);
@@ -772,7 +778,7 @@ input.error {
     width: 100%;
     padding: 9px;
     position: relative;
-    background-color: #e1eeeb;
+    background-color: var(--color-accent-2-dark);
     color: #000;
 }
 .checkboxBody {
@@ -786,7 +792,7 @@ input.error {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #e1eeeb;
+    background-color: var(--color-secondary-dark);
     color: #000;
     padding: 0 8px;
     z-index: 10;
@@ -826,6 +832,20 @@ input.error {
 .custom-checkbox-icon.checked {
     transform: scale(1);
     color: #000;
+}
+
+.theme-dark .checkboxWrapper {
+    background-color: var(--color-accent-2-dark);
+}
+.theme-dark .checkboxBody.accordionPanel {
+    background-color: var(--color-secondary-dark);
+}
+
+.theme-light .checkboxWrapper {
+    background-color: var(--color-accent-2-light);
+}
+.theme-light .checkboxBody.accordionPanel {
+    background-color: var(--color-secondary-light);
 }
 
 /*ImagePicker*/

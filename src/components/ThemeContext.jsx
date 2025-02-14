@@ -14,13 +14,13 @@ export const useThemeToggleContext = () => {
 
 export default function ThemeToggle({ children }) {
     const [isDarkMode, setIsDarkMode] = useState(
-        localStorage.getItem("theme") === "dark" || true
+        localStorage.getItem("isDarkMode") === "true"
     );
-    // const [isDarkMode, setIsDarkMode] = useState(false);
-
+    console.log(localStorage.getItem("isDarkMode"))
     useEffect(() => {
         document.body.className = isDarkMode ? "theme-dark" : "theme-light";
         localStorage.setItem("theme", isDarkMode ? "theme-dark" : "theme-light");
+        localStorage.setItem("isDarkMode", isDarkMode);
     }, [isDarkMode]);
 
     const contextValue = {
