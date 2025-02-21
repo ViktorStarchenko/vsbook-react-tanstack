@@ -1,0 +1,24 @@
+.dnd-menu-wrap {
+    padding: 40px;
+    background-color: indianred;
+}
+.dnd-menu-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(0,0,0, .5);
+    border: 1px solid #000;
+    color: #fff;
+    padding-left: 10px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin: 20px 0;
+}
+.dnd-menu-subitem {
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    margin: 5px 0;
+    cursor: grab;
+}

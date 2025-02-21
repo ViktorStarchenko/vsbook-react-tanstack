@@ -1116,3 +1116,59 @@ section {
 .slick-slide > div > div > div {
     width: 100%;
 }
+
+.board-wrap {
+    display: flex;
+    align-items: flex-start;
+    /*opacity: 0.5; !* Чтобы видеть, что он заслоняет *!*/
+    pointer-events: none;
+}
+.board {
+    min-width: 216px;
+    /*width: 216px;*/
+    min-height: 400px;
+    border: 5px solid lightslategray;
+    padding: 20px 10px;
+    border-radius: 12px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    position: static !important;
+    transition: box-shadow 0.2s ease-in-out;
+    pointer-events: auto;
+}
+.item {
+    width: 100%;
+    border: 2px solid lightcoral;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: grab;
+    background: #92cad1;
+}
+.item-over {
+    box-shadow: 0 4px 0 0 #92cad1;
+}
+
+.test-div-wrap {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 30px;
+}
+.test-div {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+.test-div.active {
+    background-color: blue;
+}
+
+.dropTo {
+    -webkit-box-shadow: -2px 14px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 14px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: -2px 14px 5px 0px rgba(0,0,0,0.75);
+}

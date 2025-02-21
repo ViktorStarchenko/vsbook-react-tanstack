@@ -20,6 +20,7 @@ import { loader as fetchDynamicPage } from "./pages/DynamicPage";
 import Favourites from "./pages/Favourites";
 import MenuSettings from "./pages/MenuSettings";
 import DynamicPage from "./pages/DynamicPage";
+import Test from "./pages/Test";
 
 const router = createBrowserRouter([
     {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
             {
                 path: '/menu-settings',
                 element: <MenuSettings />
+            },
+            {
+                path: '/test',
+                element: <Test />
             }
         ]
     },
