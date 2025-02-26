@@ -2,7 +2,6 @@ import PageContent from "../components/PageContent";
 import {useSelector} from "react-redux";
 import Section from "../components/Section/Section";
 import {useEffect, useState} from "react";
-import classes from "../components/MenuListDnd/MenuForm.module.css";
 
 import TestCustomDnd from "../components/TestCustomDnd/TestCustomDnd";
 
@@ -189,7 +188,7 @@ export default function Test() {
         <PageContent>
             <h1 className="h1">Test Page</h1>
             <div className="wrapper-1220">
-                {items && items.length > 0 && <div className={classes.menuFormListWrapper}>
+                {items && items.length > 0 && <div>
                     {/*<MenuItemListDnd items={items} onMove={moveItem}/>*/}
                 </div>}
             </div>
