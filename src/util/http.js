@@ -34,11 +34,11 @@ export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray
 
     try {
         const response = await axios.request(config);
-
+        console.log(response)
         if (response.status != 200) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
-        // console.log(response)
+
         return {
             success: true,
             posts: response.data,
@@ -47,6 +47,7 @@ export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray
         }; // Returning success data
     } catch (error) {
         // If the error came from axios
+        console.log(error)
         if (error.response) {
             const status = error.response.status;
             const errorMessage = error.response.data?.message || error.response.statusText;

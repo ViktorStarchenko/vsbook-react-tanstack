@@ -3,6 +3,7 @@ import {useMutation} from "@tanstack/react-query";
 import {createTaxonomyTerm, queryClient} from "../../util/http";
 import {useRef} from "react";
 import classes from "../ErrorsBlock/ErrorsBlock.module.css";
+import Tooltip from "../Tooltip/Tooltip";
 
 export default function CreateTaxonomy({taxonomy}) {
 
@@ -11,7 +12,6 @@ export default function CreateTaxonomy({taxonomy}) {
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: createTaxonomyTerm,
         onSuccess: () => {
-            console.log('SUCCESSS')
             queryClient.invalidateQueries({queryKey: ['taxonomy']})
         }
     })
@@ -20,6 +20,8 @@ export default function CreateTaxonomy({taxonomy}) {
         const name = createTermRef.current.value;
         mutate({taxonomy: taxonomy, name: name})
     }
+
+    const toolTipBody = <p>Didn't find the {taxonomy} you need? Then create a new one. Specify the name of {taxonomy} and submit</p>
 
     return (
         <>
@@ -32,6 +34,7 @@ export default function CreateTaxonomy({taxonomy}) {
                         <li className={classes['errors-block-item']}>{error.message}</li>
                     </ul>
                 )}
+                <Tooltip body={toolTipBody}/>
             </div>
         </>
     )

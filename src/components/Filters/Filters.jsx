@@ -5,7 +5,7 @@ import AccordionFilterItem from "./AccordionFilterItem";
 import {useTaxonomies} from "../../hooks/useTaxonomies";
 import LoadingIndicator from "../LoadingIndicator";
 
-export default function Filters({ searchParams, setSearchParams }) {
+export default function Filters({ searchParams, setSearchParams, setIsLoadMore }) {
     const { page } = useParams();
     const navigate = useNavigate();
     // const {genre, country, language, release, wrirer, readingStatus, loading, error} = useTaxonomies();
@@ -42,6 +42,7 @@ export default function Filters({ searchParams, setSearchParams }) {
 
     const handleResetAllFilters = () => {
         setSearchParams(new URLSearchParams());
+        setIsLoadMore(false)
         navigate(`/books/page/1`);
     };
 

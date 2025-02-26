@@ -17,7 +17,7 @@
     --color-accent-2-light: #E19898;
     --color-secondary-light: #EADBC8 ;
 
-    --color-primary-dark: #121212;
+    --color-primary-dark: #272626;
     --color-text-dark: #E0E0E0;
     /*--color-text-dark:  #FAF3E0;*/
     --color-accent-dark: #F77F00;
@@ -300,6 +300,10 @@ select {
     background-color: var(--color-text-light);
     color: var(--color-primary-light);
 }
+.theme-light .btn.disabled {
+    background-color: var(--color-secondary-light);
+    color: var(--color-primary-light);
+}
 
 .theme-dark .btn {
     background-color: var(--color-accent-dark);
@@ -316,6 +320,10 @@ select {
 .theme-dark .btn.active,
 .theme-dark .btn.active:hover {
     background-color: var(--color-text-dark);
+    color: var(--color-primary-dark);
+}
+.theme-dark .btn.disabled {
+    background-color: var(--color-secondary-dark);
     color: var(--color-primary-dark);
 }
 
@@ -417,7 +425,7 @@ select {
 
 /*HEADER*/
 .header {
-    background-color: #000;
+    background-color: #000000a8;
     position: fixed;
     width: 100%;
     left: 0;
@@ -644,7 +652,7 @@ svg.animate-pumping {
 }
 .formCreateTerm {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 20px;

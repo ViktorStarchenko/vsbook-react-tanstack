@@ -3,7 +3,6 @@ import BooksListing from "../components/BookListing/BooksListing";
 
 import Filters from "../components/Filters/Filters";
 
-import Test from "../components/Test";
 import {useQuery} from "@tanstack/react-query";
 import {fetchPosts, queryClient} from "../util/http";
 import Sorting from "../components/Sorting/Sorting";
@@ -13,12 +12,20 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import BookListingCounts from "../components/BookListing/BookListingCounts";
 import {Helmet} from "react-helmet-async";
 import ErrorsBlockSingle from "../components/ErrorsBlock/ErrorsBlockSingle";
-import Spacer from "../components/elements/Spacer";
 import PageContent from "../components/PageContent";
 import Section from "../components/Section/Section";
+import {useEffect, useState} from "react";
+import LoadMoreButton from "../components/LoadMoreButton/LoadMoreButton";
 
 export default function BooksPage() {
     // const books = useLoaderData();
+    const [isLoadMore, setIsLoadMore] = useState(false);
+    const [loadMorePage, setLoadMorePage] = useState(1);
+    const [isLoadMoreButtonEnabled, setIsLoadMoreButtonEnabled] = useState(true);
+    const [posts, setPosts] = useState([])
+    const [totalPages, setTotalPages] = useState(null)
+    const [totalPosts, setTotalPosts] = useState(null)
+
     const navigate = useNavigate();
     const location = useLocation();
     const currentFullURL = `${window.location.origin}${location.pathname}${location.search}`;
@@ -39,49 +46,69 @@ export default function BooksPage() {
         navigate(`/books/page/${newPage}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
     }
 
-    // let content;
-    //
-    // if (isLoading) {
-    //     content = <LoadingIndicator />
-    // }
-    // if (isError) {
-    //     console.log("Error: ", error.message);
-    //     content = <ErrorsBlockSingle error={error.message} />;
-    // }
-    // if (data && data.posts) {
-    //     console.log(data)
-    //     content = <div>
-    //         {data.totalPosts && <BookListingCounts postsCount={data.totalPosts}/>}
-    //         <BooksListing books={data.posts} />
-    //     </div>
-    // }
+    useEffect(() => {
+        if (data && !isLoadMore) {
+            setPosts([...data.posts])
+        }
+        if (data && data.totalPages) {
+            setTotalPages(prevState => prevState = data.totalPages);
+        }
+        if (data && data.totalPosts) {
+            setTotalPosts(prevState => prevState = data.totalPosts);
+        }
+    }, [data, isLoadMore]);
 
-
+    console.log("totalPages", totalPages)
+    useEffect(() => {
+        setLoadMorePage(prevState => prevState = currentPage || 1)
+    }, [currentPage])
 
     let content;
     if (isLoading) content = <LoadingIndicator />;
     else if (isError) content = <ErrorsBlockSingle error={error.message} />;
     else if (data?.posts?.length === 0)
         content = <div className="h2">There are no books matching your request.</div>;
-    else content = (<BooksListing books={data.posts} />);
+    else content = (<BooksListing books={posts} />);
 
     if (data && data.posts.length == 0) {
         content = <div className="h2">There are no books matching your request.</div>
     }
 
     let postsCount
-    if (data && data.totalPosts) {
+    if (posts && totalPosts) {
         postsCount = (
-            <BookListingCounts postsCount={data.totalPosts}/>
+            <BookListingCounts postsCount={totalPosts}/>
         )
     }
 
     let pagination
-    if (data && data.totalPosts && data.totalPages) {
+    if (posts && totalPosts && totalPages && !isLoadMore) {
         pagination = (
-            <Pagination page={currentPage} totalPages={data.totalPages} onPageChange={handlePager}/>
+            <Pagination page={currentPage} totalPages={totalPages} onPageChange={handlePager}/>
         )
     }
+
+    let loadMoreButton
+    if (posts && loadMorePage < totalPages) {
+        loadMoreButton = <LoadMoreButton setIsLoadMore={setIsLoadMore} loadMorePage={loadMorePage} setLoadMorePage={setLoadMorePage} totalPages={totalPages}/>
+    }
+
+    const {
+        data: loadMoreData,
+        isLoading: loadMoreIsLoading,
+        isError: loadMoreIsError,
+        error: loadMoreError
+    } = useQuery({
+        queryKey: ['books', {page: loadMorePage, sortOrder: currentSortOrder, filtersArray: filtersArray }],
+        queryFn: ({signal}) => fetchPosts({signal, page: loadMorePage, sortOrder: currentSortOrder, filtersArray: filtersArray}),
+        keepPreviousData: true,
+    });
+
+    useEffect(() => {
+        if (loadMoreData && isLoadMore) {
+            setPosts(prevState => [...prevState, ...loadMoreData.posts])
+        }
+    }, [loadMoreData, isLoadMore]);
 
     return (
         <>
@@ -96,6 +123,7 @@ export default function BooksPage() {
                     <Filters
                         searchParams={searchParams}
                         setSearchParams={setSearchParams}
+                        setIsLoadMore={setIsLoadMore}
                     />
                 </Section>
                 <Section sectionClass="pt-s">
@@ -103,6 +131,7 @@ export default function BooksPage() {
                     {postsCount}
                     {content}
                     {pagination}
+                    {loadMoreButton}
                 </Section>
             </PageContent>
         </>
