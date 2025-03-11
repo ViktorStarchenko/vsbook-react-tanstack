@@ -95,6 +95,9 @@
 :global(.theme-light) .SimilarPosts {
     background-color: var(--color-secondary-light);
 }
+:global(.theme-light) .SimilarPosts a:hover {
+    color: var(--color-text-light);
+}
 :global(.theme-light) .toggler {
     background-color: var(--color-accent-light);
     color: var(--color-primary-light);
@@ -118,6 +121,9 @@
 
 :global(.theme-dark) .SimilarPosts a {
     color: var(--color-primary-dark);
+}
+:global(.theme-dark) .SimilarPosts a:hover {
+    color: var(--color-accent-dark);
 }
 :global(.theme-dark) .toggler {
     background-color: var(--color-accent-dark);
