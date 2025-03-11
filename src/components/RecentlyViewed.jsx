@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from "react-redux";
-import BooksListing from "./BookListing/BooksListing";
 import KeenSlider from "./KeenSlider/KeenSlider";
 import KeenSliderSlide from "./KeenSlider/KeenSliderSlide";
 import BooksListingItem from "./BookListing/BooksListingItem";

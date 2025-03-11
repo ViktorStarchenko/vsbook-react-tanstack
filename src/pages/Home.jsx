@@ -1,7 +1,6 @@
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import BooksListing from "../components/BookListing/BooksListing";
 import {useQuery} from "@tanstack/react-query";
-// import {booksLoader} from "../booksFunctions";
 import {fetchPosts, queryClient} from "../util/http";
 import LoadingIndicator from "../components/LoadingIndicator";
 import SlideShow from "../components/Slider/SlideShow";
@@ -15,9 +14,9 @@ import Section from "../components/Section/Section";
 import KeenSlider from "../components/KeenSlider/KeenSlider";
 import SlideShowItem from "../components/Slider/SlideShowItem";
 import KeenSliderSlide from "../components/KeenSlider/KeenSliderSlide";
+import {useRef} from "react";
 
 function HomePage() {
-    // const books = useLoaderData();
     const location = useLocation();
     const currentFullURL = `${window.location.origin}${location.pathname}${location.search}`;
     const {data, isLoading, isError, error} = useQuery({
