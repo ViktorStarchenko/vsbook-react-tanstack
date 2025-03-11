@@ -1,19 +1,12 @@
 import {useEffect, useRef, useState} from "react";
-import { usePostData } from "../../hooks/usePostData";
 import classes from './BookSingle.module.css';
 import BookSingleDelete from "./BookSingleDelete";
 import Modal from "../Modal/Modal";
 import {Link, useLocation, useRouteLoaderData} from "react-router-dom";
 
-import LoadingIndicator from "../LoadingIndicator";
 import BookSingleCategories from "./BookSingleCategories";
 import BookSingleImage from "./BookSingleImage";
-import BooksListing from "../BookListing/BooksListing";
-import {usePostTaxonomies} from "../../hooks/usePostTaxonomies";
-import {useQuery} from "@tanstack/react-query";
-import {fetchRelativePosts} from "../../util/http";
 import BookSingleRelatives from "./BookSingleRelatives";
-import Spacer from "../elements/Spacer";
 import Section from "../Section/Section";
 import AddToCartButton from "../elements/AddToCartButton";
 import FavsButton from "../elements/FavsButton";

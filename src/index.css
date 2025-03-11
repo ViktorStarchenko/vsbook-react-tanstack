@@ -1088,6 +1088,12 @@ section {
 
 
 /*Keen Slider*/
+.keen-slider-block {
+
+}
+.keen-slider-block.vertical {
+
+}
 .keen-slider-wrapper {
     position: relative;
 }

@@ -1,0 +1,147 @@
+.SimilarPosts {
+    width: 430px;
+    position: fixed;
+    right: -430px;
+    top: 50%;
+    background-color: var(--color-secondary-dark);
+    z-index: 10;
+    text-align: left;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    transition: all .2s;
+    font-weight: bold;
+    padding-right: 40px;
+}
+.SimilarPosts :global(.keen-arrow-button) {
+    left: unset;
+    right: -40px;
+    top: unset;
+    height: 50%;
+}
+.SimilarPosts :global(.keen-arrow-button.prev) {
+    top: 0;
+}
+.SimilarPosts :global(.keen-arrow-button.prev svg) {
+    transform: rotate(90deg);
+}
+.SimilarPosts :global(.keen-arrow-button.next) {
+    bottom: 0;
+}
+.SimilarPosts :global(.keen-arrow-button.next svg) {
+    transform: rotate(90deg);
+}
+.SimilarPostsItem {
+    padding: 4px;
+}
+.SimilarPosts a {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.SimilarPosts.open {
+    right: 0;
+    transition: all .2s;
+}
+.toggler {
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    left: -50px;
+    top: 0;
+    background-color: var(--color-accent-dark);
+    color: var(--color-primary-dark);
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all .2s;
+}
+.toggler span {
+    font-size: 30px;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+}
+
+.SimilarPosts :global(.keen-slider) {
+    height: 250px;
+}
+
+.SimilarPosts  :global(.keen-slider:not([data-keen-slider-disabled])) :global(.keen-slider__slide) {
+    /*min-height: unset!important;*/
+    /*max-height: unset!important;*/
+    cursor: grab;
+    background-color: var(--color-accent-2-light);
+    display: flex;
+    align-items: center;
+}
+.note {
+    position: absolute;
+    bottom: -14px;
+    right: 10px;
+    color: var(--color-secondary-light);
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+
+/*Light theme*/
+:global(.theme-light) .SimilarPosts {
+    background-color: var(--color-secondary-light);
+}
+:global(.theme-light) .toggler {
+    background-color: var(--color-accent-light);
+    color: var(--color-primary-light);
+}
+:global(.theme-light) .toggler:hover {
+    background-color: var(--color-secondary-light);
+    color: var(--color-text-light);
+}
+:global(.theme-light) .SimilarPosts  :global(.keen-slider:not([data-keen-slider-disabled])) :global(.keen-slider__slide) {
+    background-color: var(--color-accent-2-light);
+}
+:global(.theme-light) .note {
+    color: var(--color-secondary-light);
+}
+
+/*Dark theme*/
+:global(.theme-dark) .SimilarPosts {
+    background-color: var(--color-secondary-dark);
+    color: var(--color-primary-dark);
+}
+
+:global(.theme-dark) .SimilarPosts a {
+    color: var(--color-primary-dark);
+}
+:global(.theme-dark) .toggler {
+    background-color: var(--color-accent-dark);
+    color: var(--color-primary-dark);
+}
+:global(.theme-dark) .toggler:hover {
+    background-color: var(--color-accent-2-dark);
+    color: var(--color-primary-dark);
+}
+:global(.theme-dark) .SimilarPosts  :global(.keen-slider:not([data-keen-slider-disabled])) :global(.keen-slider__slide) {
+    background-color: var(--color-secondary-dark);
+}
+:global(.theme-dark) .note {
+    color: var(--color-secondary-dark);
+}
+
+
+@media (max-width: 767px) {
+    .SimilarPosts {
+        width: 230px;
+        right: -230px;
+        top: 150px;
+    }
+    .SimilarPosts a {
+        font-size: 12px;
+    }
+}

@@ -16,6 +16,7 @@ import PageContent from "../components/PageContent";
 import Section from "../components/Section/Section";
 import {useEffect, useState} from "react";
 import LoadMoreButton from "../components/LoadMoreButton/LoadMoreButton";
+import {sendEmbedding} from "../util/embeddings";
 
 export default function BooksPage() {
     // const books = useLoaderData();
@@ -62,6 +63,11 @@ export default function BooksPage() {
     useEffect(() => {
         setLoadMorePage(prevState => prevState = currentPage || 1)
     }, [currentPage])
+
+    useEffect(() => {
+        console.log(posts);
+        sendEmbedding(posts);
+    }, [posts]);
 
     let content;
     if (isLoading) content = <LoadingIndicator />;

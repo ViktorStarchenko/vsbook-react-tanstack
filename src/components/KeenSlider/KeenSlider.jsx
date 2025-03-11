@@ -15,15 +15,18 @@ export default function KeenSlider(
         spacing767 = 10,
         spacing600 = 0,
         mode = 'snap',
+        vertical = false,
+        origin = 'auto',
         children
     }) {
     const [sliderRef, instanceRef] = useKeenSlider(
 {
             loop: loop,
-            slides: { perView: perView, spacing: spacing },
+            slides: { origin: origin, perView: perView, spacing: spacing },
             mode: mode,
+            vertical: vertical,
             slideChanged() {
-                console.log('slide changed')
+
             },
             breakpoints: {
                 '(max-width: 1024px)': {
@@ -43,13 +46,14 @@ export default function KeenSlider(
     )
 
     useEffect(() => {
+        console.log("children was changed")
         if (instanceRef.current) {
             instanceRef.current.update();
         }
     }, [children]);
 
     return (
-        <div className="keen-slider-block">
+        <div key={children.length} className={`keen-slider-block ${vertical ? 'vertical' : ''}`}>
             {title && <h2 className="h2">{title}</h2>}
             <div className="keen-slider-wrapper">
                 <div ref={sliderRef} className="keen-slider">

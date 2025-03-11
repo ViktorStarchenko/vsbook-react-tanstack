@@ -4,7 +4,7 @@ import {QueryClient} from "@tanstack/react-query";
 
 export const queryClient = new QueryClient()
 
-export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray}) {
+export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray, idsArray}) {
     // console.log(page)
     // console.log(sortOrder)
     // console.log(filtersArray)
@@ -22,6 +22,11 @@ export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray
             }
             return acc;
         }, "");
+    }
+
+    if (idsArray && idsArray.length > 0) {
+        const idsString = idsArray.join(',');
+        url += `&include=${idsString}`
     }
 
     console.log(url)
