@@ -4,6 +4,8 @@ import {QueryClient} from "@tanstack/react-query";
 
 export const queryClient = new QueryClient()
 
+export const aVsbookcollectionUrl = 'https://a.vsbookcollection.space';
+
 export async function fetchPosts({signal, page, perPage, sortOrder, filtersArray, idsArray}) {
     // console.log(page)
     // console.log(sortOrder)

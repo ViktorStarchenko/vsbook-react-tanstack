@@ -78,7 +78,7 @@ export default function BookDetailPage() {
     return (
         <>
             <Helmet>
-                <title>{data.title.rendered} - VSBookcollection</title>
+                {post && post.title && <title>{post.title.rendered} - VSBookcollection</title>}
                 {truncanedContent && <meta name="description" content={truncanedContent}/>}
             </Helmet>
             {similatPosts}
